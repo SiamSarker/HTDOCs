@@ -33,8 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             $returnobj = $conn->query($myquery);  // the return object is pdo statement object
 
             if($returnobj->rowCount() == 1){
+                session_start();
+                $_SESSION['useremail'] = $email;   //after session starts
                 ?>
-                <script>location.assign("hello.php");</script>
+                <script>location.assign("home.php");</script>
                 <?php
             }
             else {
