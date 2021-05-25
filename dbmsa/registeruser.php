@@ -53,9 +53,14 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     } 
 }
 else{
+
+    ?>
+        <script>location.assign("register.php");</script>
+    <?php
+
+
     //for other methods we will forward to register page (register.php)
-    
-    echo '<script>location.assign("register.php");</script>';
+    // echo '<script>location.assign("register.php");</script>';
 }
 
 

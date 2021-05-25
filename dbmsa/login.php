@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <title>Login</title>
@@ -8,7 +8,7 @@
     
     <body>
         <h4>Login</h4>
-        <form action="#" method="POST">
+        <form action="hello.php" method="POST">
             <label for="myemail">Email</label>:
             <input type="email" id="myemail" name="myemail" placeholder="x@gmail.com">
             <br>
