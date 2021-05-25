@@ -20,13 +20,15 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         
         ///store the data to database
         try{
+            // PHP Data Object
             $conn=new PDO("mysql:host=localhost:3306;dbname=dbmsadb;","root","");
             ///setting 1 environment variable
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
+            $enc_password = md5($pass);
             
             ///executing mysql query
-            $signupquery="insert into user values('$email','$pass')";
+            $signupquery="insert into user values('$email','$enc_password')";
             
             $conn->exec($signupquery);
             

@@ -8,7 +8,7 @@
     
     <body>
         <h4>Login</h4>
-        <form action="hello.php" method="POST">
+        <form action="loginprocess.php" method="POST">
             <label for="myemail">Email</label>:
             <input type="email" id="myemail" name="myemail" placeholder="x@gmail.com">
             <br>
