@@ -7,7 +7,65 @@
     5. if not found, we'll forward to log in page
 */
 
-if ($_SE)
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+    if(   isset($_POST['myemail']) 
+       && isset($_POST['mypass'])
+       && !empty($_POST['myemail'])
+       && !empty($_POST['mypass'])
+    ){
+        $email=$_POST['myemail'];
+        $pass=$_POST['mypass'];
+        
+        
+        ///store the data to database
+        try{
+            // PHP Data Object
+            $conn=new PDO("mysql:host=localhost:3306;dbname=dbmsadb;","root","");
+            ///setting 1 environment variable
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $enc_password = md5($pass);
+            
+            // checking Data
+            $myquery = "SELECT * FROM user WHERE email = '$email' and pass = '$enc_password'";
+
+            $returnobj = $conn->query($myquery);  // the return object is pdo statement object
+
+            if($returnobj->rowCount() == 1){
+                ?>
+                <script>location.assign("hello.php");</script>
+                <?php
+            }
+            else {
+            ?>
+                <script>location.assign("login.php");</script>
+            <?php
+            }
+            
+        }
+        catch(PDOException $ex){
+            ?>
+                <script>location.assign("login.php");</script>
+            <?php
+        }
+        
+    }
+    else{
+        ///if email and password data is empty or not set
+        /// register.php --> registeruser.php --> register.php
+    ?>
+        <script>location.assign("login.php");</script>
+    <?php
+        
+    } 
+}
+else
+{
+    ?>
+        <script>location.assign("login.php");</script>
+    <?php
+}
 
 
 ?>
