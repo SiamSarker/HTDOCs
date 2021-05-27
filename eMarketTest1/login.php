@@ -9,7 +9,7 @@
     <body>
         <h4>Login</h4>
         <form action="loginprocess.php" method="POST">
-            <label for="usrname">Email</label>:
+            <label for="usrname">Username</label>:
             <input type="text" id="usrname" name="usrname">
             <br>
             <label for="mypass">Password</label>:
