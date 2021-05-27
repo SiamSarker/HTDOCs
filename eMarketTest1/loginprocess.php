@@ -21,14 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         ///store the data to database
         try{
             // PHP Data Object
-            $conn=new PDO("mysql:host=localhost:3306;dbname=dbmsadb;","root","");
+            $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
             ///setting 1 environment variable
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
             $enc_password = md5($pass);
             
             // checking Data
-            $myquery = "SELECT * FROM farmer WHERE f_username = '$username' and pass = '$enc_password'";
+            $myquery = "SELECT * FROM farmer WHERE f_username = '$username' and password = '$enc_password'";
+            // $myquery = "SELECT * FROM farmer WHERE f_username = 'test3' and password = '81dc9bdb52d04dc20036dbd8313ed055'";
 
             $returnobj = $conn->query($myquery);  // the return object is pdo statement object
 
