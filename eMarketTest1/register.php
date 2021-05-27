@@ -9,8 +9,8 @@
     <body>
         <h4>Register</h4>
         <form action="registeruser.php" method="POST">
-            <label for="usrname">Username</label>:
-            <input type="text" id="usrname" name="usrname">
+            <label for="username">Username</label>:
+            <input type="text" id="username" name="username">
             <br>
             <label for="mypass">Password</label>:
             <input type="password" id="mypass" name="mypass">

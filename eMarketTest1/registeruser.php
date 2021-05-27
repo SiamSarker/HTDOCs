@@ -9,7 +9,7 @@ step 3: if data store is successful then forward to login.php
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
     
-    if(   isset($_POST['usrname']) 
+    if(   isset($_POST['username']) 
        && isset($_POST['mypass'])
        && isset($_POST['myname'])
        && isset($_POST['address'])
@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
        && isset($_POST['district'])
        && isset($_POST['city'])
 
-       && !empty($_POST['usrname'])
+       && !empty($_POST['username'])
        && !empty($_POST['mypass'])
        && !empty($_POST['myname'])
        && !empty($_POST['address'])
@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
        && !empty($_POST['city'])
     )
     {
-        $username=$_POST['usrname'];
+        $username=$_POST['username'];
         $pass=$_POST['mypass'];
         $name=$_POST['myname'];
         $address=$_POST['address'];
