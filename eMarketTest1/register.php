@@ -15,7 +15,7 @@
             <label for="mypass">Password</label>:
             <input type="password" id="mypass" name="mypass">
             <br>
-            <label for="myname">Email</label>:
+            <label for="myname">Name</label>:
             <input type="text" id="myname" name="myname">
             <br>
             <label for="addrees">Address</label>:
