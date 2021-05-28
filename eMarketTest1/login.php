@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 
 <!DOCTYPE html>
 
@@ -34,13 +31,9 @@ session_start();
 
     <form action="register.php" method="POST">         
 			
-            <button type="submit" class="btn btn-primary">SIGN UP</button>
+            <button type="submit">SIGN UP</button>
 
     </form>
-
-    <?php
-        session_destroy();    
-    ?>
 
 </body>
 

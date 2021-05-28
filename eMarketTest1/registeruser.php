@@ -42,7 +42,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
      
 
-        if($role = 'buyer')
+        if($role == 'farmer')
         {
             ///store the data to database
         try{
@@ -54,15 +54,15 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $enc_password = md5($pass);
             
             ///executing mysql query
-            $signupquery="insert into buyer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
+            $signupquery="insert into farmer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
         
             
             $conn->exec($signupquery);
             
             ?>
-                <script>window.location.assign("login.php");</script>
+            <script>window.location.assign("login.php");</script>
             <?php
-            // insert into farmer values('as','efe','sd','dwd', 1234321891 , 1234567890 ,'district','city')
+    
             
         }
         catch(PDOException $ex){
@@ -73,7 +73,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         
         }
 
-        else if($role='farmer'){
+        else if($role == 'buyer'){
             try{
                 // PHP Data Object
                 $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
@@ -83,7 +83,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 $enc_password = md5($pass);
                 
                 ///executing mysql query
-                $signupquery="insert into farmer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
+                $signupquery="insert into buyer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
                 
                 
                 $conn->exec($signupquery);
@@ -91,7 +91,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 ?>
                     <script>window.location.assign("login.php");</script>
                 <?php
-                // insert into farmer values('as','efe','sd','dwd', 1234321891 , 1234567890 ,'district','city')
+    
                 
             }
             catch(PDOException $ex){
