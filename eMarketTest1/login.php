@@ -20,20 +20,19 @@ session_start();
         <label for="mypass">Password</label>:
         <input type="password" id="mypass" name="mypass">
         <br>
+        Are you a :
         <div>
         <input type="radio" name="role" value="buyer"> Buyer<br>
-			<input type="radio" name="role" value="farmer"> Farmer<br>
-			
+		<input type="radio" name="role" value="farmer"> Farmer<br>
 		</div>
+        <br>
         <input type="submit" value="Click to Login">
     </form>
 
     <div class="textbox"><h3>Don't have an account? Sign up!</h3></div>
 
-				<h1>Select user type and click sign up</h1>
 
-    <form action="register.php" method="POST"> 
-        
+    <form action="register.php" method="POST">         
 			
             <button type="submit" class="btn btn-primary">SIGN UP</button>
 
