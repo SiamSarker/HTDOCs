@@ -5,12 +5,15 @@ session_start();
 if(
     isset($_SESSION['username'])
     && isset($_SESSION['role'])
+    && isset($_GET['search'])
     && !empty($_SESSION['username'])
     && !empty($_SESSION['role'])
+    && !empty($_GET['search'])
 ){
     ///already logged in user
     $role = $_SESSION['role'];
     $username = $_SESSION['username'];
+    $search = $_GET['search'];
     
     ?>
         <!DOCTYPE html>
@@ -41,7 +44,9 @@ if(
             </head>
 
             <body>
-                <h4>Home Page</h4>
+                <h4>
+                <input type="button" value="Home Page" onclick="home()">
+                </h4>
                 Welcome 
                 <?php 
                     echo $username; 
@@ -59,20 +64,18 @@ if(
 
                 <br>
                 <br>
-                
-                <input type="button" value="Upload Product" onclick="uploadfn()">
-                
+                                
                 <div>
-                    <h5>All Product List</h5>
+                    <h5>All Farmers List</h5>
                     <table id="ptable">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Image</th>
-                                <th>Available Quantity</th>
-                                <th>Price per Unit</th>
-                                <th>Update/Delete</th>
+                                <th>Username</th>
+                                <th>Full Name</th>
+                                <th>Address</th>
+                                <th>District</th>
+                                <th>City</th>
+                                <th>Phone Number</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,12 +88,11 @@ if(
                                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                                 ///mysql query string
-                                $mysqlquery="SELECT * FROM product";
+                                $mysqlquery="SELECT * FROM farmer WHERE name LIKE '%".$search."%'";
+
                                 
                                 $returnobj=$conn->query($mysqlquery);
                                 $returntable=$returnobj->fetchAll();
-
-                                
 
                                 
                                 if($returnobj->rowCount()==0){
@@ -105,17 +107,12 @@ if(
                                         ?>
 
                                         <tr>
-                                            <td><?php echo $row['id'] ?></td>
-                                            <td><?php echo $row['name'] ?></td>
-                                            <td>
-                                                <img src="<?php echo $row['imagepath'] ?>" width="300" height="300">
-                                            </td>
-                                            <td><?php echo $row['qnt'] ?></td>
-                                            <td><?php echo $row['price'] ?></td>
-                                            <td>
-                                                <input type="button" value="Update"><br>
-                                                <input type="button" value="Delete" onclick="deletefn(<?php echo $row['id'] ?>);">
-                                            </td>
+                                            <td><?php echo $row['f_username'] ?></td>
+                                            <td><?php echo $row['Name'] ?></td>
+                                            <td><?php echo $row['Address'] ?></td>
+                                            <td><?php echo $row['District'] ?></td>
+                                            <td><?php echo $row['City'] ?></td>
+                                            <td><?php echo "+880".$row['Contact_no'] ?></td>
                                         </tr>
 
                                         <?php
@@ -143,6 +140,10 @@ if(
                 <script>
                     function logoutfn(){
                         location.assign('logout.php');   ///default GET method
+                    }
+
+                    function home(){
+                        location.assign('home.php');   ///default GET method
                     }
                     
                     function uploadfn(){
