@@ -17,6 +17,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
        && isset($_POST['account'])
        && isset($_POST['district'])
        && isset($_POST['city'])
+       && isset($_POST['role'])
 
        && !empty($_POST['username'])
        && !empty($_POST['mypass'])
@@ -26,6 +27,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
        && !empty($_POST['account'])
        && !empty($_POST['district'])
        && !empty($_POST['city'])
+       && !empty($_POST['role'])
     )
     {
         $username=$_POST['username'];
@@ -36,9 +38,13 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $account=$_POST['account'];
         $district=$_POST['district'];
         $city=$_POST['city'];
-        
-        
-        ///store the data to database
+        $role=$_POST['role'];
+
+     
+
+        if($role = 'buyer')
+        {
+            ///store the data to database
         try{
             // PHP Data Object
             $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
@@ -48,43 +54,71 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $enc_password = md5($pass);
             
             ///executing mysql query
-            $signupquery="insert into farmer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
-            // $signupquery="insert into farmer values('ARIvsfF','12efed35','arif','address', 1234567890 , 1234567890 ,'district','city')";
+            $signupquery="insert into buyer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
+        
             
             $conn->exec($signupquery);
             
             ?>
-                <script>location.assign("login.php");</script>
+                <script>window.location.assign("login.php");</script>
             <?php
             // insert into farmer values('as','efe','sd','dwd', 1234321891 , 1234567890 ,'district','city')
             
         }
         catch(PDOException $ex){
             ?>
-                <script>location.assign("register.php");</script>
+                <script>window.location.assign("register.php");</script>
             <?php
+        }
+        
+        }
+
+        else if($role='farmer'){
+            try{
+                // PHP Data Object
+                $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
+                ///setting 1 environment variable
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                
+                $enc_password = md5($pass);
+                
+                ///executing mysql query
+                $signupquery="insert into farmer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
+                
+                
+                $conn->exec($signupquery);
+                
+                ?>
+                    <script>window.location.assign("login.php");</script>
+                <?php
+                // insert into farmer values('as','efe','sd','dwd', 1234321891 , 1234567890 ,'district','city')
+                
+            }
+            catch(PDOException $ex){
+                ?>
+                    <script>window.location.assign("register.php");</script>
+                <?php
+            }
+        }
+        else{
+        ///if email and password data is empty or not set
+        /// register.php --> registeruser.php --> register.php
+        ?>
+        <script>window.location.assign("register.php");</script>
+        <?php
+        
         }
         
     }
     else{
         ///if email and password data is empty or not set
         /// register.php --> registeruser.php --> register.php
-    ?>
-        <script>location.assign("register.php");</script>
-    <?php
+        ?>
+        <script>window.location.assign("register.php");</script>
+        <?php
         
-    } 
-}
-else{
+        }
 
-    ?>
-        <script>location.assign("register.php");</script>
-    <?php
-
-
-    //for other methods we will forward to register page (register.php)
-    // echo '<script>location.assign("register.php");</script>';
-}
-
-
+    }
+        
 ?>

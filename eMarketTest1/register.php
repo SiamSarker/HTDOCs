@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 
+<?php
+    if (isset($_POST['role']))
+    {
+        $role = $_POST['role'];
+    }
+?>
+
+
+
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -33,6 +42,13 @@
             <label for="city">City</label>:
             <input type="text" id="city" name="city">
             <br>
+            Are you a :
+            <br>
+            <div>
+            <input type="radio" name="role" value="buyer"> Buyer<br>
+			<input type="radio" name="role" value="farmer"> Farmer<br>
+			
+		    </div>
             <br>
             <input type="submit" value="Click to Register">
             

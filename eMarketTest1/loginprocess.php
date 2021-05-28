@@ -41,19 +41,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 session_start();
                 $_SESSION['username'] = $username;   //after session starts
                 ?>
-                <script>location.assign("home.php");</script>
+                <script>window.location.assign("home.php");</script>
                 <?php
             }
             else {
             ?>
-                <script>location.assign("login.php");</script>
+                <script>window.location.assign("login.php");</script>
             <?php
             }
             
         }
         catch(PDOException $ex){
             ?>
-                <script>location.assign("login.php");</script>
+                <script>window.location.assign("login.php");</script>
             <?php
         }
         }
@@ -77,19 +77,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     session_start();
                     $_SESSION['username'] = $username;   //after session starts
                     ?>
-                    <script>location.assign("home.php");</script>
+                    <script>window.location.assign("home.php");</script>
                     <?php
                 }
                 else {
                 ?>
-                    <script>location.assign("login.php");</script>
+                    <script>window.location.assign("login.php");</script>
                 <?php
                 }
                 
             }
             catch(PDOException $ex){
                 ?>
-                    <script>location.assign("login.php");</script>
+                    <script>window.location.assign("login.php");</script>
                 <?php
             }
         }
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         ///if email and password data is empty or not set
         /// register.php --> registeruser.php --> register.php
     ?>
-        <script>location.assign("login.php");</script>
+        <script>window.location.assign("login.php");</script>
     <?php
         
     } 
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 else
 {
     ?>
-        <script>location.assign("login.php");</script>
+        <script>window.location.assign("login.php");</script>
     <?php
 }
 
