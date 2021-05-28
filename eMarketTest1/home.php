@@ -41,7 +41,9 @@ if(
             </head>
 
             <body>
-                <h4>Home Page</h4>
+                <h4>Home Page 
+                <input type="button" value="My Profile" onclick="profile()">
+                </h4>
                 Welcome 
                 <?php 
                     echo $username; 
@@ -143,6 +145,10 @@ if(
                 <script>
                     function logoutfn(){
                         location.assign('logout.php');   ///default GET method
+                    }
+
+                    function profile(){
+                        location.assign('profile.php');   ///default GET method
                     }
                     
                     function uploadfn(){

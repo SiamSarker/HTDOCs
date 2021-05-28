@@ -20,7 +20,11 @@ if(
 
         <body>
 
-        <h4>Profile Page</h4>
+
+        <h4>
+                <input type="button" value="Home Page" onclick="home()"> 
+                <input type="button" value="My Profile" onclick="profile()">
+        </h4>
         <br><br>
         <h2>Welcome <?php echo $username?></h2>
 
@@ -64,7 +68,42 @@ if(
                 <script>window.location.assign("login.php");</script>
             <?php
         }
+        
         ?>
+
+        <br>
+        <br><br>
+
+        <input type="button" value="Update Profile" onclick="update();">
+
+
+
+        <input type="button" value="Click to Logout" onclick="logoutfn();">
+        
+
+        <br>
+
+        <script>
+                    function home(){
+                        location.assign('home.php');   ///default GET method
+                    }
+
+                    function profile(){
+                        location.assign('profile.php');   ///default GET method
+                    }
+                    function logoutfn(){
+                        location.assign('logout.php');   ///default GET method
+                    }
+
+                    function update(){
+                        location.assign('updateprofile.php');   ///default GET method
+                    }
+
+                    
+
+        </script>
+
+        
         
         </body>
     </html>

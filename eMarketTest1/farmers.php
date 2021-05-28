@@ -45,7 +45,8 @@ if(
 
             <body>
                 <h4>
-                <input type="button" value="Home Page" onclick="home()">
+                <input type="button" value="Home Page" onclick="home()"> 
+                <input type="button" value="My Profile" onclick="profile()">
                 </h4>
                 Welcome 
                 <?php 
@@ -145,6 +146,10 @@ if(
                     function home(){
                         location.assign('home.php');   ///default GET method
                     }
+
+                    function profile(){
+                        location.assign('profile.php');   ///default GET method
+                    }
                     
                     function uploadfn(){
                         location.assign('upload.php');
@@ -164,7 +169,7 @@ if(
 }
 else{
      ?>
-        <script>location.assign("login.php");</script>
+        <script>location.assign("home.php");</script>
     <?php
 }
 
