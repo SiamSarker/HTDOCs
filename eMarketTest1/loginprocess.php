@@ -39,7 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
             if($returnobj->rowCount() == 1){
                 session_start();
-                $_SESSION['username'] = $username;   //after session starts
+                $_SESSION['username'] = $username;
+                $_SESSION['role'] = $role;   //after session starts
                 ?>
                 <script>window.location.assign("home.php");</script>
                 <?php
@@ -75,7 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     
                 if($returnobj->rowCount() == 1){
                     session_start();
-                    $_SESSION['username'] = $username;   //after session starts
+                    $_SESSION['username'] = $username;
+                    $_SESSION['role'] = $role;   //after session starts
                     ?>
                     <script>window.location.assign("home.php");</script>
                     <?php
