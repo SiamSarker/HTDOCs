@@ -21,8 +21,8 @@ session_start();
         <input type="password" id="mypass" name="mypass">
         <br>
         <div>
-			<input type="radio" name="Role" value="farmer"> Farmer<br>
-			<input type="radio" name="Role" value="buyer"> Buyer<br>
+			<input type="radio" name="role" value="farmer"> Farmer<br>
+			<input type="radio" name="role" value="buyer"> Buyer<br>
 		</div>
         <input type="submit" value="Click to Login">
     </form>
