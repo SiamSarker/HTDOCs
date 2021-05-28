@@ -11,7 +11,7 @@ if(
     ?>
         <!DOCTYPE html>
 
-        <html>
+        <html lang="en">
             <head>
                 <meta charset="utf-8">
                 <title>Home</title>
@@ -65,7 +65,7 @@ if(
                             <?php 
                             try{
                                 ///PDO = PHP Data Object
-                                $conn=new PDO("mysql:host=localhost:3306;dbname=dbmsadb2;","root","");
+                                $conn=new PDO("mysql:host=localhost:3306;dbname=dbmsadb;","root","");
                                 ///setting 1 environment variable
                                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -74,6 +74,9 @@ if(
                                 
                                 $returnobj=$conn->query($mysqlquery);
                                 $returntable=$returnobj->fetchAll();
+
+                                
+
                                 
                                 if($returnobj->rowCount()==0){
                                     ?>

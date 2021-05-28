@@ -48,19 +48,19 @@ if(
             {
                 foreach($returntable as $row){
                 ?><br><?php
-                echo $row["'".$role[0]."_username'"];
+                echo $row[$role[0].'_username'];
                 ?><br><?php
-                echo $row["'Name'"];
+                echo $row['Name'];
                 ?><br><?php
-                echo $row["'Address'"];
+                echo $row['Address'];
                 ?><br><?php
-                echo $row["'District'"];
+                echo $row['District'];
                 ?><br><?php
-                echo $row["'City'"];
+                echo $row['City'];
                 ?><br><?php
-                echo $row["'Contact_no'"];
+                echo $row['Contact_no'];
                 ?><br><?php
-                echo $row["'".$role."_acc_no'"];
+                echo $row[$role.'_acc_no'];
             }
             }
         }

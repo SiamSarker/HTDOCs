@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         ///store the data to database
         try{
             ///PDO = PHP Data Object
-            $conn=new PDO("mysql:host=localhost:3306;dbname=dbmsadb2;","root","");
+            $conn=new PDO("mysql:host=localhost:3306;dbname=dbmsadb;","root","");
             ///setting 1 environment variable
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
