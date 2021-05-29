@@ -42,8 +42,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
      
 
-        if($role == 'farmer')
-        {
             ///store the data to database
         try{
             // PHP Data Object
@@ -54,8 +52,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $enc_password = md5($pass);
             
             ///executing mysql query
-            $signupquery="insert into farmer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
-        
+            //$signupquery="insert into farmer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
+            $signupquery="INSERT into ".$role." values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
             
             $conn->exec($signupquery);
             
@@ -73,33 +71,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         
         }
 
-        else if($role == 'buyer'){
-            try{
-                // PHP Data Object
-                $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
-                ///setting 1 environment variable
-                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                
-                $enc_password = md5($pass);
-                
-                ///executing mysql query
-                $signupquery="insert into buyer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
-                
-                
-                $conn->exec($signupquery);
-                
-                ?>
-                    <script>window.location.assign("login.php");</script>
-                <?php
-    
-                
-            }
-            catch(PDOException $ex){
-                ?>
-                    <script>window.location.assign("register.php");</script>
-                <?php
-            }
-        }
         else{
         ///if email and password data is empty or not set
         /// register.php --> registeruser.php --> register.php
@@ -119,6 +90,5 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         
         }
 
-    }
         
 ?>
