@@ -43,5 +43,19 @@
             <input type="submit" value="Click to Register">
             
         </form>
+
+        <br><br>
+
+        <input type='button' value="Back to login in" onclick="login();">
+
+        <script>
+            function login(){
+                location.assign('login.php');
+            }
+
+        </script>
+        
+
+
     </body>
 </html>
