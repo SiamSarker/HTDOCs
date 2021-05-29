@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $city=$_POST['city'];
         $role=$_POST['role'];
 
-     
+        
 
             ///store the data to database
         try{
@@ -48,26 +48,43 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
             ///setting 1 environment variable
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+            $signupquery="SELECT * FROM ".$role." WHERE ".$role[0]."_username = '".$username."'";
             
-            $enc_password = md5($pass);
+        
+            $returnobj = $conn->query($signupquery);
+            $returntable = $returnobj->fetchAll();
+
+            if($returnobj->rowCount() == 1)
+            {
+                ?>
+                <script>alert("Usearname already exists.");</script>
+                <script>location.assign("register.php");</script>
+                <?php
+            }
+            else
+            {
+                $enc_password = md5($pass);
+                
+                ///executing mysql query
+                //$signupquery="insert into farmer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
+                $signupquery="INSERT into ".$role." values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
+                
+                $conn->exec($signupquery);
+                
+                ?>
+                <script>alert("Registration successful.\nNow login with username and password!");</script>
+                <script>location.assign("login.php");</script>
+                <?php
+            }
             
-            ///executing mysql query
-            //$signupquery="insert into farmer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
-            $signupquery="INSERT into ".$role." values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
-            
-            $conn->exec($signupquery);
-            
+            }
+            catch(PDOException $ex){
             ?>
-            <script>window.location.assign("login.php");</script>
+                <script>location.assign("register.php");</script>
             <?php
-    
-            
-        }
-        catch(PDOException $ex){
-            ?>
-                <script>window.location.assign("register.php");</script>
-            <?php
-        }
+            }
         
         }
 
@@ -75,7 +92,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         ///if email and password data is empty or not set
         /// register.php --> registeruser.php --> register.php
         ?>
-        <script>window.location.assign("register.php");</script>
+        <script>alert("Fill up all the information.");</script>
+        <script>location.assign("register.php");</script>
         <?php
         
         }
@@ -85,7 +103,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         ///if email and password data is empty or not set
         /// register.php --> registeruser.php --> register.php
         ?>
-        <script>window.location.assign("register.php");</script>
+        <script>location.assign("register.php");</script>
         <?php
         
         }

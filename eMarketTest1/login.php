@@ -26,7 +26,7 @@
         <input type="submit" value="Click to Login">
     </form>
 
-    <div class="textbox"><h3>Don't have an account? Sign up!</h3></div>
+    <div><h4>Don't have an account? Sign up!</h4></div>
 
 
     <form action="register.php" method="POST">         

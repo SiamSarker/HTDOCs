@@ -9,13 +9,15 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    if(   isset($_POST['username']) 
-       && isset($_POST['mypass'])
-       && isset($_POST['role'])
-       && !empty($_POST['username'])
-       && !empty($_POST['mypass'])
+    if(  
+       isset($_POST['role'])     
        && !empty($_POST['role'])
+       && isset($_POST['username']) 
+        && isset($_POST['mypass'])
+        && !empty($_POST['username'])
+        && !empty($_POST['mypass'])
     ){
+
         $username=$_POST['username'];
         $pass=$_POST['mypass'];
         $role=$_POST['role'];
@@ -45,30 +47,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             }
             else {
             ?>
+                <script>alert("Wrong username and password.");</script>
                 <script>window.location.assign("login.php");</script>
             <?php
             }
             
+            }
+            catch(PDOException $ex){
+                ?>
+                    <script>alert("Database error.");</script>
+                    <script>window.location.assign("login.php");</script>
+                <?php
+            }
         }
-        catch(PDOException $ex){
-            ?>
-                <script>window.location.assign("login.php");</script>
-            <?php
-        }
-    }
-    else{
-        ///if email and password data is empty or not set
-        /// register.php --> registeruser.php --> register.php
-    ?>
-        <script>window.location.assign("login.php");</script>
-    <?php
         
-    } 
+    else
+    {
+        ?>
+        <script>alert("Fill up all the information.");</script>
+        <script>location.assign("login.php");</script>   
+    <?php
+    }
+    
 }
 else
 {
     ?>
-        <script>window.location.assign("login.php");</script>
+        <script>location.assign("login.php");</script>
     <?php
 }
 

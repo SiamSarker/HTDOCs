@@ -123,7 +123,7 @@ if(
         }
         catch(PDOException $ex){
             ?>
-                <script>window.location.assign("login.php");</script>
+                <script>location.assign("login.php");</script>
             <?php
         }
         
@@ -173,7 +173,7 @@ if(
 else
 {
     ?>
-            <script>window.location.assign("login.php");</script>
+            <script>location.assign("login.php");</script>
     <?php
 }
 

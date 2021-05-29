@@ -169,6 +169,7 @@ if(
 }
 else{
      ?>
+        <script>alert("give farmer name!");</script>
         <script>location.assign("home.php");</script>
     <?php
 }

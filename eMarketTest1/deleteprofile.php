@@ -21,7 +21,6 @@ if(
             $mysqlquerystring="SET foreign_key_checks = 0;
             DELETE FROM ".$role." WHERE ".$role[0]."_username = '".$username."';
             SET foreign_key_checks = 1;";
-            echo $mysqlquerystring;
             
             
             $conn->exec($mysqlquerystring);
@@ -30,6 +29,7 @@ if(
             session_destroy();
             
             ?>
+            <script>alert("Account deleted successfully!");</script>
             <script>location.assign("login.php");</script>
             <?php
         }

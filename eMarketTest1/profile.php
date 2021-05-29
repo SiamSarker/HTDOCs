@@ -65,7 +65,7 @@ if(
         }
         catch(PDOException $ex){
             ?>
-                <script>window.location.assign("login.php");</script>
+                <script>location.assign("login.php");</script>
             <?php
         }
         
@@ -99,8 +99,6 @@ if(
                         location.assign('updateprofile.php');   ///default GET method
                     }
 
-                    
-
         </script>
 
         
@@ -113,7 +111,7 @@ if(
 else
 {
     ?>
-            <script>window.location.assign("login.php");</script>
+            <script>location.assign("login.php");</script>
     <?php
 }
 

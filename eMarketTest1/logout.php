@@ -12,6 +12,7 @@ if(
     session_destroy();
     
     ?>
+        <script>alert("logged out successfully!");</script>
         <script>location.assign("login.php");</script>
     <?php 
     

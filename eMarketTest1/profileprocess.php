@@ -22,8 +22,6 @@ if(
     if($_SERVER['REQUEST_METHOD']=='POST'){
             
         if(isset($_POST['myname']) 
-            && isset($_POST['oldpass'])
-            && isset($_POST['mypass'])
             && isset($_POST['address'])
             && isset($_POST['contact'])
             && isset($_POST['account'])
@@ -31,8 +29,6 @@ if(
             && isset($_POST['city'])
 
             && !empty($_POST['myname'])
-            && !empty($_POST['oldpass'])
-            && !empty($_POST['mypass'])
             && !empty($_POST['address'])
             && !empty($_POST['contact'])
             && !empty($_POST['account'])
@@ -42,13 +38,12 @@ if(
             {
 
                 $name=$_POST['myname'];
-                $oldpass=$_POST['oldpass'];
-                $pass=$_POST['mypass'];
                 $address=$_POST['address'];
                 $contact=$_POST['contact'];
                 $account=$_POST['account'];
                 $district=$_POST['district'];
                 $city=$_POST['city'];
+
 
                     ///store the data to database
                 try{
@@ -56,42 +51,56 @@ if(
                     $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
                     ///setting 1 environment variable
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    
+
+
+                if( isset($_POST['oldpass'])
+                    && isset($_POST['mypass'])
+                    && !empty($_POST['oldpass'])
+                    && !empty($_POST['mypass'])
+                ){
+                    $oldpass=$_POST['oldpass'];
+                    $pass=$_POST['mypass'];
+
                     $enc_password = md5($oldpass);
                     $new_enc_password = md5($pass);
 
                     $myquery="SELECT * FROM ".$role." WHERE ".$role[0]."_username = '".$username."' and password ='".$enc_password."'";
-           
 
                     $returnobj = $conn->query($myquery);  // the return object is pdo statement object
 
                     if($returnobj->rowCount() == 1){
 
-
                         ///executing mysql query
                         
                         $signupquery="UPDATE ".$role." SET Name='$name', password='$new_enc_password', Address='$address', Contact_no=$contact, ".$role."_acc_no=$account, District='$district', City='$city' WHERE ".$role[0]."_username='$username'";
-                        
-                        
+                           
                         $conn->exec($signupquery);
 
-                        
-                        
                         ?>
-                        <script>window.location.assign("profile.php");</script>
+                        <script>alert("Profile Updated!");</script>
+                        <script>location.assign("profile.php");</script>
                         <?php
                     }
-                    else {
-                    ?>
-                        <script>window.location.assign("updateprofile.php");</script>
-                    <?php
-                    }
-            
                     
+                }
+
+                $signupquery="UPDATE ".$role." SET Name='$name', Address='$address', Contact_no=$contact, ".$role."_acc_no=$account, District='$district', City='$city' WHERE ".$role[0]."_username='$username'";
+                           
+                $conn->exec($signupquery);
+
+                ?>
+                    <script>alert("Profile Updated!");</script>
+                    <script>location.assign("profile.php");</script>
+                <?php
+
+
+
+          
                 }
                 catch(PDOException $ex){
                     ?>
-                        <script>window.location.assign("updateprofile.php");</script>
+                        <script>alert("Database Error!");</script>
+                        <script>location.assign("updateprofile.php");</script>
                     <?php
                 }
                 
@@ -101,7 +110,8 @@ if(
                 ///if email and password data is empty or not set
                 /// register.php --> registeruser.php --> register.php
                 ?>
-                <script>window.location.assign("updateprofile.php");</script>
+                <script>alert("Fill up all required fields!");</script>
+                <script>location.assign("updateprofile.php");</script>
                 <?php
                 
                 }
@@ -111,10 +121,10 @@ if(
                 ///if email and password data is empty or not set
                 /// register.php --> registeruser.php --> register.php
                 ?>
-                <script>window.location.assign("updateprofile.php");</script>
+                <script>location.assign("updateprofile.php");</script>
                 <?php
                 
-                }
+            }
 
     }
         
