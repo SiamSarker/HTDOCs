@@ -16,17 +16,51 @@ if(
     <html lang="en">
         <head>
         <title>Profile</title>
+        <style>
+
+            body {
+            background-color: lightblue;
+            }
+
+            .text{
+
+            height: 25px;
+            border-radius: 5px;
+            padding: 2px;
+            border: solid thin #aaa;
+            width: 90%;
+            }
+            
+
+            #button{
+
+            padding: 10px;
+            width: 120px;
+            color: white;
+            background-color: FireBrick;
+            border: none;
+            }
+
+            #box{
+
+            background-color: AliceBlue;
+            margin: auto;
+            width: 300px;
+            padding: 20px;
+            }
+
+        </style>
         </head>
 
         <body>
 
 
-        <h4>
-                <input type="button" value="Home Page" onclick="home()"> 
-                <input type="button" value="My Profile" onclick="profile()">
-        </h4>
-        <br><br>
-        <h2>Welcome <?php echo $username?></h2>
+                <input id="button" type="button" value="Home Page" onclick="home()"> 
+                <input id="button" type="button" value="My Profile" onclick="profile()">
+        
+        <br>
+        <div id="box"style="font-size: 20px;margin: 10px;">Welcome <?php echo $username?>
+        
 
 
 
@@ -56,37 +90,37 @@ if(
                 <br>
 
                 <label for="myname">Name</label>:
-                <input type="text" id="myname" name="myname" value="<?php echo $row['Name'];?>">
+                <input class="text" type="text" id="myname" name="myname" value="<?php echo $row['Name'];?>">
 
                 <br>
 
                 <label for="oldpass">Old Password</label>:
-                <input type="password" id="oldpass" name="oldpass" placeholder="fill it if changing the password">
+                <input class="text" type="password" id="oldpass" name="oldpass" placeholder="fill it if changing the password">
 
                 <br>
 
                 <label for="mypass">New Password</label>:
-                <input type="password" id="mypass" name="mypass" placeholder="fill it if changing the password">
+                <input class="text" type="password" id="mypass" name="mypass" placeholder="fill it if changing the password">
 
                 <br>
 
                 <label for="addrees">Address</label>:
-                <input type="text" id="address" name="address" value="<?php echo $row['Address'];?>">
+                <input class="text" type="text" id="address" name="address" value="<?php echo $row['Address'];?>">
 
                 <br>
 
                 <label for="contact">Contact No</label>:
-                <input type="number" id="contact" name="contact" value="<?php echo "0".$row['Contact_no'];?>">
+                <input class="text" type="number" id="contact" name="contact" value="<?php echo "0".$row['Contact_no'];?>">
 
                 <br>
 
                 <label for="account">Account No</label>:
-                <input type="number" id="account" name="account" value="<?php echo $row[$role.'_acc_no'];?>">
+                <input class="text" type="number" id="account" name="account" value="<?php echo $row[$role.'_acc_no'];?>">
 
                 <br>
 
                 <label for="district">District</label>:
-                <select id="input" name="district" onchange="random()">
+                <select class="text" id="input" name="district" onchange="random()">
                     <option value="<?php echo $row['District'];?>"><?php echo $row['District'];?></option>
                     <option value="district">district</option>
                     <option value="Dhaka">Dhaka</option>
@@ -95,18 +129,15 @@ if(
 
                 <div>
                 <label for="city">City</label>:
-                <select name="city" id="output">
+                <select class="text" name="city" id="output">
                     <option value="<?php echo $row['City'];?>"><?php echo $row['City'];?></option>
                 </select>
                 </div>  
 
-
                 <br>
 
 
-                <br>
-
-                <input type="submit" value="Save Changes">
+                <input id="button" type="submit" value="Save Changes">
                 
                 </form>
 
@@ -122,16 +153,15 @@ if(
         }
         
         ?>
+        </div>
 
-        <br><br>
-        <input type="button" value="Delete Account" onclick="deletefn();">
-        <br><br>
+        <br>
+        <input id="button" type="button" value="Delete Account" onclick="deletefn();">
+     
+
+        <input id="button" type="button" value="Click to Logout" onclick="logoutfn();">
 
         
-
-
-
-        <input type="button" value="Click to Logout" onclick="logoutfn();">
         
 
         <br>

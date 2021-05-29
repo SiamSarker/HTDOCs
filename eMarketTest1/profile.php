@@ -16,18 +16,57 @@ if(
     <html lang="en">
         <head>
         <title>Profile</title>
+
+        <style>
+
+                body {
+                        background-color: lightblue;
+                    }
+
+                .text{
+
+                            height: 25px;
+                            border-radius: 5px;
+                            padding: 2px;
+                            border: solid thin #aaa;
+                            width: 90%;
+                        }
+                            
+
+                        #button{
+
+                            padding: 10px;
+                            width: 120px;
+                            color: white;
+                            background-color: FireBrick;
+                            border: none;
+                        }
+
+                        #box{
+
+                            background-color: AliceBlue;
+                            margin: auto;
+                            width: 300px;
+                            padding: 20px;
+                        }
+
+
+                
+                </style>
+
         </head>
 
         <body>
 
 
-        <h4>
-                <input type="button" value="Home Page" onclick="home()"> 
-                <input type="button" value="My Profile" onclick="profile()">
-        </h4>
+        
+                <input id="button" type="button" value="Home Page" onclick="home()"> 
+                <input id="button" type="button" value="My Profile" onclick="profile()">
+        
         <br><br>
-        <h2>Welcome <?php echo $username?></h2>
-
+        <div id="box" style="font-size: 20px;margin: 10px;">Welcome <?php echo $username?>
+        <br><br>
+        
         <?php 
 
         try{
@@ -74,11 +113,11 @@ if(
         <br>
         <br><br>
 
-        <input type="button" value="Update Profile" onclick="update();">
+        <input id="button" type="button" value="Update Profile" onclick="update();">
 
+        <input id="button" type="button" value="Click to Logout" onclick="logoutfn();">
 
-
-        <input type="button" value="Click to Logout" onclick="logoutfn();">
+        </div>
         
 
         <br>

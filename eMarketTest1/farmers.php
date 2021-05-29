@@ -24,6 +24,39 @@ if(
                 <title>Home</title>
                 
                 <style>
+
+                body {
+                        background-color: lightblue;
+                    }
+
+                .text{
+
+                            height: 25px;
+                            border-radius: 5px;
+                            padding: 2px;
+                            border: solid thin #aaa;
+                            width: 90%;
+                        }
+                            
+
+                        #button{
+
+                            padding: 10px;
+                            width: 120px;
+                            color: white;
+                            background-color: FireBrick;
+                            border: none;
+                        }
+
+                        #box{
+
+                            background-color: AliceBlue;
+                            margin: auto;
+                            width: 300px;
+                            padding: 20px;
+                        }
+
+
                     #ptable{
                         width: 100%;
                         border: 1px solid blue;
@@ -44,30 +77,32 @@ if(
             </head>
 
             <body>
-                <h4>
-                <input type="button" value="Home Page" onclick="home()"> 
-                <input type="button" value="My Profile" onclick="profile()">
-                </h4>
-                Welcome 
-                <?php 
-                    echo $username; 
-                ?>
+            
+                <input id="button" type="button" value="Home Page" onclick="home()"> 
+                <input id="button" type="button" value="My Profile" onclick="profile()">
+            
+                
                 
                 <br>
                 <br>
 
-                <form action="farmers.php" method="GET">
+                <form id="box" action="farmers.php" method="GET">
+                <div style="font-size: 20px;margin: 10px;">Welcome 
+                <?php 
+                    echo $username; 
+                ?></div>
                     
-                    <input type="search" id="search" name="search" placeholder="farmer name">
+                    <input class="text" type="search" id="search" name="search" placeholder="farmer name">
                     <br><br>
-                    <input type="submit" value="Search farmer">
+                    <input id="button" type="submit" value="Search farmer">
                 </form>
 
                 <br>
                 <br>
                                 
                 <div>
-                    <h5>All Farmers List</h5>
+                <div style="font-size: 20px;margin: 10px;">All Farmers List</div>
+                   
                     <table id="ptable">
                         <thead>
                             <tr>
@@ -136,7 +171,7 @@ if(
                 </div>
                 
                 <br>
-                <input type="button" value="Click to Logout" onclick="logoutfn();">
+                <input id="button" type="button" value="Click to Logout" onclick="logoutfn();">
                 
                 <script>
                     function logoutfn(){
