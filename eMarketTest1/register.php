@@ -30,33 +30,28 @@
            
 
             <label for="district">District</label>:
-            <select name="district">
-            <option selected="selected" value="">Select District Name</option>
-            <option value="district">district</option>
-            <option value="Dhaka">Dhaka</option>
-            <option value="Chittagong">Chittagong</option>
+            <select id="input" name="district" onchange="random()">
+                <option selected="selected" value="">Select District Name</option>
+                <option value="district">district</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Chittagong">Chittagong</option>
             </select>
 
             <br>
             <div>
-
             <label for="city">City</label>:
-            <select name="city">
-            <option value="" selected="selected">Select City Name</option>
-            <option value="city">city</option>
-            <option value="Dhaka">Dhaka</option>
-            <option value="Comilla">Comilla</option>
+            <select name="city" id="output">
+            <option selected="selected" value="">Select City Name</option>
             </select>
-            </div>
+            </div>            
 
-
-            
-            Are you a :
-            
+        
             <div>
+            Are you a :
+            <br>
             <input type="radio" name="role" value="buyer"> Buyer<br>
 			<input type="radio" name="role" value="farmer"> Farmer<br>
-		    </div>
+		    </Are>
             <br>
             <input type="submit" value="Click to Register">
             
@@ -68,6 +63,29 @@
         <input type='button' value="Reset" onclick="reset();">
 
         <script>
+            function random(){
+                var a=document.getElementById("input").value;
+                if(a === "Dhaka")
+                {
+                    var arr=["Dhaka","Badda"];
+                }
+                else if(a === "Chittagong")
+                {
+                    var arr=["Comilla","Daudkandi"];
+                }
+                else if(a === "district")
+                {
+                    var arr=["city"];
+                }
+             
+                var string="";
+             
+                for(i=0;i<arr.length;i++)
+                {
+                    string=string+"<option value="+arr[i]+">"+arr[i]+"</option>";
+                }
+                document.getElementById("output").innerHTML=string;
+            }
             function login(){
                 location.assign('login.php');
             }

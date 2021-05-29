@@ -85,29 +85,23 @@ if(
 
                 <br>
 
-
-
                 <label for="district">District</label>:
-                <select name="district">
-                <option value="<?php echo $row['District'];?>"><?php echo $row['District'];?></option>
-                <option value="district">district</option>
-                <option value="Dhaka">Dhaka</option>
-                <option value="Chittagong">Chittagong</option>
+                <select id="input" name="district" onchange="random()">
+                    <option value="<?php echo $row['District'];?>"><?php echo $row['District'];?></option>
+                    <option value="district">district</option>
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Chittagong">Chittagong</option>
                 </select>
+
+                <div>
+                <label for="city">City</label>:
+                <select name="city" id="output">
+                    <option value="<?php echo $row['City'];?>"><?php echo $row['City'];?></option>
+                </select>
+                </div>  
+
 
                 <br>
-                <div>
-
-                <label for="city">City</label>:
-                <select name="city">
-                <option value="<?php echo $row['City'];?>"><?php echo $row['City'];?></option>
-                <option value="city">city</option>
-                <option value="Dhaka">Dhaka</option>
-                <option value="Comilla">Comilla</option>
-                </select>
-                </div>
-
-
 
 
                 <br>
@@ -156,6 +150,25 @@ if(
                     function deletefn(){
                         ///for multiple values: file.php?varname=value&var1=value1
                         location.assign('deleteprofile.php');
+                    }
+                    function random(){
+                        var a=document.getElementById("input").value;
+                        if(a === "Dhaka")
+                        {
+                            var arr=["Dhaka","Badda"];
+                        }
+                        else if(a === "Chittagong")
+                        {
+                            var arr=["Comilla","Daudkandi"];
+                        }
+                    
+                        var string="";
+                    
+                        for(i=0;i<arr.length;i++)
+                        {
+                            string=string+"<option value="+arr[i]+">"+arr[i]+"</option>";
+                        }
+                        document.getElementById("output").innerHTML=string;
                     }
 
                     
