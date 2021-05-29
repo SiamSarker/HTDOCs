@@ -113,7 +113,8 @@ if(
         
         ?>
 
-        <br>
+        <br><br>
+        <input type="button" value="Delete Account" onclick="deletefn();">
         <br><br>
 
         
@@ -135,6 +136,10 @@ if(
                     }
                     function logoutfn(){
                         location.assign('logout.php');   ///default GET method
+                    }
+                    function deletefn(){
+                        ///for multiple values: file.php?varname=value&var1=value1
+                        location.assign('deleteprofile.php');
                     }
 
                     
