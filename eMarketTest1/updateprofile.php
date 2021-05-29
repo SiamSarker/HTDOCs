@@ -95,12 +95,12 @@ if(
                 <br>
 
                 <label for="oldpass">Old Password</label>:
-                <input class="text" type="password" id="oldpass" name="oldpass" placeholder="fill it if changing the password">
+                <input class="text" type="password" id="oldpass" name="oldpass" placeholder=" fill it if changing the password">
 
                 <br>
 
                 <label for="mypass">New Password</label>:
-                <input class="text" type="password" id="mypass" name="mypass" placeholder="fill it if changing the password">
+                <input class="text" type="password" id="mypass" name="mypass" placeholder=" fill it if changing the password">
 
                 <br>
 
@@ -120,7 +120,7 @@ if(
                 <br>
 
                 <label for="district">District</label>:
-                <select class="text" id="input" name="district" onchange="random()">
+                <select class="text" id="input" name="district" onchange="selectCity()">
                     <option value="<?php echo $row['District'];?>"><?php echo $row['District'];?></option>
                     <option value="district">district</option>
                     <option value="Dhaka">Dhaka</option>
@@ -181,15 +181,15 @@ if(
                         ///for multiple values: file.php?varname=value&var1=value1
                         location.assign('deleteprofile.php');
                     }
-                    function random(){
+                    function selectCity(){
                         var a=document.getElementById("input").value;
                         if(a === "Dhaka")
                         {
-                            var arr=["Dhaka","Badda"];
+                            var arr=["Dhaka","Badda","Mohammadpur"];
                         }
                         else if(a === "Chittagong")
                         {
-                            var arr=["Comilla","Daudkandi"];
+                            var arr=["Comilla","Daudkandi","Feni"];
                         }
                     
                         var string="";

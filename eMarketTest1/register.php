@@ -48,19 +48,19 @@
         <div style="font-size: 20px;margin: 10px;">Register</div>
 
             <label for="username">Username</label>:
-            <input class="text" type="text" id="username" name="username">
+            <input class="text" type="text" id="username" name="username" placeholder="Unique">
             <br>
             <label for="mypass">Password</label>:
             <input class="text" type="password" id="mypass" name="mypass">
             <br>
-            <label for="myname">Name</label>:
+            <label for="myname">Full Name</label>:
             <input class="text" type="text" id="myname" name="myname">
             <br>
             <label for="addrees">Address</label>:
             <input class="text" type="text" id="address" name="address">
             <br>
             <label for="contact">Contact No</label>:
-            <input class="text" type="number" id="contact" name="contact">
+            <input class="text" type="number" id="contact" name="contact" placeholder="11 digit mobile number">
             <br>
             <label for="account">Account No</label>:
             <input class="text" type="number" id="account" name="account">
@@ -68,7 +68,7 @@
            
 
             <label for="district">District</label>:
-            <select class="text" id="input" name="district" onchange="random()">
+            <select class="text" id="input" name="district" onchange="selectCity()">
                 <option selected="selected" value="">Select District Name</option>
                 <option value="district">district</option>
                 <option value="Dhaka">Dhaka</option>
@@ -79,7 +79,7 @@
             <div>
             <label for="city">City</label>:
             <select class="text" name="city" id="output">
-            <option selected="selected" value="">Select City Name</option>
+                <option selected="selected" value="">Select City Name</option>
             </select>
             </div>            
 
@@ -98,19 +98,19 @@
 
         <br><br>
 
-        <input id="button" type='button' value="Back to login in" onclick="login();">
+        <input id="button" type='button' value="Back to login" onclick="login();">
         <input id="button" type='button' value="Reset" onclick="reset();">
 
         <script>
-            function random(){
+            function selectCity(){
                 var a=document.getElementById("input").value;
                 if(a === "Dhaka")
                 {
-                    var arr=["Dhaka","Badda"];
+                    var arr=["Dhaka","Badda", "Mohammadpur"];
                 }
                 else if(a === "Chittagong")
                 {
-                    var arr=["Comilla","Daudkandi"];
+                    var arr=["Comilla","Daudkandi", "Feni"];
                 }
                 else if(a === "district")
                 {
@@ -125,6 +125,7 @@
                 }
                 document.getElementById("output").innerHTML=string;
             }
+
             function login(){
                 location.assign('login.php');
             }

@@ -67,9 +67,9 @@
 
 
     <form id="box" action="register.php" method="POST">  
-    <div style="font-size: 20px;margin: 10px;">Don't have an account? Sign up!</div>     
+    <div style="font-size: 20px;margin: 10px;">Don't have an account? Register!</div>     
 			
-            <button id="button" type="submit">SIGN UP</button>
+            <button id="button" type="submit">Register</button>
 
     </form>
 
