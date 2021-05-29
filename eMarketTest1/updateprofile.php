@@ -137,10 +137,7 @@ if(
                         location.assign('logout.php');   ///default GET method
                     }
 
-                    // function update(){
-                    //     location.assign('updateprofile.php');   ///default GET method
-                    // }
-
+                    
                     
 
         </script>

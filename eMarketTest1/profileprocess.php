@@ -69,7 +69,7 @@ if(
 
 
                         ///executing mysql query
-                        //$signupquery="insert into farmer values('$username','$enc_password','$name','$address', $contact, $account, '$district','$city')";
+                        
                         $signupquery="UPDATE ".$role." SET Name='$name', password='$new_enc_password', Address='$address', Contact_no=$contact, ".$role."_acc_no=$account, District='$district', City='$city' WHERE ".$role[0]."_username='$username'";
                         
                         
