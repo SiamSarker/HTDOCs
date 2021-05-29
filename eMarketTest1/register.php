@@ -27,14 +27,32 @@
             <label for="account">Account No</label>:
             <input type="number" id="account" name="account">
             <br>
+           
+
             <label for="district">District</label>:
-            <input type="text" id="district" name="district">
+            <select name="district">
+            <option selected="selected" value="">Select District Name</option>
+            <option value="district">district</option>
+            <option value="Dhaka">Dhaka</option>
+            <option value="Chittagong">Chittagong</option>
+            </select>
+
             <br>
+            <div>
+
             <label for="city">City</label>:
-            <input type="text" id="city" name="city">
-            <br>
+            <select name="city">
+            <option value="" selected="selected">Select City Name</option>
+            <option value="city">city</option>
+            <option value="Dhaka">Dhaka</option>
+            <option value="Comilla">Comilla</option>
+            </select>
+            </div>
+
+
+            
             Are you a :
-            <br>
+            
             <div>
             <input type="radio" name="role" value="buyer"> Buyer<br>
 			<input type="radio" name="role" value="farmer"> Farmer<br>

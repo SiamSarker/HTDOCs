@@ -85,15 +85,31 @@ if(
 
                 <br>
 
+
+
                 <label for="district">District</label>:
-                <input type="text" id="district" name="district" value="<?php echo $row['District'];?>">
+                <select name="district">
+                <option value="<?php echo $row['District'];?>"><?php echo $row['District'];?></option>
+                <option value="district">district</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Chittagong">Chittagong</option>
+                </select>
 
                 <br>
+                <div>
 
                 <label for="city">City</label>:
-                <input type="text" id="city" name="city" value="<?php echo $row['City'];?>">
+                <select name="city">
+                <option value="<?php echo $row['City'];?>"><?php echo $row['City'];?></option>
+                <option value="city">city</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Comilla">Comilla</option>
+                </select>
+                </div>
 
-                <br>
+
+
+
                 <br>
 
                 <input type="submit" value="Save Changes">
