@@ -31,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             // checking Data
             //$myquery = "SELECT * FROM farmer WHERE f_username = '$username' and password = '$enc_password'";
             $myquery="SELECT * FROM ".$role." WHERE ".$role[0]."_username = '".$username."' and password ='".$enc_password."'";
-            echo $myquery;
            
 
             $returnobj = $conn->query($myquery);  // the return object is pdo statement object

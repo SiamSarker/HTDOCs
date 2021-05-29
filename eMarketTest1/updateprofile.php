@@ -28,6 +28,9 @@ if(
         <br><br>
         <h2>Welcome <?php echo $username?></h2>
 
+
+
+
         <?php 
 
         try{
@@ -46,20 +49,59 @@ if(
             if($returnobj->rowCount() == 1)
             {
                 foreach($returntable as $row){
-                ?><br><?php
-                echo "Username : ".$row[$role[0].'_username'];
-                ?><br><?php
-                echo "Full name : ".$row['Name'];
-                ?><br><?php
-                echo "Address : ".$row['Address'];
-                ?><br><?php
-                echo "District : ".$row['District'];
-                ?><br><?php
-                echo "City : ".$row['City'];
-                ?><br><?php
-                echo "Phone Number : +880".$row['Contact_no'];
-                ?><br><?php
-                echo "Account Number : ".$row[$role.'_acc_no'];
+                ?>
+
+
+                <form action="profileprocess.php" method="POST">
+                <br>
+
+                <label for="myname">Name</label>:
+                <input type="text" id="myname" name="myname" value="<?php echo $row['Name'];?>">
+
+                <br>
+
+                <label for="oldpass">Old Password</label>:
+                <input type="password" id="oldpass" name="oldpass" placeholder="fill it if changing the password">
+
+                <br>
+
+                <label for="mypass">New Password</label>:
+                <input type="password" id="mypass" name="mypass" placeholder="fill it if changing the password">
+
+                <br>
+
+                <label for="addrees">Address</label>:
+                <input type="text" id="address" name="address" value="<?php echo $row['Address'];?>">
+
+                <br>
+
+                <label for="contact">Contact No</label>:
+                <input type="number" id="contact" name="contact" value="<?php echo "0".$row['Contact_no'];?>">
+
+                <br>
+
+                <label for="account">Account No</label>:
+                <input type="number" id="account" name="account" value="<?php echo $row[$role.'_acc_no'];?>">
+
+                <br>
+
+                <label for="district">District</label>:
+                <input type="text" id="district" name="district" value="<?php echo $row['District'];?>">
+
+                <br>
+
+                <label for="city">City</label>:
+                <input type="text" id="city" name="city" value="<?php echo $row['City'];?>">
+
+                <br>
+                <br>
+
+                <input type="submit" value="Save Changes">
+                
+                </form>
+
+                <?php
+                
             }
             }
         }
@@ -74,7 +116,7 @@ if(
         <br>
         <br><br>
 
-        <input type="button" value="Update Profile" onclick="update();">
+        
 
 
 
@@ -95,9 +137,9 @@ if(
                         location.assign('logout.php');   ///default GET method
                     }
 
-                    function update(){
-                        location.assign('updateprofile.php');   ///default GET method
-                    }
+                    // function update(){
+                    //     location.assign('updateprofile.php');   ///default GET method
+                    // }
 
                     
 
