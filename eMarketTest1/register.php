@@ -99,7 +99,6 @@
         <br><br>
 
         <input id="button" type='button' value="Back to login" onclick="login();">
-        <input id="button" type='button' value="Reset" onclick="reset();">
 
         <script>
             function selectCity(){
@@ -129,9 +128,7 @@
             function login(){
                 location.assign('login.php');
             }
-            function reset(){
-                location.assign('register.php');
-            }
+            
 
         </script>
         

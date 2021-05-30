@@ -82,6 +82,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             }
             catch(PDOException $ex){
             ?>
+                <script>alert("Database Error.\nFill up the contact number(max 11 digit) and account no(max 15 digit) carefully.");</script>
                 <script>location.assign("register.php");</script>
             <?php
             }

@@ -213,6 +213,7 @@ if(
 }
 else{
      ?>
+        <script>alert("login first!");</script>
         <script>location.assign("login.php");</script>
     <?php
 }
