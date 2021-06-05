@@ -115,6 +115,9 @@ if(
                                 <th>Image</th>
                                 <th>Available Quantity</th>
                                 <th>Price per Unit</th>
+                                <th>Unit</th>
+                                <th>Added time</th>
+                                <th>Farmer name</th>
                                 <th>Update/Delete</th>
                             </tr>
                         </thead>
@@ -139,7 +142,7 @@ if(
                                 if($returnobj->rowCount()==0){
                                     ?>
                                         <tr>
-                                            <td colspan="5">No values found</td>
+                                            <td colspan="8">No values found</td>
                                         <tr>
                                     <?php
                                 }
@@ -148,13 +151,17 @@ if(
                                         ?>
 
                                         <tr>
-                                            <td><?php echo $row['id'] ?></td>
-                                            <td><?php echo $row['name'] ?></td>
+                                            <td><?php echo $row['p_id'] ?></td>
+                                            <td><?php echo $row['productName'] ?></td>
                                             <td>
-                                                <img src="<?php echo $row['imagepath'] ?>" width="300" height="300">
+                                                <img src="<?php echo $row['productImage'] ?>" width="300" height="300">
                                             </td>
-                                            <td><?php echo $row['qnt'] ?></td>
-                                            <td><?php echo $row['price'] ?></td>
+                                            <td><?php echo $row['Weight'] ?></td>
+                                            <td><?php echo $row['Price_perUnit'] ?></td>
+                                            <td><?php echo $row['Unit'] ?></td>
+                                            <td><?php echo $row['Added_date'] ?></td>
+                                            <td><?php echo $row['farmerf_username'] ?></td>
+                                            
                                             <td>
                                                 <input type="button" value="Update"><br>
                                                 <input type="button" value="Delete" onclick="deletefn(<?php echo $row['id'] ?>);">
@@ -168,7 +175,7 @@ if(
                             catch(PDOException $ex){
                                 ?>
                                     <tr>
-                                        <td colspan="5">No values found</td>
+                                        <td colspan="6">No values found</td>
                                     <tr>
                                 <?php
                             }
