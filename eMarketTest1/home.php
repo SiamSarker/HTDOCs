@@ -101,6 +101,7 @@ if(
                 <br>
 
                 <input id="button" type="button" value="Upload Product" onclick="uploadfn()">
+                <input id="button" type="button" value="My Cart" onclick="cart()">
                 
                 
                 
@@ -118,7 +119,7 @@ if(
                                 <th>Unit</th>
                                 <th>Added time</th>
                                 <th>Farmer name</th>
-                                <th>Update/Delete</th>
+                                <th>Buy Product</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -154,17 +155,22 @@ if(
                                             <td><?php echo $row['p_id'] ?></td>
                                             <td><?php echo $row['productName'] ?></td>
                                             <td>
-                                                <img src="<?php echo $row['productImage'] ?>" width="300" height="300">
+                                                <img src="<?php echo $row['productImage'] ?>" width="150" height="150">
                                             </td>
                                             <td><?php echo $row['Weight'] ?></td>
-                                            <td><?php echo $row['Price_perUnit'] ?></td>
+                                            <td><?php echo $row['Price_perUnit']." taka" ?></td>
                                             <td><?php echo $row['Unit'] ?></td>
                                             <td><?php echo $row['Added_date'] ?></td>
                                             <td><?php echo $row['farmerf_username'] ?></td>
                                             
                                             <td>
-                                                <input type="button" value="Update"><br>
-                                                <input type="button" value="Delete" onclick="deletefn(<?php echo $row['id'] ?>);">
+
+                                                <label for="account">Choose Amount</label>:
+                                                <input id="amount" type="number" name="amount">
+                                                <br><br>
+                                                <input id="button" type="button" value="Add to Cart" onclick="gotocart(<?php echo $row['p_id'] ?>, document.getElementById('amount').value);">
+                        
+                                                
                                             </td>
                                         </tr>
 
@@ -205,11 +211,21 @@ if(
                     function uploadfn(){
                         location.assign('upload.php');
                     }
+
+                    function cart(){
+                        location.assign('cart.php');
+                    }
                     
                     function deletefn(pid){
                         ///for multiple values: file.php?varname=value&var1=value1
                         location.assign('delete.php?prodid='+pid);
                     }
+
+                    function gotocart(pid, amount){
+                        location.assign('gotoCart.php?prodid='+pid+'&amount='+amount);
+                    }
+
+
                 </script>
                 
                 
