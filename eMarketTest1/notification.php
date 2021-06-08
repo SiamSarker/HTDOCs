@@ -11,7 +11,6 @@ if(
     ///already logged in user
     $role = $_SESSION['role'];
     $username = $_SESSION['username'];
-    
     ?>
         <!DOCTYPE html>
 
@@ -74,53 +73,35 @@ if(
             </head>
 
             <body>
-                
-                <input id="button" type="button" value="Home Page" onclick="home()">
+            
+                <input id="button" type="button" value="Home Page" onclick="home()"> 
                 <input id="button" type="button" value="My Profile" onclick="profile()">
                 <input id="button" type="button" value="My Notifications" onclick="notification()">
-                <br><br>
-                
+            
                 
                 
                 <br>
                 <br>
 
-                <form id="box" action="farmers.php" method="GET">
-
+                
                 <div style="font-size: 20px;margin: 10px;">Welcome 
                 <?php 
                     echo $username; 
                 ?></div>
-                    
-                    <input class="text" type="search" id="search" name="search" placeholder="farmer name">
-                    <br><br>
-                    <input id="button" type="submit" value="Search farmer">
-                    
-                </form>
+            
 
                 <br>
                 <br>
-
-                <input id="button" type="button" value="Upload Product" onclick="uploadfn()">
-                <input id="button" type="button" value="My Cart" onclick="cart()">
-                
-                
-                
+                                
                 <div>
-                <div style="font-size: 20px;margin: 10px;">All Product List</div>
-                    
+                <div style="font-size: 20px;margin: 10px;">All My Notifications</div>
+                   
                     <table id="ptable">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Image</th>
-                                <th>Available Quantity</th>
-                                <th>Price per Unit</th>
-                                <th>Unit</th>
-                                <th>Added time</th>
-                                <th>Farmer name</th>
-                                <th>Buy Product</th>
+                                <th>Datetime</th>
+                                <th>Notification</th>
+                                <th>Farmer Name</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,18 +114,17 @@ if(
                                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                                 ///mysql query string
-                                $mysqlquery="SELECT * FROM product";
+                                $mysqlquery="SELECT * FROM notification WHERE Buyerb_username = '$username'";
+
                                 
                                 $returnobj=$conn->query($mysqlquery);
                                 $returntable=$returnobj->fetchAll();
 
                                 
-
-                                
                                 if($returnobj->rowCount()==0){
                                     ?>
                                         <tr>
-                                            <td colspan="8">No values found</td>
+                                            <td colspan="3">No values found</td>
                                         <tr>
                                     <?php
                                 }
@@ -153,26 +133,9 @@ if(
                                         ?>
 
                                         <tr>
-                                            <td><?php echo $row['p_id'] ?></td>
-                                            <td><?php echo $row['productName'] ?></td>
-                                            <td>
-                                                <img src="<?php echo $row['productImage'] ?>" width="150" height="150">
-                                            </td>
-                                            <td><?php echo $row['Weight'] ?></td>
-                                            <td><?php echo $row['Price_perUnit']." taka" ?></td>
-                                            <td><?php echo $row['Unit'] ?></td>
-                                            <td><?php echo $row['Added_date'] ?></td>
-                                            <td><?php echo $row['farmerf_username'] ?></td>
-                                            
-                                            <td>
-
-                                                <label for="account">Choose Amount</label>:
-                                                <input id="amount" type="number" name="amount">
-                                                <br><br>
-                                                <input id="button" type="button" value="Add to Cart" onclick="gotocart(<?php echo $row['p_id'] ?>, document.getElementById('amount').value);">
-                        
-                                                
-                                            </td>
+                                            <td><?php echo $row[2] ?></td>
+                                            <td><?php echo $row[1]?> Go to <a href="cart.php">my cart</a> </td>
+                                            <td><?php echo $row[3] ?></td>
                                         </tr>
 
                                         <?php
@@ -182,7 +145,7 @@ if(
                             catch(PDOException $ex){
                                 ?>
                                     <tr>
-                                        <td colspan="6">No values found</td>
+                                        <td colspan="3">No values found</td>
                                     <tr>
                                 <?php
                             }
@@ -198,11 +161,12 @@ if(
                 <input id="button" type="button" value="Click to Logout" onclick="logoutfn();">
                 
                 <script>
-                    function home(){
-                        location.assign('home.php');   ///default GET method
-                    }
                     function logoutfn(){
                         location.assign('logout.php');   ///default GET method
+                    }
+
+                    function home(){
+                        location.assign('home.php');   ///default GET method
                     }
 
                     function profile(){
@@ -212,18 +176,10 @@ if(
                     function uploadfn(){
                         location.assign('upload.php');
                     }
-
-                    function cart(){
-                        location.assign('cart.php');
-                    }
                     
                     function deletefn(pid){
                         ///for multiple values: file.php?varname=value&var1=value1
                         location.assign('delete.php?prodid='+pid);
-                    }
-
-                    function gotocart(pid, amount){
-                        location.assign('gotoCart.php?prodid='+pid+'&amount='+amount);
                     }
 
                     function notification(){
@@ -241,8 +197,8 @@ if(
 }
 else{
      ?>
-        <script>alert("login first!");</script>
-        <script>location.assign("login.php");</script>
+        <script>alert("give farmer name!");</script>
+        <script>location.assign("home.php");</script>
     <?php
 }
 
