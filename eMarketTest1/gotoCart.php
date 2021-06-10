@@ -78,7 +78,7 @@ if(
         catch(PDOException $ex){
             echo "hi pdo"
             ?>
-                <!-- <script>location.assign("home.php");</script> -->
+                <script>location.assign("home.php");</script>
             <?php
         }
         
@@ -92,7 +92,7 @@ if(
 }
 else{
     ?>
-        <!-- <script>location.assign("login.php");</script> -->
+        <script>location.assign("login.php");</script>
     <?php 
 }
 

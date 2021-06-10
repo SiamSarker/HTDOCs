@@ -158,48 +158,24 @@ if(
                         </tbody>
                     </table>
 
+                    <?php
+
+                
+                    $buyeracc = $_GET["buyeracc"];
+                    $farmeracc = $_GET["farmeracc"];
+                    $total = $_GET["total"];
+
+                    ?>
+
+
+
 
                     <div id="box" style="font-size: 20px;margin: 10px;">
                 <br>
                 
-                <?php 
-
-                try{
-                    // PHP Data Object
-                    $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
-                    ///setting 1 environment variable
-                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    
-                    ///executing mysql query
-                    $signupquery="SELECT b.buyer_acc_no, f.farmer_acc_no 
-                            FROM 
-                            Buyer as b
-                            JOIN Buyer_Product as bp
-                            ON bp.Buyerb_username = b.b_username
-                            JOIN Product as p
-                            ON p.p_id = bp.Productp_id
-                            JOIN farmer as f
-                            ON f.f_username = p.farmerf_username
-                        
-                        WHERE b.b_username = '".$username."' && bp.Productp_id = 1";     // selling to only one farmer
-                    
                 
-                    $returnobj = $conn->query($signupquery);
-                    $returntable = $returnobj->fetchAll();
 
-                    if($returnobj->rowCount() == 1)
-                    {
-                        foreach($returntable as $row){
-                            
-                        $buyeracc = $row[0];
-                        $farmeracc = $row[1];
-                        
-                        }
-                    }
-
-                ?>
-
-                <form action="paycart.php" method="GET">
+                <form action="payprocess.php" method="POST">
 
                 <br>
 
@@ -218,30 +194,19 @@ if(
                 <input class="text" type="text" id="mypass" name="total" value="<?php echo $total; ?>" readonly>
                 <br>
 
-                <label for="oldpass">Pin number</label>:
-                    <input class="text" type="password" id="myname">
-
+                <label for="oldpass">Transaction number</label>:
+                
+                <input class="text" type="text" id="myname" name="transaction" >
             
                 <br><br>
 
-                <input id="button" type="submit" value="Pay Now">
+                <input id="button" type="submit" value="Confirm Payment">
                 
                 </form>
 
 
 
 
-<?php
-
-
-                }
-                catch(PDOException $ex){
-                    ?>
-                        <script>location.assign("cart.php");</script>
-                    <?php
-                }
-                
-                ?>
 
         <br>
        
