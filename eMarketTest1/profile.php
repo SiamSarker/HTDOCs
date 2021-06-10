@@ -63,6 +63,7 @@ if(
                 <input id="button" type="button" value="Home Page" onclick="home()"> 
                 <input id="button" type="button" value="My Profile" onclick="profile()">
                 <input id="button" type="button" value="My Notifications" onclick="notification()">
+                <input id="button" type="button" value="Payment Hostory" onclick="payhistory()">
         
         <br><br>
         <div id="box" style="font-size: 20px;margin: 10px;">Welcome <?php echo $username?>
@@ -141,6 +142,10 @@ if(
 
                     function notification(){
                         location.assign('notification.php');
+                    }
+
+                    function payhistory(){
+                        location.assign('payhistory.php');
                     }
 
         </script>
