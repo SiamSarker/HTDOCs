@@ -36,7 +36,7 @@ if(
                         #button{
 
                             padding: 10px;
-                            width: 120px;
+                            width: 130px;
                             color: white;
                             background-color: FireBrick;
                             border: none;
@@ -86,6 +86,8 @@ if(
 
 
         <div style="font-size: 20px;margin: 10px;">All Product List</div>
+
+        <?php $total = 0; ?>
                     
                     <table id="ptable">
                         <thead>
@@ -129,21 +131,16 @@ if(
                                             <td><?php echo $row[2] ?></td>
                                             <td><?php echo $row[3]. " kg" ?></td>
                                             <td><?php echo $row[4]." taka" ?></td>
-                                            <td><?php echo 'Hello There' ?></td>
-                                            
-                                            
-                                            <!-- <td>
-
-                                                <label for="account">Choose Amount</label>:
-                                                <input id="amount" type="number" name="amount">
-                                                <br><br>
-                                                <input id="button" type="button" value="Add to Cart" onclick="gotocart(<?php echo $row['p_id'] ?>, document.getElementById('amount').value);">
-                        
+                                            <td>
+                                                <br>
                                                 
-                                            </td> -->
+                                                <input id="button" type="button" value="Remove item" onclick="gotocart(<?php echo $row['p_id'] ?>, document.getElementById('amount').value);">
+                                                <br><br>
+                                            </td>
                                         </tr>
-
                                         <?php
+
+                                        $total += $row[4];
                                     }
                                 }
                             }
@@ -155,22 +152,25 @@ if(
                                 <?php
                             }
                             
-    
                             ?>
                             
                         </tbody>
                     </table>
+
+                    <br><br>
+
+                    Total values <?php echo $total; ?>
+
+                    <input id="button" type="button" value="Complete Payment" onclick="gotocart(<?php echo $row['p_id'] ?>, document.getElementById('amount').value);">
+                                                <br><br>
+
                 </div>
-
-
-
-
 
 
         <br>
         <br><br>
 
-        <input id="button" type="button" value="Confirm Payment" onclick="update();">
+    
 
         <input id="button" type="button" value="Click to Logout" onclick="logoutfn();">
 

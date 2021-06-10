@@ -166,12 +166,18 @@ if(
                                             
                                             <td>
 
+                                            <form action="gotoCart.php" method="POST">
+
+                                                <div> </div>
+
                                                 <label for="account">Choose Amount</label>:
-                                                <input id="amount" type="number" name="amount">
-                                                <br><br>
-                                                <input id="button" type="button" value="Add to Cart" onclick="gotocart(<?php echo $row['p_id'] ?>, document.getElementById('amount').value);">
-                        
-                                                
+
+                                                <input name="prodid" type="hidden" value="<?php echo $row['p_id']?>">
+                                    
+                                                <input type="number" id="amount" name="amount">   
+                                                <br> <br> 
+                                                <input id="button" type="submit" value="Add to Cart">
+                                                 
                                             </td>
                                         </tr>
 

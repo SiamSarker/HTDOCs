@@ -8,16 +8,18 @@ if(
     && !empty($_SESSION['role'])
 ){
 
-    if(isset($_GET['prodid'])
-    && isset($_GET['amount']) 
-    && !empty($_GET['prodid'])
-    && !empty($_GET['amount'])
+    if(isset($_POST['prodid'])
+    && isset($_POST['amount']) 
+    && !empty($_SESSION['prodid'])
+    && !empty($_POST['amount'])
     ){
 
         $username = $_SESSION['username'];
         
-        $product_id=$_GET['prodid'];
-        $amount=$_GET['amount'];
+        $product_id=$_POST['prodid'];
+        $amount=$_POST['amount'];
+
+    
         
         
         try{
@@ -77,14 +79,14 @@ if(
         catch(PDOException $ex){
             echo "hi pdo"
             ?>
-                <!-- <script>location.assign("home.php");</script> -->
+                <script>location.assign("home.php");</script>
             <?php
         }
         
     }
     else{
         ?>
-            <!-- <script>location.assign("home.php");</script> -->
+            <script>location.assign("home.php");</script>
         <?php 
     }
 
