@@ -62,6 +62,7 @@ if(
         
                 <input id="button" type="button" value="Home Page" onclick="home()"> 
                 <input id="button" type="button" value="My Profile" onclick="profile()">
+                <input id="button" type="button" value="My Notifications" onclick="notification()">
         
         <br><br>
         <div id="box" style="font-size: 20px;margin: 10px;">Welcome <?php echo $username?>
@@ -136,6 +137,10 @@ if(
 
                     function update(){
                         location.assign('updateprofile.php');   ///default GET method
+                    }
+
+                    function notification(){
+                        location.assign('notification.php');
                     }
 
         </script>

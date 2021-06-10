@@ -78,6 +78,7 @@ if(
         
                 <input id="button" type="button" value="Home Page" onclick="home()"> 
                 <input id="button" type="button" value="My Profile" onclick="profile()">
+                <input id="button" type="button" value="My Notifications" onclick="notification()">
         
         <br><br>
         <div style="font-size: 20px;margin: 10px;">Welcome <?php echo $username?> </div>
@@ -96,7 +97,7 @@ if(
                                 <th>Product name</th>
                                 <th>Total Amount</th>
                                 <th>Total Cost</th>
-                                <th>Confirm / Remove</th>
+                                <th>Remove Item</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -134,7 +135,7 @@ if(
                                             <td>
                                                 <br>
                                                 
-                                                <input id="button" type="button" value="Remove item" onclick="gotocart(<?php echo $row['p_id'] ?>, document.getElementById('amount').value);">
+                                                <input id="button" type="button" value="Remove item" onclick="removeitem(<?php echo $row[1]?>);">
                                                 <br><br>
                                             </td>
                                         </tr>
@@ -156,6 +157,19 @@ if(
                             
                         </tbody>
                     </table>
+
+
+
+
+
+
+
+
+
+
+
+
+                    
 
                     <br><br>
 
@@ -192,6 +206,14 @@ if(
 
                     function update(){
                         location.assign('updateprofile.php');   ///default GET method
+                    }
+
+                    function notification(){
+                        location.assign('notification.php');
+                    }
+
+                    function removeitem(pid){
+                        location.assign('removeitem.php?prodid='+pid);
                     }
 
         </script>

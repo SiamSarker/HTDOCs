@@ -8,16 +8,15 @@ if(
     && !empty($_SESSION['role'])
 ){
 
-    if(isset($_POST['prodid'])
-    && isset($_POST['amount']) 
-    && !empty($_SESSION['prodid'])
-    && !empty($_POST['amount'])
-    ){
 
-        $username = $_SESSION['username'];
-        
+        $username = $_SESSION['username'];        
         $product_id=$_POST['prodid'];
         $amount=$_POST['amount'];
+
+        echo $product_id;
+        echo $amount;
+
+
 
     
         
@@ -64,7 +63,7 @@ if(
             ///mysql query string
             $mysqlquerystring="INSERT INTO Buyer_Product VALUES ('$username', $product_id, '$product', $amount, $amount*$perUnit)";
 
-            $mynotification="INSERT INTO notification VALUES (NULL, 'You have buy $product. Please check your cart and complete the payment.', NOW(), '$fusername', '$username')";
+            $mynotification="INSERT INTO notification VALUES (NULL, 'You have buy $product. <br>Please check your cart and complete the payment.', NOW(), '$fusername', '$username')";
 
             echo $mysqlquerystring;
             echo $mynotification;
@@ -79,16 +78,11 @@ if(
         catch(PDOException $ex){
             echo "hi pdo"
             ?>
-                <script>location.assign("home.php");</script>
+                <!-- <script>location.assign("home.php");</script> -->
             <?php
         }
         
-    }
-    else{
-        ?>
-            <script>location.assign("home.php");</script>
-        <?php 
-    }
+   
 
 
 
@@ -98,7 +92,7 @@ if(
 }
 else{
     ?>
-        <script>location.assign("login.php");</script>
+        <!-- <script>location.assign("login.php");</script> -->
     <?php 
 }
 

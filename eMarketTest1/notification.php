@@ -114,7 +114,7 @@ if(
                                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                                 ///mysql query string
-                                $mysqlquery="SELECT * FROM notification WHERE Buyerb_username = '$username'";
+                                $mysqlquery="SELECT * FROM notification WHERE Buyerb_username = '$username' ORDER BY notify_datetime DESC";
 
                                 
                                 $returnobj=$conn->query($mysqlquery);
