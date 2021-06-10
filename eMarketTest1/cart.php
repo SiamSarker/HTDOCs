@@ -171,7 +171,7 @@ if(
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
                     ///executing mysql query
-                    $signupquery="SELECT b.buyer_acc_no, f.farmer_acc_no 
+                    $signupquery="SELECT b.buyer_acc_no, f.farmer_acc_no, f.f_username
                             FROM 
                             Buyer as b
                             JOIN Buyer_Product as bp
@@ -181,7 +181,7 @@ if(
                             JOIN farmer as f
                             ON f.f_username = p.farmerf_username
                         
-                        WHERE b.b_username = '".$username."' && bp.Productp_id = 1";     // selling to only one farmer
+                        WHERE b.b_username = '".$username."' && bp.Productp_id = 2";     // selling to only one farmer
                     
                 
                     $returnobj = $conn->query($signupquery);
@@ -193,6 +193,7 @@ if(
                             
                         $buyeracc = $row[0];
                         $farmeracc = $row[1];
+                        $f_username = $row[2];
                         
                         }
                     }
@@ -220,6 +221,8 @@ if(
 
                 <label for="oldpass">Pin number</label>:
                     <input class="text" type="password" id="myname">
+
+                    <input name="f_username" type="hidden" value="<?php echo $f_username?>">
 
             
                 <br><br>
