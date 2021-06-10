@@ -40,13 +40,16 @@ if(
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-                    $paymentquery="INSERT INTO payment VALUES (NULL, $transaction, $total , 'On the Way', '".$username."', '".$f_username."')";
+                    $paymentquery="INSERT INTO payment VALUES (NULL, $transaction, $total , 'On the Way', '".$username."', '".$f_username."', NOW())";
                     echo $paymentquery;
                     $deletecart="DELETE FROM Buyer_Product WHERE Buyerb_username = '".$username."' && Productp_id = 2;";
                     echo $deletecart;
+                    $notifycart="INSERT INTO notification VALUES (NULL, 'Payment successfull of total $total taka. <br>Check your payment history for more details. ', NOW(), '$f_username', '$username')";
+                    echo $notifycart;
                            
                     $conn->exec($paymentquery);
                     $conn->exec($deletecart);
+                    $conn->exec($notifycart);
 
                     ?>
                     <script>alert("Payment successful");</script>
@@ -58,7 +61,7 @@ if(
                 catch(PDOException $ex){
                     ?>
                         <script>alert("Database Error!");</script>
-                        <script>location.assign("home.php");</script>
+                        <!-- <script>location.assign("cart.php");</script> -->
                     <?php
                 }
                 

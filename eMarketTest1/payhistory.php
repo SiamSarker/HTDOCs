@@ -11,7 +11,6 @@ if(
     ///already logged in user
     $role = $_SESSION['role'];
     $username = $_SESSION['username'];
-    
     ?>
         <!DOCTYPE html>
 
@@ -74,67 +73,55 @@ if(
             </head>
 
             <body>
-                
-                <input id="button" type="button" value="Home Page" onclick="home()">
+            
+                <input id="button" type="button" value="Home Page" onclick="home()"> 
                 <input id="button" type="button" value="My Profile" onclick="profile()">
                 <input id="button" type="button" value="My Notifications" onclick="notification()">
-                <input id="button" type="button" value="Payment Hostory" onclick="payhistory()">
-                <br><br>
-                
+            
                 
                 
                 <br>
                 <br>
 
-                <form id="box" action="farmers.php" method="GET">
-
+                
                 <div style="font-size: 20px;margin: 10px;">Welcome 
                 <?php 
                     echo $username; 
                 ?></div>
-                    
-                    <input class="text" type="search" id="search" name="search" placeholder="farmer name">
-                    <br><br>
-                    <input id="button" type="submit" value="Search farmer">
-                    
-                </form>
+            
 
                 <br>
                 <br>
-
-                <input id="button" type="button" value="Upload Product" onclick="uploadfn()">
-                <input id="button" type="button" value="My Cart" onclick="cart()">
-                
-                
-                
+                                
                 <div>
-                <div style="font-size: 20px;margin: 10px;">All Product List</div>
-                    
+                <div style="font-size: 20px;margin: 10px;">All My Payments</div>
+                   
                     <table id="ptable">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Image</th>
-                                <th>Available Quantity</th>
-                                <th>Price per Unit</th>
-                                <th>Unit</th>
-                                <th>Added time</th>
-                                <th>Farmer name</th>
-                                <th>Buy Product</th>
+                                <th>Payment id</th>
+                                <th>Datetime</th>
+                                <th>Transaction Number</th>
+                                <th>Delivery Status</th>
+                                <th>Farmer Name</th>
                             </tr>
                         </thead>
                         <tbody>
                             
                             <?php 
                             try{
+
+                                
                                 ///PDO = PHP Data Object
                                 $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
                                 ///setting 1 environment variable
                                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                                 ///mysql query string
-                                $mysqlquery="SELECT * FROM product";
+                                $mysqlquery="SELECT * FROM payment WHERE Buyerb_username = '$username' ORDER BY payment_time DESC";
+                                
+
+                            
                                 
                                 $returnobj=$conn->query($mysqlquery);
                                 $returntable=$returnobj->fetchAll();
@@ -145,7 +132,7 @@ if(
                                 if($returnobj->rowCount()==0){
                                     ?>
                                         <tr>
-                                            <td colspan="8">No values found</td>
+                                            <td colspan="5">No values found</td>
                                         <tr>
                                     <?php
                                 }
@@ -154,32 +141,11 @@ if(
                                         ?>
 
                                         <tr>
-                                            <td><?php echo $row['p_id'] ?></td>
-                                            <td><?php echo $row['productName'] ?></td>
-                                            <td>
-                                                <img src="<?php echo $row['productImage'] ?>" width="150" height="150">
-                                            </td>
-                                            <td><?php echo $row['Weight'] ?></td>
-                                            <td><?php echo $row['Price_perUnit']." taka" ?></td>
-                                            <td><?php echo $row['Unit'] ?></td>
-                                            <td><?php echo $row['Added_date'] ?></td>
-                                            <td><?php echo $row['farmerf_username'] ?></td>
-                                            
-                                            <td>
-
-                                            <form action="gotoCart.php" method="POST">
-
-                                                <div> </div>
-
-                                                <label for="account">Choose Amount</label>:
-
-                                                <input name="prodid" type="hidden" value="<?php echo $row['p_id']?>">
-                                    
-                                                <input type="number" id="amount" name="amount">   
-                                                <br> <br> 
-                                                <input id="button" type="submit" value="Add to Cart">
-                                                 
-                                            </td>
+                                            <td><?php echo $row[0] ?></td>
+                                            <td><?php echo $row[6] ?></td>
+                                            <td><?php echo $row[1] ?></td>
+                                            <td><?php echo $row[3]?></td>
+                                            <td><?php echo $row[5] ?></td>
                                         </tr>
 
                                         <?php
@@ -188,8 +154,10 @@ if(
                             }
                             catch(PDOException $ex){
                                 ?>
+
+                                
                                     <tr>
-                                        <td colspan="6">No values found</td>
+                                        <td colspan="5">No values found</td>
                                     <tr>
                                 <?php
                             }
@@ -205,11 +173,12 @@ if(
                 <input id="button" type="button" value="Click to Logout" onclick="logoutfn();">
                 
                 <script>
-                    function home(){
-                        location.assign('home.php');   ///default GET method
-                    }
                     function logoutfn(){
                         location.assign('logout.php');   ///default GET method
+                    }
+
+                    function home(){
+                        location.assign('home.php');   ///default GET method
                     }
 
                     function profile(){
@@ -219,26 +188,14 @@ if(
                     function uploadfn(){
                         location.assign('upload.php');
                     }
-
-                    function cart(){
-                        location.assign('cart.php');
-                    }
                     
                     function deletefn(pid){
                         ///for multiple values: file.php?varname=value&var1=value1
                         location.assign('delete.php?prodid='+pid);
                     }
 
-                    function gotocart(pid, amount){
-                        location.assign('gotoCart.php?prodid='+pid+'&amount='+amount);
-                    }
-
                     function notification(){
                         location.assign('notification.php');
-                    }
-
-                    function payhistory(){
-                        location.assign('payhistory.php');
                     }
 
 
@@ -252,8 +209,8 @@ if(
 }
 else{
      ?>
-        <script>alert("login first!");</script>
-        <script>location.assign("login.php");</script>
+        <script>alert("give farmer name!");</script>
+        <script>location.assign("home.php");</script>
     <?php
 }
 
