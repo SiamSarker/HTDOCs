@@ -30,7 +30,7 @@ if(
             ///executing mysql query
             $signupquery="SELECT f.f_username, p.Price_perUnit, p.productName FROM farmer as f
                             JOIN product as p
-                            ON p.farmerf_username = f_username
+                            ON p.farmerf_username = f.f_username
                             WHERE p.p_id = ".$product_id;
 
             echo $signupquery;
@@ -77,14 +77,14 @@ if(
         catch(PDOException $ex){
             echo "hi pdo"
             ?>
-                <script>location.assign("home.php");</script>
+                <!-- <script>location.assign("home.php");</script> -->
             <?php
         }
         
     }
     else{
         ?>
-            <script>location.assign("home.php");</script>
+            <!-- <script>location.assign("home.php");</script> -->
         <?php 
     }
 

@@ -51,6 +51,22 @@ if(
                         }
 
 
+                    #ptable{
+                        width: 100%;
+                        border: 1px solid blue;
+                        border-collapse: collapse;
+                    }
+                    
+                    #ptable th, #ptable td{
+                        border: 1px solid blue;
+                        border-collapse: collapse;
+                        text-align: center;
+                    }
+                    
+                    #ptable tr:hover{
+                        background-color: bisque;
+                    }
+
                 
                 </style>
 
@@ -64,46 +80,92 @@ if(
                 <input id="button" type="button" value="My Profile" onclick="profile()">
         
         <br><br>
-        <div id="box" style="font-size: 20px;margin: 10px;">Welcome <?php echo $username?>
+        <div style="font-size: 20px;margin: 10px;">Welcome <?php echo $username?> </div>
         <br><br>
-        
-        <?php 
 
-        try{
-            // PHP Data Object
-            $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
-            ///setting 1 environment variable
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-            ///executing mysql query
-            $signupquery="SELECT * FROM Buyer_Product WHERE Buyerb_username = '$username'";
-            
-        
-            $returnobj = $conn->query($signupquery);
-            $returntable = $returnobj->fetchAll();
 
-            if($returnobj->rowCount() == 1)
-            {
-                foreach($returntable as $row){
-                ?><br><?php
-                echo "Product ID : ".$row[1];
-                ?><br><?php
-                echo "Product name : ".$row[2];
-                ?><br><?php
-                echo "Total Amount : ".$row[3];
-                ?><br><?php
-                echo "Total Cost : ".$row[4]." taka";
-               
-            }
-            }
-        }
-        catch(PDOException $ex){
-            ?>
-                <script>location.assign("login.php");</script>
-            <?php
-        }
-        
-        ?>
+
+        <div style="font-size: 20px;margin: 10px;">All Product List</div>
+                    
+                    <table id="ptable">
+                        <thead>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Product name</th>
+                                <th>Total Amount</th>
+                                <th>Total Cost</th>
+                                <th>Confirm / Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <?php 
+                            try{
+                                ///PDO = PHP Data Object
+                                $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
+                                ///setting 1 environment variable
+                                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                                ///mysql query string
+                                $cartquery="SELECT * FROM Buyer_Product WHERE Buyerb_username = '$username'";
+                                
+                                $returnobj=$conn->query($cartquery);
+                                $returntable=$returnobj->fetchAll();
+
+                                
+                                if($returnobj->rowCount()==0){
+                                    ?>
+                                        <tr>
+                                            <td colspan="5">No values found</td>
+                                        <tr>
+                                    <?php
+                                }
+                                else{
+                                    foreach($returntable as $row){
+                                        ?>
+
+                                        <tr>
+                                            <td><?php echo $row[1] ?></td>
+                                            <td><?php echo $row[2] ?></td>
+                                            <td><?php echo $row[3]. " kg" ?></td>
+                                            <td><?php echo $row[4]." taka" ?></td>
+                                            <td><?php echo 'Hello There' ?></td>
+                                            
+                                            
+                                            <!-- <td>
+
+                                                <label for="account">Choose Amount</label>:
+                                                <input id="amount" type="number" name="amount">
+                                                <br><br>
+                                                <input id="button" type="button" value="Add to Cart" onclick="gotocart(<?php echo $row['p_id'] ?>, document.getElementById('amount').value);">
+                        
+                                                
+                                            </td> -->
+                                        </tr>
+
+                                        <?php
+                                    }
+                                }
+                            }
+                            catch(PDOException $ex){
+                                ?>
+                                    <tr>
+                                        <td colspan="6">No values found</td>
+                                    <tr>
+                                <?php
+                            }
+                            
+    
+                            ?>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
+
 
         <br>
         <br><br>
@@ -112,7 +174,6 @@ if(
 
         <input id="button" type="button" value="Click to Logout" onclick="logoutfn();">
 
-        </div>
         
 
         <br>
