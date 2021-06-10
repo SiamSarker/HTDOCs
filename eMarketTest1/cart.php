@@ -181,7 +181,7 @@ if(
                             JOIN farmer as f
                             ON f.f_username = p.farmerf_username
                         
-                        WHERE b.b_username = '".$username."' && bp.Productp_id = 2";     // selling to only one farmer
+                        WHERE b.b_username = '".$username."' && bp.Productp_id = 2";     // && bp.Productp_id = 2 selling to only one farmer
                     
                 
                     $returnobj = $conn->query($signupquery);
@@ -220,7 +220,7 @@ if(
                 <br>
 
                 <label for="oldpass">Pin number</label>:
-                    <input class="text" type="password" id="myname">
+                    <input name="pin" class="text" type="password" id="myname">
 
                     <input name="f_username" type="hidden" value="<?php echo $f_username?>">
 

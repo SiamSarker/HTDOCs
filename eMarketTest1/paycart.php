@@ -7,6 +7,12 @@ if(
     && !empty($_SESSION['role'])
 )
 {
+
+    if(isset($_GET['pin'])
+        && !empty($_GET['pin'])
+    )
+    {
+
     $role = $_SESSION['role'];
     $username = $_SESSION['username'];
     ?>
@@ -252,8 +258,14 @@ if(
         
         </body>
     </html>
-
     <?php
+    }
+    else
+    {
+        ?>
+            <script>location.assign("cart.php");</script>
+    <?php
+    }
 }
 else
 {

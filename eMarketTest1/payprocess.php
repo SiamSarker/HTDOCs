@@ -50,7 +50,7 @@ if(
 
                     ?>
                     <script>alert("Payment successful");</script>
-                    <script>location.assign("home.php");</script>
+                    <script>location.assign("payhistory.php");</script>
                     <?php
 
           
@@ -58,7 +58,7 @@ if(
                 catch(PDOException $ex){
                     ?>
                         <script>alert("Database Error!");</script>
-                        <!-- <script>location.assign("home.php");</script> -->
+                        <script>location.assign("home.php");</script>
                     <?php
                 }
                 
@@ -69,7 +69,7 @@ if(
                 /// register.php --> registeruser.php --> register.php
                 ?>
                 <script>alert("Fill up all required fields!");</script>
-                <!-- <script>location.assign("home.php");</script> -->
+                <script>location.assign("home.php");</script>
                 <?php
                 
                 }
@@ -79,7 +79,7 @@ if(
                 ///if email and password data is empty or not set
                 /// register.php --> registeruser.php --> register.php
                 ?>
-                <!-- <script>location.assign("home.php");</script> -->
+                <script>location.assign("home.php");</script>
                 <?php
                 
             }

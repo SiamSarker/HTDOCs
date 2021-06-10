@@ -63,7 +63,7 @@ if(
             ///mysql query string
             $mysqlquerystring="INSERT INTO Buyer_Product VALUES ('$username', $product_id, '$product', $amount, $amount*$perUnit)";
 
-            $mynotification="INSERT INTO notification VALUES (NULL, 'You have buy $product. <br>Please check your cart and complete the payment.', NOW(), '$fusername', '$username')";
+            $mynotification="INSERT INTO notification VALUES (NULL, '$product added to your cart. <br>Please check your cart and complete the payment.', NOW(), '$fusername', '$username')";
 
             echo $mysqlquerystring;
             echo $mynotification;
