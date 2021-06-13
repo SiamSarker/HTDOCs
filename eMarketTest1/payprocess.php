@@ -29,7 +29,6 @@ if(
 
                 $transaction = $_POST['transaction'];
                 $total=$_POST['total'];
-                $f_username=$_POST['f_username'];
 
 
                     ///store the data to database
@@ -40,16 +39,54 @@ if(
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-                    $paymentquery="INSERT INTO payment VALUES (NULL, $transaction, $total , 'On the Way', '".$username."', '".$f_username."', NOW())";
-                    echo $paymentquery;
-                    $deletecart="DELETE FROM Buyer_Product WHERE Buyerb_username = '".$username."' && Productp_id = 2;";
-                    echo $deletecart;
-                    $notifycart="INSERT INTO notification VALUES (NULL, 'Payment successfull of total $total taka. <br>Check your payment history for more details. ', NOW(), '$f_username', '$username')";
-                    echo $notifycart;
-                           
-                    $conn->exec($paymentquery);
-                    $conn->exec($deletecart);
-                    $conn->exec($notifycart);
+                    $cartquery="SELECT * FROM Buyer_Product 
+                        WHERE Buyerb_username = '$username'
+                        GROUP BY Buyerb_username, Productp_id";
+                                
+                        $returnobj=$conn->query($cartquery);
+                        $returntable=$returnobj->fetchAll();
+
+                        if($returnobj->rowCount() >= 1)
+                        {
+
+                        foreach($returntable as $row){
+
+                            $name = $row[2];
+                            $amount = $row[3];
+                            $total = $row[4];
+                            $pid = $row[1];
+                            $f_username = null;
+
+                            $cartquery1="SELECT farmerf_username FROM Product 
+                            WHERE p_id = $pid";
+                            
+                            $returnobj1=$conn->query($cartquery1);
+                            $returntable1=$returnobj1->fetchAll();
+
+                            if($returnobj1->rowCount() == 1)
+                            {
+                                foreach($returntable1 as $row1){
+                                    $f_username = $row1[0];
+                                }
+                            }
+
+                            $paymentquery="INSERT INTO payment VALUES (NULL, $transaction, $total , 'On the Way', '".$username."', '".$f_username."', NOW(), $pid)";
+                            echo $paymentquery;
+
+                            //update home
+                            $deletecart="DELETE FROM Buyer_Product WHERE Buyerb_username = '".$username."' AND Productp_id = $pid;";
+                            echo $deletecart;
+                            $notifycart="INSERT INTO notification VALUES (NULL, 'Payment successfull for $amount kg of $name for total $total taka. <br>Check your payment history for more details. ', NOW(), '$f_username', '$username')";
+                            echo $notifycart;
+                                   
+                            $conn->exec($paymentquery);
+                            $conn->exec($deletecart);
+                            $conn->exec($notifycart);
+
+                        
+                        }
+                    }
+
 
                     ?>
                     <script>alert("Payment successful");</script>

@@ -142,7 +142,7 @@ if(
                                             <td>
                                                 <br>
                                                 
-                                                <input id="button" type="button" value="Remove item" onclick="removeitem(<?php echo $row[1]?>);">
+                                                <input id="button" type="button" value="Remove item" onclick="">
                                                 <br><br>
                                             </td>
                                         </tr>
@@ -169,9 +169,9 @@ if(
 
                 
                     $buyeracc = $_GET["buyeracc"];
-                    $farmeracc = $_GET["farmeracc"];
+                    
                     $total = $_GET["total"];
-                    $f_username = $_GET["f_username"];
+                    
 
                     ?>
 
@@ -192,10 +192,6 @@ if(
 
                 <br>
 
-                <label for="oldpass">Farmer Account No</label>:
-                    <input class="text" type="text" id="myname" name="farmeracc" value="<?php echo $farmeracc; ?>" readonly>
-
-                <br>
 
 
                 <label for="mypass">Total Amount</label>:
@@ -205,7 +201,7 @@ if(
                 <label for="oldpass">Transaction number</label>:
                 
                 <input class="text" type="text" id="myname" name="transaction" >
-                <input name="f_username" type="hidden" value="<?php echo $f_username?>">
+                
             
                 <br><br>
 

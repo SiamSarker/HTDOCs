@@ -135,7 +135,7 @@ if(
 
                                         <tr>
                                             <td><?php echo $row[2] ?></td>
-                                            <td><?php echo $row[1]?> Go to <a href="cart.php">my cart</a> </td>
+                                            <td><?php echo $row[1]?>  </td>           <!--Go to <a href="cart.php">my cart</a> -->
                                             <td><?php echo $row[3] ?></td>
                                         </tr>
 

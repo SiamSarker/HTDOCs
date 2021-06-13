@@ -172,20 +172,23 @@ if(
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
                     ///executing mysql query
-                    $signupquery="SELECT b.buyer_acc_no, f.farmer_acc_no, f.f_username
-                            FROM 
-                            Buyer as b
-                            JOIN Buyer_Product as bp
-                            ON bp.Buyerb_username = b.b_username
-                            JOIN Product as p
-                            ON p.p_id = bp.Productp_id
-                            JOIN farmer as f
-                            ON f.f_username = p.farmerf_username
+                    $buyeracc = "SELECT buyer_acc_no FROM Buyer WHERE b_username = '".$username."'";
+
+
+                    // $signupquery="SELECT b.buyer_acc_no, f.farmer_acc_no, f.f_username
+                    //         FROM 
+                    //         Buyer as b
+                    //         JOIN Buyer_Product as bp
+                    //         ON bp.Buyerb_username = b.b_username
+                    //         JOIN Product as p
+                    //         ON p.p_id = bp.Productp_id
+                    //         JOIN farmer as f
+                    //         ON f.f_username = p.farmerf_username
                         
-                        WHERE b.b_username = '".$username."' && bp.Productp_id = 2";     // && bp.Productp_id = 2 selling to only one farmer
+                    //     WHERE b.b_username = '".$username."' && bp.Productp_id = 2";     // && bp.Productp_id = 2 selling to only one farmer
                     
                 
-                    $returnobj = $conn->query($signupquery);
+                    $returnobj = $conn->query($buyeracc);
                     $returntable = $returnobj->fetchAll();
 
                     if($returnobj->rowCount() == 1)
@@ -193,8 +196,6 @@ if(
                         foreach($returntable as $row){
                             
                         $buyeracc = $row[0];
-                        $farmeracc = $row[1];
-                        $f_username = $row[2];
                         
                         }
                     }
@@ -209,12 +210,6 @@ if(
                 <input class="text" type="text" id="myname" name="buyeracc" value="<?php echo $buyeracc; ?> " readonly>
 
                 <br>
-
-                <label for="oldpass">Farmer Account No</label>:
-                    <input class="text" type="text" id="myname" name="farmeracc" value="<?php echo $farmeracc; ?>" readonly>
-
-                <br>
-
 
                 <label for="mypass">Total Amount</label>:
                 <input class="text" type="text" id="mypass" name="total" value="<?php echo $total; ?>" readonly>

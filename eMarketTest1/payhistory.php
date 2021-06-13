@@ -100,11 +100,12 @@ if(
                     <table id="ptable">
                         <thead>
                             <tr>
-                                <th>Payment id</th>
                                 <th>Datetime</th>
+                                <th>Product Name</th>
+                                <th>Image</th>
+                                <th>Cost</th>
                                 <th>Transaction Number</th>
                                 <th>Delivery Status</th>
-                                <th>Farmer Name</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,14 +122,8 @@ if(
                                 ///mysql query string
                                 $mysqlquery="SELECT * FROM payment WHERE Buyerb_username = '$username' ORDER BY payment_time DESC";
                                 
-
-                            
-                                
                                 $returnobj=$conn->query($mysqlquery);
                                 $returntable=$returnobj->fetchAll();
-
-                                
-
                                 
                                 if($returnobj->rowCount()==0){
                                     ?>
@@ -139,14 +134,37 @@ if(
                                 }
                                 else{
                                     foreach($returntable as $row){
-                                        ?>
+                                                
+
+                                        $name = null;
+                                        $image = null;
+                                        $pid = $row[7];
+                                        $cartquery1="SELECT * FROM Product 
+                                        WHERE p_id = $pid";
+                                    
+                                        $returnobj1=$conn->query($cartquery1);
+                                        $returntable1=$returnobj1->fetchAll();
+
+                                        if($returnobj1->rowCount() == 1)
+                                        {
+                                            foreach($returntable1 as $row1){
+                                                $name = $row1[1];
+                                                $image = $row1[2];
+                                            }
+                                        }
+
+                                    ?>
+
+
+
 
                                         <tr>
-                                            <td><?php echo $row[0] ?></td>
                                             <td><?php echo $row[6] ?></td>
-                                            <td><?php echo $row[1] ?></td>
-                                            <td><?php echo $row[3]?></td>
-                                            <td><?php echo $row[5] ?></td>
+                                            <td><?php echo $name ?></td>
+                                            <td><img src="<?php echo $image ?>" width="150" height="150"></td>
+                                            <td><?php echo $row[2]." taka."?></td>
+                                            <td><?php echo $row[1]?></td>
+                                            <td><?php echo $row[3] ?></td>
                                         </tr>
 
                                         <?php

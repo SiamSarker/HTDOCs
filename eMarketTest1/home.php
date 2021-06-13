@@ -167,30 +167,10 @@ if(
                                             <td><?php echo $row['Added_date'] ?></td>
                                             <td><?php echo $row['farmerf_username'] ?></td>
                                             
-                                            <td>
-
-
-
-
-                                            <label for="account">Choose Amount</label>:
-                                                <input id="amount" type="number" name="amount">
-                                                <br><br>
+                                            <td>                                        
+                                                
                                                 <input id="button" type="button" value="Add to Cart" onclick="gotocart(<?php echo $row['p_id'] ?>);">
 
-
-
-
-                                            <!-- <form action="gotoCart.php" method="POST">
-
-                                                <div> </div>
-
-                                                <label for="account">Choose Amount</label>:
-
-                                                <input name="prodid" type="hidden" value="<?php echo $row['p_id']?>">
-                                    
-                                                <input type="number" id="amount" name="amount">   
-                                                <br> <br> 
-                                                <input id="button" type="submit" value="Add to Cart"> -->
                                                  
                                             </td>
                                         </tr>
@@ -244,7 +224,10 @@ if(
 
                     function gotocart(pid){
                         var amount = window.prompt("Enter the amount: ");
-                        alert(amount+" kg of <?php echo $row['productName']?> added to your cart");
+                        if (amount != null){
+                            alert(amount+" kg of <?php echo $row['productName']?> added to your cart");
+                        }
+                            
                         location.assign('gotoCart.php?prodid='+pid+'&amount='+amount);
                     }
 
