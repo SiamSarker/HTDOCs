@@ -10,8 +10,11 @@ if(
 
 
         $username = $_SESSION['username'];        
-        $product_id=$_POST['prodid'];
-        $amount=$_POST['amount'];
+        // $product_id=$_POST['prodid'];
+        // $amount=$_POST['amount'];
+
+        $product_id=$_GET['prodid'];
+        $amount=$_GET['amount'];
 
         echo $product_id;
         echo $amount;

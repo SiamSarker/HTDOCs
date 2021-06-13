@@ -169,7 +169,18 @@ if(
                                             
                                             <td>
 
-                                            <form action="gotoCart.php" method="POST">
+
+
+
+                                            <label for="account">Choose Amount</label>:
+                                                <input id="amount" type="number" name="amount">
+                                                <br><br>
+                                                <input id="button" type="button" value="Add to Cart" onclick="gotocart(<?php echo $row['p_id'] ?>);">
+
+
+
+
+                                            <!-- <form action="gotoCart.php" method="POST">
 
                                                 <div> </div>
 
@@ -179,7 +190,7 @@ if(
                                     
                                                 <input type="number" id="amount" name="amount">   
                                                 <br> <br> 
-                                                <input id="button" type="submit" value="Add to Cart">
+                                                <input id="button" type="submit" value="Add to Cart"> -->
                                                  
                                             </td>
                                         </tr>
@@ -231,7 +242,9 @@ if(
                         location.assign('delete.php?prodid='+pid);
                     }
 
-                    function gotocart(pid, amount){
+                    function gotocart(pid){
+                        var amount = window.prompt("Enter the amount: ");
+                        alert(amount+" kg of <?php echo $row['productName']?> added to your cart");
                         location.assign('gotoCart.php?prodid='+pid+'&amount='+amount);
                     }
 
