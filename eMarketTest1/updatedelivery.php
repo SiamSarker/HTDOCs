@@ -18,18 +18,15 @@ if(
     $role = $_SESSION['role'];
     $username = $_SESSION['username'];
 
-
-    if($_SERVER['REQUEST_METHOD']=='POST'){
             
-        if(isset($_POST['transaction']) 
-
-            && !empty($_POST['transaction'])
-            )
-            {
-
-                $transaction = $_POST['transaction'];
-                $total=$_POST['total'];
-
+    if(isset($_GET['payid']) 
+    && !empty($_GET['payid'])
+    && isset($_GET['status']) 
+    && !empty($_GET['status'])
+        )
+        {
+            $payid = $_GET['payid'];
+            $status = $_GET['status'];
 
                     ///store the data to database
                 try{
@@ -39,26 +36,22 @@ if(
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-                    $cartquery="SELECT * FROM Buyer_Product 
-                        WHERE Buyerb_username = '$username'
-                        GROUP BY Buyerb_username, Productp_id";
+                    $payquery="SELECT * FROM payment 
+                    WHERE payment_id = '$payid'";
                                 
-                        $returnobj=$conn->query($cartquery);
-                        $returntable=$returnobj->fetchAll();
+                    $returnobj=$conn->query($payquery);
+                    $returntable=$returnobj->fetchAll();
 
-                        if($returnobj->rowCount() >= 1)
-                        {
+                    if($returnobj->rowCount() >= 1)
+                    {
+                    foreach($returntable as $row){
 
-                        foreach($returntable as $row){
+                        $name = null;
+                        $pid = $row[7];
+                        $b_username = $row[4];
 
-                            $name = $row[2];
-                            $amount = $row[3];
-                            $total = $row[4];
-                            $pid = $row[1];
-                            $f_username = null;
-
-                            $cartquery1="SELECT farmerf_username FROM Product 
-                            WHERE p_id = $pid";
+                        $cartquery1 = "SELECT productName FROM Product 
+                        WHERE p_id = $pid";
                             
                             $returnobj1=$conn->query($cartquery1);
                             $returntable1=$returnobj1->fetchAll();
@@ -66,21 +59,19 @@ if(
                             if($returnobj1->rowCount() == 1)
                             {
                                 foreach($returntable1 as $row1){
-                                    $f_username = $row1[0];
+                                    $name = $row1[0];
                                 }
                             }
 
-                            $paymentquery="INSERT INTO payment VALUES (NULL, $transaction, '$amount kg.<br>$total taka.' , 'On the Way', '".$username."', '".$f_username."', NOW(), $pid)";
+                            $paymentquery="UPDATE payment SET delivery_status = '".$status."', payment_time = NOW()
+                                    WHERE payment_id = $payid;";
                             echo $paymentquery;
 
                             //update home
-                            $deletecart="DELETE FROM Buyer_Product WHERE Buyerb_username = '".$username."' AND Productp_id = $pid;";
-                            echo $deletecart;
-                            $notifycart="INSERT INTO notification VALUES (NULL, 'Payment successfull for $amount kg of $name for total $total taka. <br>Check your payment history for more details. ', NOW(), '$f_username', '$username')";
+                            $notifycart="INSERT INTO notification VALUES (NULL, 'Delevary status for product $name is $status. <br>Check your payment history for more details. ', NOW(), '$username', '$b_username')";
                             echo $notifycart;
                                    
                             $conn->exec($paymentquery);
-                            $conn->exec($deletecart);
                             $conn->exec($notifycart);
 
                         
@@ -89,7 +80,7 @@ if(
 
 
                     ?>
-                    <script>alert("Payment successful");</script>
+                    <script>alert("Update successful");</script>
                     <script>location.assign("payhistory.php");</script>
                     <?php
 
@@ -124,6 +115,6 @@ if(
                 
             }
 
-    }
+    
         
 ?>

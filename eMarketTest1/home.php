@@ -102,8 +102,16 @@ if(
                 <br>
                 <br>
 
-                <input id="button" type="button" value="Upload Product" onclick="uploadfn()">
-                <input id="button" type="button" value="My Cart" onclick="cart()">
+                <?php if($role == 'farmer'){
+                    ?><input id="button" type="button" value="Upload Product" onclick="uploadfn()">
+                    <?php
+                }
+                else{
+                    ?>
+                    <input id="button" type="button" value="My Cart" onclick="cart()">    
+                <?php
+                }
+                ?>
                 
                 
                 
@@ -121,7 +129,18 @@ if(
                                 <th>Unit</th>
                                 <th>Added time</th>
                                 <th>Farmer name</th>
-                                <th>Buy Product</th>
+                                <?php if($role != 'farmer'){
+                                                    ?>
+                                                     <th>Buy Product</th>
+                                                    <?php 
+                                                }
+                                                else{
+                                                    ?>
+                                                     <th>My Product</th>
+                                                    <?php
+                                                }
+                                                ?>
+                               
                             </tr>
                         </thead>
                         <tbody>
@@ -169,7 +188,17 @@ if(
                                             
                                             <td>                                        
                                                 
-                                                <input id="button" type="button" value="Add to Cart" onclick="gotocart(<?php echo $row['p_id'] ?>);">
+                                                <?php if($role != 'farmer'){
+                                                    ?>
+                                                    <input id="button" type="button" value="Add to Cart" onclick="gotocart(<?php echo $row['p_id'] ?>);">
+                                                    <?php 
+                                                }
+                                                else{
+                                                    ?>
+                                                    <input id="button" type="button" value="My Product" onclick="">
+                                                    <?php
+                                                }
+                                                ?>
 
                                                  
                                             </td>

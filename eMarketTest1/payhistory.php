@@ -120,7 +120,7 @@ if(
                                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                                 ///mysql query string
-                                $mysqlquery="SELECT * FROM payment WHERE Buyerb_username = '$username' ORDER BY payment_time DESC";
+                                $mysqlquery="SELECT * FROM payment WHERE ".$role.$role[0]."_username = '$username' ORDER BY payment_time DESC";
                                 
                                 $returnobj=$conn->query($mysqlquery);
                                 $returntable=$returnobj->fetchAll();
@@ -162,9 +162,31 @@ if(
                                             <td><?php echo $row[6] ?></td>
                                             <td><?php echo $name ?></td>
                                             <td><img src="<?php echo $image ?>" width="150" height="150"></td>
-                                            <td><?php echo $row[2]." taka."?></td>
+                                            <td><?php echo $row[2]?></td>
                                             <td><?php echo $row[1]?></td>
-                                            <td><?php echo $row[3] ?></td>
+
+                                            <?php
+                                            if ($role != 'farmer')
+                                            {
+                                                ?>
+                                                <td><?php echo $row[3] ?></td>
+                                                <?php
+                                            }
+                                            else
+                                            {
+                                                ?>
+                                                <td><?php echo $row[3] ?>
+                                                <br>
+                                                <br>
+                                                <input id="button" type="button" value="Update Status" onclick="updatedelivery(<?php echo $row[0]?>)"> 
+                                                
+                                                </td>
+                                                <?php        
+                                            }
+                                            ?>
+                                            
+                                            
+
                                         </tr>
 
                                         <?php
@@ -219,6 +241,13 @@ if(
 
                     function payhistory(){
                         location.assign('payhistory.php');
+                    }
+
+                    function updatedelivery(payid){
+
+                        var status = window.prompt("Delivery status: ");
+
+                        location.assign('updatedelivery.php?payid='+payid+'&status='+status);
                     }
 
 

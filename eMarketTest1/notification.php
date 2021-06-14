@@ -102,7 +102,20 @@ if(
                             <tr>
                                 <th>Datetime</th>
                                 <th>Notification</th>
-                                <th>Farmer Name</th>
+                                <?php
+                                if ($role != 'farmer')
+                                {
+                                    ?><th>Farmer Name</th>
+                                    <?php
+                                }
+                                else
+                                {
+                                    ?>
+                                    <th>Buyer Name</th>
+                                    <?php        
+                                }
+                                ?>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -115,7 +128,8 @@ if(
                                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                                 ///mysql query string
-                                $mysqlquery="SELECT * FROM notification WHERE Buyerb_username = '$username' ORDER BY notify_datetime DESC";
+                                $mysqlquery="SELECT * FROM notification WHERE ".$role.$role[0]."_username = '$username' ORDER BY notify_datetime DESC";
+                                
 
                                 
                                 $returnobj=$conn->query($mysqlquery);
@@ -136,7 +150,20 @@ if(
                                         <tr>
                                             <td><?php echo $row[2] ?></td>
                                             <td><?php echo $row[1]?>  </td>           <!--Go to <a href="cart.php">my cart</a> -->
-                                            <td><?php echo $row[3] ?></td>
+                                            <?php
+                                            if ($role != 'farmer')
+                                            {
+                                                ?><th><?php echo $row[3] ?></th>
+                                                <?php
+                                            }
+                                            else
+                                            {
+                                                ?>
+                                                <th><?php echo $row[4] ?></th>
+                                                <?php        
+                                            }
+                                            ?>
+
                                         </tr>
 
                                         <?php
