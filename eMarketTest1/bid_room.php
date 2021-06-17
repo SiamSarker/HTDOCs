@@ -150,12 +150,12 @@
                             <?php
                             if(date('Y-m-d H:i:s') < $row['bid_start']){
                             ?>
-                            <input type="button" id="button" value="UPDATE" onclick="update_Bdata(<?php echo $row['auction_id'] ?>);">
+                            <input type="button" id="button" value="UPDATE" onclick="update_Bdata(<?php echo $row['bid_id'] ?>);">
                             <br><br>
                             <?php
                             }
                             ?>
-                            <input type="button" id="button" value="DELETE" onclick="delete_data(<?php echo $row['auction_id'] ?>);">
+                            <input type="button" id="button" value="DELETE" onclick="delete_data(<?php echo $row['bid_id'] ?>);">
                           </td>
                         </tr>
 
