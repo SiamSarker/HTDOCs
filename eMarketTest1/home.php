@@ -102,8 +102,11 @@ if(
                 <br>
                 <br>
 
-                <?php if($role == 'farmer'){
-                    ?><input id="button" type="button" value="Upload Product" onclick="product_entry()">
+                <input id="button" type="button" value="Bid Room" onclick="allBid();">
+                <?php
+                
+                if($role == 'farmer'){
+                    ?>
                     <input id="button" type="button" value="My Products" onclick="myproduct();">
                     <?php
                 }
@@ -276,6 +279,10 @@ if(
 
                     function product_entry(){
                 location.assign('product_entry.php');
+              }
+
+              function allBid(){
+                location.assign('b_bidRoom_All.php');
               }
 
 
