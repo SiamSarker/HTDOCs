@@ -104,6 +104,7 @@ if(
 
                 <?php if($role == 'farmer'){
                     ?><input id="button" type="button" value="Upload Product" onclick="uploadfn()">
+                    <input id="button" type="button" value="My Products" onclick="myproduct();">
                     <?php
                 }
                 else{
@@ -195,7 +196,7 @@ if(
                                                 }
                                                 else{
                                                     ?>
-                                                    <input id="button" type="button" value="My Product" onclick="">
+                                                    <input id="button" type="button" value="My Products" onclick="myproduct();">
                                                     <?php
                                                 }
                                                 ?>
@@ -266,6 +267,11 @@ if(
 
                     function payhistory(){
                         location.assign('payhistory.php');
+                    }
+
+                    function myproduct()
+                    {
+                        location.assign('myproduct.php');
                     }
 
 
