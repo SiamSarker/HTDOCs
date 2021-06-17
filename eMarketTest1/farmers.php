@@ -14,6 +14,7 @@ if(
     $role = $_SESSION['role'];
     $username = $_SESSION['username'];
     $search = $_GET['search'];
+    $choose = $_GET['choose'];
     
     ?>
         <!DOCTYPE html>
@@ -80,25 +81,35 @@ if(
             
                 <input id="button" type="button" value="Home Page" onclick="home()"> 
                 <input id="button" type="button" value="My Profile" onclick="profile()">
-            
-                
+        
                 
                 <br>
                 <br>
 
                 <form id="box" action="farmers.php" method="GET">
+
                 <div style="font-size: 20px;margin: 10px;">Welcome 
                 <?php 
                     echo $username; 
                 ?></div>
                     
-                    <input class="text" type="search" id="search" name="search" placeholder="farmer name">
+                    <input class="text" type="search" id="search" name="search" placeholder="product/farmer name">
+                    <br><br>
+                    <select class="text" id="choose" name="choose">
+                    <option value="product">product</option>
+                    <option value="farmer">farmer</option>
+                    </select>
                     <br><br>
                     <input id="button" type="submit" value="Search farmer">
+                    
                 </form>
 
                 <br>
                 <br>
+
+                <?php 
+                if($choose == 'farmer')
+                {?>
                                 
                 <div>
                 <div style="font-size: 20px;margin: 10px;">All Farmers List</div>
@@ -169,17 +180,137 @@ if(
                         </tbody>
                     </table>
                 </div>
+
+                <?php
+                }
+                else
+                {
+                ?>
+
+                <div>
+                <div style="font-size: 20px;margin: 10px;">All Product List</div>
+                    
+                    <table id="ptable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Available Quantity</th>
+                                <th>Price per Unit</th>
+                                <th>Unit</th>
+                                <th>Added time</th>
+                                <th>Farmer name</th>
+                                <?php if($role != 'farmer'){
+                                                    ?>
+                                                     <th>Buy Product</th>
+                                                    <?php 
+                                                }
+                                                else{
+                                                    ?>
+                                                     <th>My Product</th>
+                                                    <?php
+                                                }
+                                                ?>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <?php 
+                            try{
+                                ///PDO = PHP Data Object
+                                $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
+                                ///setting 1 environment variable
+                                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                                ///mysql query string
+                                $mysqlquery="SELECT * FROM product WHERE productName LIKE '%".$search."%'";
+                                
+                                $returnobj=$conn->query($mysqlquery);
+                                $returntable=$returnobj->fetchAll();
+
+                                
+
+                                
+                                if($returnobj->rowCount()==0){
+                                    ?>
+                                        <tr>
+                                            <td colspan="8">No values found</td>
+                                        <tr>
+                                    <?php
+                                }
+
+                                
+                                else{
+                                    foreach($returntable as $row){
+                                        ?>
+
+                                        <tr>
+                                            <td><?php echo $row['p_id'] ?></td>
+                                            <td><?php echo $row['productName'] ?></td>
+                                            <td>
+                                                <img src="<?php echo $row['productImage'] ?>" width="150" height="150">
+                                            </td>
+                                            <td><?php echo $row['AvailableQuantity'] ?></td>
+                                            <td><?php echo $row['Price_perUnit']." taka" ?></td>
+                                            <td><?php echo $row['Unit'] ?></td>
+                                            <td><?php echo $row['Added_date'] ?></td>
+                                            <td><?php echo $row['farmerf_username'] ?></td>
+                                            
+                                            <td>                                        
+                                                
+                                                <?php if($role != 'farmer'){
+                                                    ?>
+                                                    <input id="button" type="button" value="Add to Cart" onclick="gotocart(<?php echo $row['p_id']?>, <?php echo $row['AvailableQuantity']?>);">
+                                                    <?php 
+                                                }
+                                                else{
+                                                    ?>
+                                                    <input id="button" type="button" value="My Products" onclick="myproduct();">
+                                                    <?php
+                                                }
+                                                ?>
+
+                                                 
+                                            </td>
+                                        </tr>
+
+                                        <?php
+                                    }
+                                }
+                            }
+                            catch(PDOException $ex){
+                                ?>
+                                    <tr>
+                                        <td colspan="6">No values found</td>
+                                    <tr>
+                                <?php
+                            }
+                            
+    
+                            ?>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+                <?php
+                }
+                ?>
                 
                 <br>
                 <input id="button" type="button" value="Click to Logout" onclick="logoutfn();">
+
+
+
                 
                 <script>
-                    function logoutfn(){
-                        location.assign('logout.php');   ///default GET method
-                    }
-
                     function home(){
                         location.assign('home.php');   ///default GET method
+                    }
+                    function logoutfn(){
+                        location.assign('logout.php');   ///default GET method
                     }
 
                     function profile(){
@@ -189,11 +320,46 @@ if(
                     function uploadfn(){
                         location.assign('upload.php');
                     }
+
+                    function cart(){
+                        location.assign('cart.php');
+                    }
                     
                     function deletefn(pid){
-                        ///for multiple values: file.php?varname=value&var1=value1
+                        
                         location.assign('delete.php?prodid='+pid);
                     }
+
+                    function gotocart(pid, high){
+                        var amount = prompt("Enter the amount: ");
+                        if (amount != "" && amount <= high){
+                            location.assign('gotoCart.php?prodid='+pid+'&amount='+amount+'&high='+high);
+                        }
+                        else{
+                            alert("Please enter a value less than "+high);            
+                        }     
+                    }
+
+                    function notification(){
+                        location.assign('notification.php');
+                    }
+
+                    function payhistory(){
+                        location.assign('payhistory.php');
+                    }
+
+                    function myproduct()
+                    {
+                        location.assign('myproduct.php');
+                    }
+
+                    function product_entry(){
+                location.assign('product_entry.php');
+              }
+
+              function allBid(){
+                location.assign('b_bidRoom_All.php');
+              }
                 </script>
                 
                 

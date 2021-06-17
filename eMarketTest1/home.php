@@ -93,7 +93,12 @@ if(
                     echo $username; 
                 ?></div>
                     
-                    <input class="text" type="search" id="search" name="search" placeholder="farmer name">
+                    <input class="text" type="search" id="search" name="search" placeholder="product/farmer name">
+                    <br><br>
+                    <select class="text" id="choose" name="choose">
+                    <option value="product">product</option>
+                    <option value="farmer">farmer</option>
+                    </select>
                     <br><br>
                     <input id="button" type="submit" value="Search farmer">
                     

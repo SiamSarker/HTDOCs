@@ -87,8 +87,6 @@
                 <right>Current User: <?php echo $_SESSION['username'];?></right>
               </h1>
 
-            
-
 
 
             <form action="product_insert.php" method="post" enctype="multipart/form-data" id="box">

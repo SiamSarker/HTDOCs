@@ -15,9 +15,7 @@ if(
         $amount=$_GET['amount'];
         $high=$_GET['high'];
 
-
-    
-        
+   
         
         try{
             ///PDO = PHP Data Object
