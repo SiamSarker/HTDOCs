@@ -1,18 +1,11 @@
 <?php
     session_start();
-    if(isset($_SESSION['username']) 
-    && isset($_SESSION['role'])
-    && !empty($_SESSION['username'])
-    && !empty($_SESSION['role'])){
-        
-        $username = $_SESSION['username'];
-        $role = $_SESSION['role'];
-
+    if(isset($_SESSION['username']) && !empty($_SESSION['username'])){
       ?>
       <!DOCTYPE html>
       <html>
           <head>
-            <title>Bid Room</title>
+            <title>My Bids</title>
             <style>
 
                 body {
@@ -85,37 +78,26 @@
           </head>
           <body>
             <h1 class="header">
-              <left class="active">Bid Room</left>
+              <left class="active">My Bids</left>
               <right><input type="button" id="button" value="Logout" onclick="logout();"></right>
               <right>Current User: <?php echo $_SESSION['username'];?></right>
             </h1>
             <input type="button" id="button" value="Back" onclick="back();">
-            <input type="button" id="button" value="My Bids" onclick="bidRoom_My();">
-            <input type="button" id="button" value="Check Bid Status" onclick="bid_stat();">
-
-            Current DateTime :
-            <?php
-            date_default_timezone_set( 'Asia/Dhaka' );
-            echo date('Y-m-d H:i:s')
-            ?>
-
             <div>
-              <h2>All Products</h2>
+              <h2>My Products</h2>
               <table id="p_table">
                 <thead>
                   <tr>
+                    <th>Bid ID</th>
                     <th>Auction ID</th>
                     <th>Product ID</th>
                     <th>Name</th>
                     <th>Image</th>
-                    <th>Available Quantity</th>
-                    <th>Minimum Quantity</th>
+                    <th>Bid Quantity</th>
                     <th>Unit</th>
                     <th>Price/Unit</th>
                     <th>Bid Start At</th>
                     <th>Bid End At</th>
-                    <th>Seller</th>
-                    <th>Status</th>
                     <th>Actions</th>
                   </tr>
 
@@ -125,7 +107,7 @@
                     $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;", "root", "");
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                    $sqlquary="SELECT* FROM product AS pro JOIN bid_room AS bid ON pro.p_id = bid.Productp_id";
+                    $sqlquary="SELECT* FROM all_bid AS abid JOIN bid_room AS bid ON abid.auction_id = bid.auction_id JOIN product AS pro ON pro.p_id = bid.Productp_id WHERE abid.b_username = '$_SESSION[username]'";
                     $pdo_obj=$conn->query($sqlquary);
                     $table_data=$pdo_obj->fetchAll();
 
@@ -138,31 +120,23 @@
                     }
                     else{
                       foreach ($table_data as $row) {
-
                         ?>
 
                         <tr>
+                          <td><?php echo $row['bid_id'] ?></td>
                           <td><?php echo $row['auction_id'] ?></td>
                           <td><?php echo $row['p_id'] ?></td>
                           <td><?php echo $row['productName'] ?></td>
                           <td><img src="<?php echo $row['productImage'] ?>" width="300" height="200" ?> </td>
-                          <td><?php echo $row['totalQuantity'] ?></td>
-                          <td><?php echo $row['lowest_bidQuantity'] ?></td>
+                          <td><?php echo $row['b_bidQuantity'] ?></td>
                           <td><?php echo $row['Unit'] ?></td>
-                          <td><?php echo $row['lowestPrice_perUnit'] ?></td>
+                          <td><?php echo $row['b_bidPrice_perUnit'] ?></td>
                           <td><?php echo $row['bid_start'] ?></td>
                           <td><?php echo $row['bid_end'] ?></td>
-                          <td><?php echo $row['farmerf_username'] ?></td>
-                          <td></td>
                           <td>
-                              <?php
-                              if(date('Y-m-d H:i:s') > $row['bid_start'] && date('Y-m-d H:i:s') < $row['bid_end']){
-                              ?>
-                                <input type="button" id="button" value="Place Bid" onclick="place_bid(<?php echo $row['auction_id'] ?>);">
-                              <?php
-                              }
-                              ?>
+                            <input type="button" id="button" value="UPDATE" onclick="update_Bdata(<?php echo $row['bid_id'] ?>);">
                             <br><br>
+                            <input type="button" id="button" value="DELETE" onclick="delete_data(<?php echo $row['bid_id'] ?>);">
                           </td>
                         </tr>
 
@@ -171,12 +145,12 @@
                     }
                   }
                   catch(PDOException $ex){
-                                ?>
-                                    <tr>
-                                        <td colspan="11">No values found</td>
-                                    <tr>
-                                <?php
-                            }
+                    ?>
+                        <tr>
+                            <td colspan="11">No values found</td>
+                        <tr>
+                    <?php
+                }
                    ?>
                 </thead>
               </table>
@@ -184,23 +158,19 @@
 
             <script>
               function back(){
-                location.assign('home.php');
+                location.assign('b_bidRoom_All.php');
               }
 
               function logout(){
                 location.assign('logout.php');
               }
 
-              function bidRoom_My(){
-                location.assign('my_bid.php');
+              function update_Bdata(bid_id){
+                location.assign('bid_update_entry.php?bid_id='+bid_id);
               }
 
-              function place_bid(auction_id){
-                location.assign('bid_entry.php?auction_id='+auction_id);
-              }
-
-              function bid_stat(){
-                location.assign("bid_cart_entry.php");
+              function delete_data(bid_id){
+                location.assign('bid_delete.php?bid_id='+bid_id);
               }
 
             </script>

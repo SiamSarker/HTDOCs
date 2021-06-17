@@ -16,7 +16,7 @@
 
             try{
 
-              $conn=new PDO("mysql:host=localhost:3306;dbname=localemarket;", "root", ""); 
+              $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;", "root", ""); 
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
               $sqlquary="INSERT INTO all_bid VALUES(NULL, $auction_id, '$_SESSION[username]', $bid_quantity, $p_price, $farmer_profit)";
@@ -40,7 +40,7 @@
     }
     else{
       ?>
-      <script>location.assign('b_login.php');</script>
+      <script>location.assign('login.php');</script>
       <?php
     }
 ?>

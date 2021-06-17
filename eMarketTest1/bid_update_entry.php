@@ -1,21 +1,21 @@
 <?php
     session_start();
     if(isset($_SESSION['username']) && !empty($_SESSION['username'])){
-      if(isset($_GET['auction_id']) && !empty($_GET['auction_id'])){
-            $auction_id=$_GET['auction_id'];
+      if(isset($_GET['bid_id']) && !empty($_GET['bid_id'])){
+            $bid_id=$_GET['bid_id'];
 
             try{
 
               $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;", "root", "");
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-              $sqlquary="SELECT* FROM bid_room AS bid JOIN product AS pro ON bid.Productp_id = pro.p_id WHERE auction_id = $auction_id";
+              $sqlquary="SELECT* FROM all_bid AS abid JOIN bid_room AS bid ON abid.auction_id = bid.auction_id JOIN product AS pro ON bid.Productp_id = pro.p_id WHERE bid_id = $bid_id";
               $pdo_obj=$conn->query($sqlquary);
               $table_data=$pdo_obj->fetchAll();
 
               if($pdo_obj->rowCount() == 0){
                 ?>
-                <script>location.assign("b_bidRoom_All.php");</script>
+                <script>location.assign("my_bid.php");</script>
                 <?php
               }
               else{
@@ -103,7 +103,10 @@
                         <right>Current User: <?php echo $_SESSION['username'];?></right>
                       </h1>
 
-                      <form action="bid_insert.php" method="POST" enctype="multipart/form-data" id="box">
+                      <form action="bid_update_insert.php" method="POST" enctype="multipart/form-data" id="box">
+                        <label for="bid_id">Bid ID</label>
+                        <input type="text" id="bid_id" name="bid_id" value="<?php echo $row['bid_id'] ?>" readonly>
+                        <br><br>
                         <label for="auction_id">Auction ID</label>
                         <input type="text" id="auction_id" name="auction_id" value="<?php echo $row['auction_id'] ?>" readonly>
                         <br><br>
@@ -125,10 +128,10 @@
                       </form>
                       <script>
                         function back(){
-                          location.assign('b_bidRoom_All.php');
+                          location.assign('my_bid.php');
                         }
                         function logout(){
-                          location.assign('logout.php');
+                          location.assign('b_logout_process.php');
                         }
                       </script>
                     </body>
@@ -138,22 +141,21 @@
                 }
               }
             }
-         
             catch(PDOException $ex){
                 ?>
-                   <script>location.assign("b_bidRoom_All.php");</script>
+                    <script>location.assign("my_bid.php");</script>
                 <?php
             }
           }
           else{
             ?>
-            <script>location.assign("b_bidRoom_All.php");</script>
+            <script>location.assign("my_bid.php");</script>
             <?php
           }
     }
     else{
       ?>
-      <script>location.assign("login.php");</script>
+      <script>location.assign("b_login.php");</script>
       <?php
     }
 ?>
