@@ -9,9 +9,7 @@ if(
 ){
 
 
-        $username = $_SESSION['username'];        
-        // $product_id=$_POST['prodid'];
-        // $amount=$_POST['amount'];
+        $username = $_SESSION['username'];      
 
         $product_id=$_GET['prodid'];
         $amount=$_GET['amount'];
@@ -63,7 +61,11 @@ if(
             ///mysql query string
             $mysqlquerystring="INSERT INTO Buyer_Product VALUES ('$username', $product_id, '$product', $amount, $amount*$perUnit, 0)";
 
-            $mynotification="INSERT INTO notification VALUES (NULL, '$product added to your cart. <br>Please check your cart and complete the payment.', NOW(), '$fusername', '$username')";
+            $msg1 = "$product added to your cart. <br>Please check your cart and complete the payment.";
+            $msg2 = "$product is sold. <br>Check your product list.";
+
+
+            $mynotification="INSERT INTO notification VALUES (NULL, '$msg1', NOW(), '$fusername', '$username', '$msg2')";
 
             $newquery = "UPDATE Product SET Quantity = $high-$amount, AvailableQuantity = $high-$amount WHERE p_id = '$product_id'";
 

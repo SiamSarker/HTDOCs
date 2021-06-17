@@ -262,9 +262,7 @@ if(
                         }
                         else{
                             alert("Please enter a value less than "+high);            
-                        }
-                            
-                        
+                        }     
                     }
 
                     function notification(){

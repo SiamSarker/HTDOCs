@@ -148,24 +148,41 @@ if(
                                         ?>
 
                                         <tr>
-                                            <td><?php echo $row[2] ?></td>
-                                            <td><?php echo $row[1]?>  </td>           <!--Go to <a href="cart.php">my cart</a> -->
+                                            <td> Hello <?php echo $row[2] ?></td>
+
+
+                                            <td>
                                             <?php
-                                            if ($role != 'farmer')
-                                            {
-                                                ?><th><?php echo $row[3] ?></th>
-                                                <?php
-                                            }
-                                            else
-                                            {
+                                                if ($role=='farmer')
+                                                {
+                                                    ?><?php echo $row[5] ?>
+                                                    <?php
+                                                }
+                                                else
+                                                {
+                                                    ?>
+                                                    <?php echo $row[1] ?>
+                                                    <?php        
+                                                } 
                                                 ?>
-                                                <th><?php echo $row[4] ?></th>
-                                                <?php        
-                                            }
-                                            ?>
+                                            </td>   
+                                            <td>       
+                                                <?php
+                                                if ($role != 'farmer')
+                                                {
+                                                    ?><?php echo $row[3] ?>
+                                                    <?php
+                                                }
+                                                else
+                                                {
+                                                    ?>
+                                                    <?php echo $row[4] ?>
+                                                    <?php        
+                                                }
+                                                ?>
+                                            </td>
 
                                         </tr>
-
                                         <?php
                                     }
                                 }
