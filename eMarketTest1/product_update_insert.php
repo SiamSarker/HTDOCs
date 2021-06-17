@@ -24,7 +24,7 @@
               $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;", "root", "");
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-              $sqlquary="UPDATE product SET productName = '$p_name', Weight = $p_quantity, Unit = '$unit', Price_perUnit = $p_price WHERE p_id = $p_id";
+              $sqlquary="UPDATE product SET productName = '$p_name', Quantity = $p_quantity, Unit = '$unit', Price_perUnit = $p_price WHERE p_id = $p_id";
               $conn->exec($sqlquary);
 
               ?>

@@ -111,11 +111,11 @@
                         <input type="text" id="p_name" name="p_name" value="<?php echo $row['productName'] ?>" readonly>
                         <br><br>
                         <label for="total_quantity">Avalable Quantity</label>
-                        <input type="number" id="total_quantity" name="total_quantity" value="<?php echo $row['Quantity'] ?>" max="<?php echo $row['Weight'] ?>" min="0">
+                        <input type="number" id="total_quantity" name="total_quantity" value="<?php echo $row['Quantity'] ?>" max="<?php echo $row['Quantity'] ?>" min="0">
                         <input id="unit" name="unit" value="<?php echo $row['Unit'] ?>" size="5" readonly>
                         <br><br>
                         <label for="min_quantity">Minimum Quantity</label>
-                        <input type="number" id="min_quantity" name="min_quantity" value="<?php echo $row['Quantity'] ?>" max="<?php echo $row['Weight'] ?>" min="0">
+                        <input type="number" id="min_quantity" name="min_quantity" value="<?php echo $row['Quantity'] ?>" max="<?php echo $row['Quantity'] ?>" min="0">
                         <br><br>
                         <label for="p_price">Price/Unit</label>
                         <input type="number" id="p_price" name="p_price" value="<?php echo $row['Price_perUnit'] ?>" max="<?php echo $row['Price_perUnit'] ?>" min="0">

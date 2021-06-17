@@ -184,7 +184,7 @@ if(
                                             <td>
                                                 <img src="<?php echo $row['productImage'] ?>" width="150" height="150">
                                             </td>
-                                            <td><?php echo $row['Weight'] ?></td>
+                                            <td><?php echo $row['Quantity'] ?></td>
                                             <td><?php echo $row['Price_perUnit']." taka" ?></td>
                                             <td><?php echo $row['Unit'] ?></td>
                                             <td><?php echo $row['Added_date'] ?></td>

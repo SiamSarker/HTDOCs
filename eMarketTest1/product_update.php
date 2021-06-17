@@ -111,7 +111,7 @@
                         <input type="text" id="p_name" name="p_name" value="<?php echo $row['productName'] ?>">
                         <br><br>
                         <label for="p_quantity">Product Quantity</label>
-                        <input type="text" id="p_quantity" name="p_quantity" value="<?php echo $row['Weight'] ?>" min="0">
+                        <input type="text" id="p_quantity" name="p_quantity" value="<?php echo $row['Quantity'] ?>" min="0">
                         <select id="unit" name="unit" value="<?php echo $row['Unit'] ?>">
                           <option value="Kg">Kg</option>
                           <option value="g">g</option>

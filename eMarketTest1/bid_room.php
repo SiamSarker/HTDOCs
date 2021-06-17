@@ -136,12 +136,12 @@
                         ?>
 
                         <tr>
-                          <td><?php echo $row['bid_id'] ?></td>
+                          <td><?php echo $row['auction_id'] ?></td>
                           <td><?php echo $row['p_id'] ?></td>
                           <td><?php echo $row['productName'] ?></td>
                           <td><img src="<?php echo $row['productImage'] ?>" width="300" height="200"?> </td>
-                          <td><?php echo $row['totalWeight'] ?></td>
-                          <td><?php echo $row['lowest_bidWeight'] ?></td>
+                          <td><?php echo $row['totalQuantity'] ?></td>
+                          <td><?php echo $row['lowest_bidQuantity'] ?></td>
                           <td><?php echo $row['Unit'] ?></td>
                           <td><?php echo $row['lowestPrice_perUnit'] ?></td>
                           <td><?php echo $row['bid_start'] ?></td>
@@ -150,12 +150,12 @@
                             <?php
                             if(date('Y-m-d H:i:s') < $row['bid_start']){
                             ?>
-                            <input type="button" id="button" value="UPDATE" onclick="update_Bdata(<?php echo $row['bid_id'] ?>);">
+                            <input type="button" id="button" value="UPDATE" onclick="update_Bdata(<?php echo $row['auction_id'] ?>);">
                             <br><br>
                             <?php
                             }
                             ?>
-                            <input type="button" id="button" value="DELETE" onclick="delete_data(<?php echo $row['bid_id'] ?>);">
+                            <input type="button" id="button" value="DELETE" onclick="delete_data(<?php echo $row['auction_id'] ?>);">
                           </td>
                         </tr>
 

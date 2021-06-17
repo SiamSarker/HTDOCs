@@ -9,7 +9,7 @@
               $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;", "root", "");
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-              $sqlquary="DELETE FROM bid_room WHERE bid_id = $auction_id";
+              $sqlquary="DELETE FROM bid_room WHERE auction_id = $auction_id";
               $conn->exec($sqlquary);
 
               ?>

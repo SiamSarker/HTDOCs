@@ -9,7 +9,7 @@
               $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;", "root", "");
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-              $sqlquary="SELECT* FROM bid_room AS bid JOIN product AS pro ON bid.Productp_id = pro.p_id WHERE bid_id = $auction_id";
+              $sqlquary="SELECT* FROM bid_room AS bid JOIN product AS pro ON bid.Productp_id = pro.p_id WHERE auction_id = $auction_id";
               $pdo_obj=$conn->query($sqlquary);
               $table_data=$pdo_obj->fetchAll();
 
@@ -105,7 +105,7 @@
 
                       <form action="bid_insert.php" method="POST" enctype="multipart/form-data" id="box">
                         <label for="auction_id">Auction ID</label>
-                        <input type="text" id="auction_id" name="auction_id" value="<?php echo $row['bid_id'] ?>" readonly>
+                        <input type="text" id="auction_id" name="auction_id" value="<?php echo $row['auction_id'] ?>" readonly>
                         <br><br>
                         <label for="p_id">Product ID</label>
                         <input type="text" id="p_id" name="p_id" value="<?php echo $row['p_id'] ?>" readonly>
@@ -114,7 +114,7 @@
                         <input type="text" id="p_name" name="p_name" value="<?php echo $row['productName'] ?>" readonly>
                         <br><br>
                         <label for="bid_quantity">Bid Quantity</label>
-                        <input type="number" id="bid_quantity" name="bid_quantity" value="<?php echo $row['lowest_bidWeight'] ?>" min="<?php echo $row['lowest_bidWeight'] ?>">
+                        <input type="number" id="bid_quantity" name="bid_quantity" value="<?php echo $row['lowest_bidQuantity'] ?>" min="<?php echo $row['lowest_bidQuantity'] ?>">
                         <input id="unit" name="unit" value="<?php echo $row['Unit'] ?>" size="5" readonly>
                         <br><br>
                         <label for="p_price">Price/Unit</label>

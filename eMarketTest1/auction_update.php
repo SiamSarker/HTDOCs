@@ -9,7 +9,7 @@
               $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;", "root", "");
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-              $sqlquary="SELECT* FROM bid_room AS bid JOIN product AS pro ON bid.Productp_id = pro.p_id WHERE bid_id = $auction_id";
+              $sqlquary="SELECT* FROM bid_room AS bid JOIN product AS pro ON bid.Productp_id = pro.p_id WHERE auction_id = $auction_id";
               $pdo_obj=$conn->query($sqlquary);
               $table_data=$pdo_obj->fetchAll();
 
@@ -105,7 +105,7 @@
 
                       <form action="auction_update_insert.php" method="post" enctype="multipart/form-data" id="box">
                         <label for="auction_id">Auction ID</label>
-                        <input type="text" id="auction_id" name="auction_id" value="<?php echo $row['bid_id'] ?>" readonly>
+                        <input type="text" id="auction_id" name="auction_id" value="<?php echo $row['auction_id'] ?>" readonly>
                         <br><br>
                         <label for="p_id">Product ID</label>
                         <input type="text" id="p_id" name="p_id" value="<?php echo $row['p_id'] ?>" readonly>
@@ -114,11 +114,11 @@
                         <input type="text" id="p_name" name="p_name" value="<?php echo $row['productName'] ?>" readonly>
                         <br><br>
                         <label for="total_quantity">Avalable Quantity</label>
-                        <input type="number" id="total_quantity" name="total_quantity" value="<?php echo $row['totalWeight'] ?>" max="<?php echo $row['Weight'] ?>" min="0">
+                        <input type="number" id="total_quantity" name="total_quantity" value="<?php echo $row['totalQuantity'] ?>" max="<?php echo $row['Quantity'] ?>" min="0">
                         <input id="unit" name="unit" value="<?php echo $row['Unit'] ?>" size="5" readonly>
                         <br><br>
                         <label for="min_quantity">Minimum Quantity</label>
-                        <input type="number" id="min_quantity" name="min_quantity" value="<?php echo $row['lowest_bidWeight'] ?>" max="<?php echo $row['Weight'] ?>" min="0">
+                        <input type="number" id="min_quantity" name="min_quantity" value="<?php echo $row['lowest_bidQuantity'] ?>" max="<?php echo $row['Quantity'] ?>" min="0">
                         <br><br>
                         <label for="p_price">Price/Unit</label>
                         <input type="number" id="p_price" name="p_price" value="<?php echo $row['lowestPrice_perUnit'] ?>" max="<?php echo $row['Price_perUnit'] ?>" min="0">

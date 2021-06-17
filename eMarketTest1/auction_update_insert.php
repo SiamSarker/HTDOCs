@@ -30,7 +30,7 @@
               $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;", "root", "");
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-              $sqlquary="UPDATE bid_room SET totalWeight = $total_quantity, lowest_bidWeight = $min_quantity, lowestPrice_perUnit = $p_price, bid_start = '$start_date', bid_end = '$end_date', Productp_id = $p_id WHERE bid_id = $auction_id";
+              $sqlquary="UPDATE bid_room SET totalQuantity = $total_quantity, lowest_bidQuantity = $min_quantity, lowestPrice_perUnit = $p_price, bid_start = '$start_date', bid_end = '$end_date', Productp_id = $p_id WHERE auction_id = $auction_id";
               $conn->exec($sqlquary);
 
               ?>

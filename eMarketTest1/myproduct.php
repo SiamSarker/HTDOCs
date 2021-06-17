@@ -141,7 +141,7 @@
                           <td><?php echo $row['p_id'] ?></td>
                           <td><?php echo $row['productName'] ?></td>
                           <td><img src="<?php echo $row['productImage'] ?>" width="300" height="200"?> </td>
-                          <td><?php echo $row['Weight'] ?></td>
+                          <td><?php echo $row['Quantity'] ?></td>
                           <td><?php echo $row['Unit'] ?></td>
                           <td><?php echo $row['Price_perUnit'] ?></td>
                           <td><?php echo $row['Added_date'] ?></td>
