@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set( 'Asia/Dhaka' );
     session_start();
     if(isset($_SESSION['username']) && !empty($_SESSION['username'])){
       ?>
@@ -134,8 +135,30 @@
                           <td><?php echo $row['bid_start'] ?></td>
                           <td><?php echo $row['bid_end'] ?></td>
                           <td>
+                            <?php
+                            if(date('Y-m-d H:i:s') > $row['bid_start'] && date('Y-m-d H:i:s') < $row['bid_end']){
+                            ?>
                             <input type="button" id="button" value="UPDATE" onclick="update_Bdata(<?php echo $row['bid_id'] ?>);">
                             <br><br>
+                            <?php
+                            }
+                            $user = strtolower($_SESSION['username']);
+                            $id=$row['auction_id'];
+                            $sqlquary="SELECT bid_id, auction_id, b_username
+                                        FROM all_bid
+                                        WHERE farmer_profit = ALL(SELECT MAX(farmer_profit) FROM all_bid GROUP BY auction_id HAVING auction_id = $id)";
+                            $pdo_obj=$conn->query($sqlquary);
+                            $table_data=$pdo_obj->fetchAll();
+                            foreach ($table_data as $row1) {
+
+                              if(date('Y-m-d H:i:s') > $row['bid_end'] && strtolower($row1['b_username']) == $user){
+                                ?>
+                                <input type="button" id="button" value="ADD TO CART" onclick="add_to_cart(<?php echo $row['bid_id'] ?>);">
+                                <br><br>
+                                <?php
+                                }
+                              }
+                              ?>
                             <input type="button" id="button" value="DELETE" onclick="delete_data(<?php echo $row['bid_id'] ?>);">
                           </td>
                         </tr>
@@ -171,6 +194,10 @@
 
               function delete_data(bid_id){
                 location.assign('bid_delete.php?bid_id='+bid_id);
+              }
+              
+              function add_to_cart(bid_id){
+                location.assign('next_bid_cart_entry.php?bid_id='+bid_id);
               }
 
             </script>

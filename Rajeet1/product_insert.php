@@ -22,8 +22,11 @@
             $datetime=date('Y-m-d H:i:s');
 
             $img_name=$p_image['name'];
+
             $img_tmp_path=$p_image['tmp_name'];
+          
             $img_dst_path="Product_Image/$img_name";
+            
 
             move_uploaded_file($img_tmp_path,$img_dst_path);
 
@@ -34,7 +37,7 @@
               $conn=new PDO("mysql:host=localhost:3306;dbname=localemarket;", "root", "");
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-              $sqlquary="INSERT INTO product VALUES(NULL, '$p_name', '$img_dst_path', $p_quantity, '$unit', $p_price, '$datetime', '$_SESSION[f_username]')";
+              $sqlquary="INSERT INTO product VALUES(NULL, '$p_name', '$img_dst_path', $p_quantity,  $p_price, '$unit', '$datetime', '$_SESSION[f_username]')";
               $conn->exec($sqlquary);
 
               ?>

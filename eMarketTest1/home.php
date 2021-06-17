@@ -184,7 +184,7 @@ if(
                                             <td>
                                                 <img src="<?php echo $row['productImage'] ?>" width="150" height="150">
                                             </td>
-                                            <td><?php echo $row['Quantity'] ?></td>
+                                            <td><?php echo $row['AvailableQuantity'] ?></td>
                                             <td><?php echo $row['Price_perUnit']." taka" ?></td>
                                             <td><?php echo $row['Unit'] ?></td>
                                             <td><?php echo $row['Added_date'] ?></td>
@@ -194,7 +194,7 @@ if(
                                                 
                                                 <?php if($role != 'farmer'){
                                                     ?>
-                                                    <input id="button" type="button" value="Add to Cart" onclick="gotocart(<?php echo $row['p_id'] ?>);">
+                                                    <input id="button" type="button" value="Add to Cart" onclick="gotocart(<?php echo $row['p_id']?>, <?php echo $row['AvailableQuantity']?>);">
                                                     <?php 
                                                 }
                                                 else{
@@ -251,17 +251,20 @@ if(
                     }
                     
                     function deletefn(pid){
-                        ///for multiple values: file.php?varname=value&var1=value1
+                        
                         location.assign('delete.php?prodid='+pid);
                     }
 
-                    function gotocart(pid){
-                        var amount = window.prompt("Enter the amount: ");
-                        if (amount != null){
-                            alert(amount+" kg of <?php echo $row['productName']?> added to your cart");
+                    function gotocart(pid, high){
+                        var amount = prompt("Enter the amount: ");
+                        if (amount != "" && amount <= high){
+                            location.assign('gotoCart.php?prodid='+pid+'&amount='+amount+'&high='+high);
+                        }
+                        else{
+                            alert("Please enter a value less than "+high);            
                         }
                             
-                        location.assign('gotoCart.php?prodid='+pid+'&amount='+amount);
+                        
                     }
 
                     function notification(){

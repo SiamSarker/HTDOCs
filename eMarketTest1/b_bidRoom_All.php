@@ -153,7 +153,34 @@
                           <td><?php echo $row['bid_start'] ?></td>
                           <td><?php echo $row['bid_end'] ?></td>
                           <td><?php echo $row['farmerf_username'] ?></td>
-                          <td></td>
+                          <td>
+                          <?php
+                            $id=$row['auction_id'];
+                            $sqlquary="SELECT bid_id, auction_id, b_username, b_bidQuantity, b_bidPrice_perUnit
+                                      FROM all_bid
+                                      WHERE farmer_profit = ALL(SELECT MAX(farmer_profit) FROM all_bid GROUP BY auction_id HAVING auction_id = $id)";
+                            $pdo_obj=$conn->query($sqlquary);
+                            $table_data=$pdo_obj->fetchAll();
+                              foreach ($table_data as $row1) {
+                                if($row1['auction_id'] == $id){
+                                ?>
+                                  Quantity :
+                                  <?php echo $row1['b_bidQuantity'];?>
+                                  <br><br>
+                                  Unit Price :
+                                  <?php echo $row1['b_bidPrice_perUnit'];
+                                }
+                                else{
+                                  ?>
+                                  NO BIDS
+                                  <?php
+                                }
+                            }
+
+                            ?>
+                          
+                          
+                          </td>
                           <td>
                               <?php
                               if(date('Y-m-d H:i:s') > $row['bid_start'] && date('Y-m-d H:i:s') < $row['bid_end']){

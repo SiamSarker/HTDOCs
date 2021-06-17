@@ -15,10 +15,7 @@ if(
 
         $product_id=$_GET['prodid'];
         $amount=$_GET['amount'];
-
-        echo $product_id;
-        echo $amount;
-
+        $high=$_GET['high'];
 
 
     
@@ -64,24 +61,28 @@ if(
 
             
             ///mysql query string
-            $mysqlquerystring="INSERT INTO Buyer_Product VALUES ('$username', $product_id, '$product', $amount, $amount*$perUnit)";
+            $mysqlquerystring="INSERT INTO Buyer_Product VALUES ('$username', $product_id, '$product', $amount, $amount*$perUnit, 0)";
 
             $mynotification="INSERT INTO notification VALUES (NULL, '$product added to your cart. <br>Please check your cart and complete the payment.', NOW(), '$fusername', '$username')";
+
+            $newquery = "UPDATE Product SET Quantity = $high-$amount, AvailableQuantity = $high-$amount WHERE p_id = '$product_id'";
 
             echo $mysqlquerystring;
             echo $mynotification;
 
             $conn->exec($mysqlquerystring);
             $conn->exec($mynotification);
+            $conn->exec($newquery);
             
             ?>
-            //     <script>location.assign("cart.php");</script>
-            // <?php
+                 <script>location.assign("cart.php");</script>
+             <?php
         }
         catch(PDOException $ex){
             echo "hi pdo"
             ?>
-                <script>location.assign("home.php");</script>
+            <script> alert("This product is already in Cart.");
+                location.assign("home.php");</script>
             <?php
         }
         

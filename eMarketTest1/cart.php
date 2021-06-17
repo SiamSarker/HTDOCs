@@ -135,8 +135,18 @@ if(
                                             <td><?php echo $row[4]." taka" ?></td>
                                             <td>
                                                 <br>
+                                                <?php
+                                                if ($row[5] == 1)
+                                                {?>
+                                                    <input id="button" type="button" value="Not Removable" onclick="">
+                                                <?php
+                                                } 
+                                                else{?>
+                                                    <input id="button" type="button" value="Remove item" onclick="removeitem(<?php echo $row[1]?>, <?php echo $row[3]?>);">
+                                                <?php
+                                                }
+                                                ?>
                                                 
-                                                <input id="button" type="button" value="Remove item" onclick="removeitem(<?php echo $row[1]?>);">
                                                 <br><br>
                                             </td>
                                         </tr>
@@ -274,8 +284,8 @@ if(
                         location.assign('notification.php');
                     }
 
-                    function removeitem(pid){
-                        location.assign('removeitem.php?prodid='+pid);
+                    function removeitem(pid, quantity){
+                        location.assign('removeitem.php?prodid='+pid+'&Quantity='+quantity);
                     }
 
                     function payhistory(){

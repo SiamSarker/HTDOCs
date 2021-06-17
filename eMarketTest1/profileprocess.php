@@ -78,7 +78,7 @@ if(
 
                         ?>
                         <script>alert("Profile Updated!");</script>
-                        <script>location.assign("profile.php");</script>
+                        <script>location.assign("login.php");</script>
                         <?php
                     }
                     

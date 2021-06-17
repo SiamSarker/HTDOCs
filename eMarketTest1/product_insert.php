@@ -24,19 +24,22 @@
             $datetime=date('Y-m-d H:i:s');
 
             $img_name=$p_image['name'];
+
+            echo $img_name;
             $img_tmp_path=$p_image['tmp_name'];
-            $img_dst_path="Product_Image/$img_name";
+            echo $img_tmp_path;
+            $img_dst_path="productimage/$img_name";
+            echo $img_dst_path;
 
             move_uploaded_file($img_tmp_path,$img_dst_path);
 
-            $f_username = $_SESSION['username'];
 
             try{
 
               $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;", "root", "");
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-              $sqlquary="INSERT INTO product VALUES(NULL, '$p_name', '$img_dst_path', $p_quantity, '$unit', $p_price, '$datetime', '$_SESSION[username]')";
+              $sqlquary="INSERT INTO product VALUES(NULL, '$p_name', '$img_dst_path', $p_quantity, $p_price, '$unit', '$datetime', '$_SESSION[username]')";
               $conn->exec($sqlquary);
 
               ?>

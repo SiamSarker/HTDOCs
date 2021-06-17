@@ -10,6 +10,7 @@ if(
     $role = $_SESSION['role'];
     $username = $_SESSION['username'];
     $pid = $_GET['prodid'];
+    $Quantity = $_GET['Quantity'];
         
         
         try{
@@ -17,14 +18,30 @@ if(
             $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
             ///setting 1 environment variable
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $signupquery="SELECT * FROM Product
+                            WHERE p_id = '$pid'";
+
+            echo $signupquery;
+            $returnobj = $conn->query($signupquery);
+            
+            $returntable = $returnobj->fetchAll();
+
+            if($returnobj->rowCount() == 1)
+            {
+                foreach($returntable as $row){
+                $high = $row[3];
+            }
+            }
+
+            $newquery = "UPDATE Product SET Quantity = $high+$Quantity, AvailableQuantity = $high+$Quantity WHERE p_id = '$pid'";
             
             ///mysql query string
             $mysqlquerystring="SET foreign_key_checks = 0;
             DELETE FROM Buyer_Product WHERE Productp_id = '".$pid."' && Buyerb_username = '".$username."';
-            
             SET foreign_key_checks = 1;";
             
-            
+            $conn->exec($newquery);
             $conn->exec($mysqlquerystring);
             
             ?>
@@ -34,6 +51,7 @@ if(
         }
         catch(PDOException $ex){
             ?>
+            echo "hi pdo";
                 <script>location.assign("cart.php");</script>
             <?php
         }

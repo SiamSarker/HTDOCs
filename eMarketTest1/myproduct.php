@@ -146,7 +146,20 @@
                           <td><?php echo $row['Price_perUnit'] ?></td>
                           <td><?php echo $row['Added_date'] ?></td>
                           <td>
-                            <input type="button" id="button" value="AUCTION" onclick="add_to_auction(<?php echo $row['p_id'] ?>);">
+                          <?php
+                            $p_id=$row['p_id'];
+                            $sqlquary1="SELECT* FROM bid_room WHERE Productp_id = $p_id";
+                            $pdo_obj1=$conn->query($sqlquary1);
+                            $table_data1=$pdo_obj1->fetchAll();
+
+                            if($pdo_obj1->rowCount() == 0){
+                                ?>
+                                <input type="button" id="button" value="AUCTION" onclick="add_to_auction(<?php echo $row['p_id'] ?>);">
+                                
+                                <?php
+                              }
+                              ?>
+
                             <br><br>
                             <input type="button" id="button" value="UPDATE" onclick="update_data(<?php echo $row['p_id'] ?>);">
                             <br><br>
