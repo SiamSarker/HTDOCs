@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set( 'Asia/Dhaka' );
+    date_default_timezone_set( 'Asia/Dhaka' );
     session_start();
     if(isset($_SESSION['username']) && !empty($_SESSION['username'])){
       ?>
@@ -128,7 +128,7 @@ date_default_timezone_set( 'Asia/Dhaka' );
                           <td><?php echo $row['auction_id'] ?></td>
                           <td><?php echo $row['p_id'] ?></td>
                           <td><?php echo $row['productName'] ?></td>
-                          <td><img src="<?php echo $row['productImage'] ?>" width="300" height="200" ?> </td>
+                          <td><img src="<?php echo $row['productImage'] ?>" width="300" height="200"?> </td>
                           <td><?php echo $row['b_bidQuantity'] ?></td>
                           <td><?php echo $row['Unit'] ?></td>
                           <td><?php echo $row['b_bidPrice_perUnit'] ?></td>
@@ -144,14 +144,14 @@ date_default_timezone_set( 'Asia/Dhaka' );
                             }
                             $user = strtolower($_SESSION['username']);
                             $id=$row['auction_id'];
-                            $sqlquary="SELECT bid_id, auction_id, b_username
+                            $sqlquary="SELECT bid_id, auction_id, b_username, lastcheck
                                         FROM all_bid
                                         WHERE farmer_profit = ALL(SELECT MAX(farmer_profit) FROM all_bid GROUP BY auction_id HAVING auction_id = $id)";
                             $pdo_obj=$conn->query($sqlquary);
                             $table_data=$pdo_obj->fetchAll();
                             foreach ($table_data as $row1) {
 
-                              if(date('Y-m-d H:i:s') > $row['bid_end'] && strtolower($row1['b_username']) == $user){
+                              if($row['lastcheck'] > $row['bid_end'] && strtolower($row1['b_username']) == $user && $row['totalQuantity'] > 0){
                                 ?>
                                 <input type="button" id="button" value="ADD TO CART" onclick="add_to_cart(<?php echo $row['bid_id'] ?>);">
                                 <br><br>
@@ -167,13 +167,13 @@ date_default_timezone_set( 'Asia/Dhaka' );
                       }
                     }
                   }
-                  catch(PDOException $ex){
+                  catch(PDOExeption $e){
                     ?>
-                        <tr>
-                            <td colspan="11">No values found</td>
-                        <tr>
+                    <tr>
+                      <td colspan="11">No Data</td>
+                    </tr>
                     <?php
-                }
+                  }
                    ?>
                 </thead>
               </table>
@@ -185,7 +185,7 @@ date_default_timezone_set( 'Asia/Dhaka' );
               }
 
               function logout(){
-                location.assign('logout.php');
+                location.assign('b_logout_process.php');
               }
 
               function update_Bdata(bid_id){
@@ -194,8 +194,8 @@ date_default_timezone_set( 'Asia/Dhaka' );
 
               function delete_data(bid_id){
                 location.assign('bid_delete.php?bid_id='+bid_id);
+                location.assign('bid_cart_entry.php?bid_id='+bid_id);
               }
-              
               function add_to_cart(bid_id){
                 location.assign('next_bid_cart_entry.php?bid_id='+bid_id);
               }
@@ -209,7 +209,7 @@ date_default_timezone_set( 'Asia/Dhaka' );
     }
     else{
         ?>
-        <script>location.assign("login.php");</script>
+        <script>location.assign("b_login.php");</script>
         <?php
     }
 ?>

@@ -24,7 +24,20 @@
               $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;", "root", "");
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-              $sqlquary="UPDATE product SET productName = '$p_name', Quantity = $p_quantity, Unit = '$unit', Price_perUnit = $p_price WHERE p_id = $p_id";
+              $sqlquary="SELECT* FROM bid_room WHERE Productp_id = $p_id"; 
+              $pdo_obj=$conn->query($sqlquary);
+              $table_data=$pdo_obj->fetchAll();
+
+              if($pdo_obj->rowCount() == 0){
+                $availablequantity = $p_quantity;
+              }
+              else{
+                foreach ($table_data as $row) {
+                  $availablequantity = $p_quantity - $row['totalQuantity'];
+                }
+              }
+
+              $sqlquary="UPDATE product SET productName = '$p_name', Quantity = $p_quantity, AvailableQuantity = $availablequantity, Unit = '$unit', Price_perUnit = $p_price WHERE p_id = $p_id";
               $conn->exec($sqlquary);
 
               ?>

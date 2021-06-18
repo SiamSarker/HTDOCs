@@ -91,7 +91,7 @@
             <input id="button" type="button" value="Home Page" onclick="home()">
                 <input id="button" type="button" value="My Profile" onclick="profile()">
                 <input id="button" type="button" value="My Notifications" onclick="notification()">
-                <input id="button" type="button" value="Payment Hostory" onclick="payhistory()">
+                <input id="button" type="button" value="Payment History" onclick="payhistory()">
                 <br><br>
                 <div style="font-size: 20px;margin: 10px;">Welcome 
                 <?php 
@@ -110,6 +110,7 @@
                     <th>Name</th>
                     <th>Image</th>
                     <th>Quantity</th>
+                    <th>Available</th>
                     <th>Unit</th>
                     <th>Price/Unit</th>
                     <th>Added On</th>
@@ -142,6 +143,7 @@
                           <td><?php echo $row['productName'] ?></td>
                           <td><img src="<?php echo $row['productImage'] ?>" width="300" height="200"?> </td>
                           <td><?php echo $row['Quantity'] ?></td>
+                          <td><?php echo $row['AvailableQuantity'] ?></td>
                           <td><?php echo $row['Unit'] ?></td>
                           <td><?php echo $row['Price_perUnit'] ?></td>
                           <td><?php echo $row['Added_date'] ?></td>
@@ -159,7 +161,6 @@
                                 <?php
                               }
                               ?>
-
                             <br><br>
                             <input type="button" id="button" value="UPDATE" onclick="update_data(<?php echo $row['p_id'] ?>);">
                             <br><br>

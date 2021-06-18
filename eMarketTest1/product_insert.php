@@ -39,7 +39,7 @@
               $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;", "root", "");
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-              $sqlquary="INSERT INTO product VALUES(NULL, '$p_name', '$img_dst_path', $p_quantity, $p_price, '$unit', '$datetime', '$_SESSION[username]')";
+              $sqlquary="INSERT INTO product VALUES(NULL, '$p_name', '$img_dst_path', $p_quantity, $p_price, '$unit', '$datetime', '$_SESSION[username]', $p_quantity)";
               $conn->exec($sqlquary);
 
               ?>

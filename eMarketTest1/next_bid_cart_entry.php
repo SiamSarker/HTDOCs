@@ -42,12 +42,15 @@
                   else{
                     $new_quantity=0;
                   }
-
-                  $new_quantity=$row['totalquantity'] - $row['quantity'];
                   $sqlquary2="UPDATE product SET Quantity = $new_quantity WHERE p_id = $pid";
                   $conn->exec($sqlquary2);
 
-                  $new_bidquantity=$row['bidQuantity'] - $row['quantity'];
+                  if($row['bidQuantity']>0){
+                    $new_bidquantity=$row['bidQuantity'] - $row['quantity'];
+                  }
+                  else{
+                    $new_bidquantity=0;
+                  }
                   $aid=$row['auction_id'];
                   $sqlquary3="UPDATE bid_room SET totalQuantity = $new_bidquantity WHERE auction_id = $aid";
                   $conn->exec($sqlquary3);
@@ -60,31 +63,33 @@
                   $date = date('Y-m-d H:i:s');
                   $user=$row['b_username'];
                   $a_id=$row['auction_id'];
-                  $message= "<?php if(role == farmer){?>Auction $a_id has ended<?php} else {?> You Won the auction $a_id! Check Cart. <?php} ?>";
-                  $sqlquary5="INSERT INTO notification VALUES(NULL, '$message', '$date', '$row[f_username]', '$user')";
+                  $message= "You won Auction $a_id check cart";
+                  $sqlquary5="INSERT INTO notification VALUES(NULL, '$message', '$date', '$row[f_username]', '$user', null)";
                   $conn->exec($sqlquary5);
 
                   $bid_id=$row['bid_id'];
                   $sqlquary="DELETE FROM all_bid WHERE bid_id = $bid_id";
                   $conn->exec($sqlquary);
 
-                  $date = date('Y-m-d H:i:s');
-                  $user=$row['b_username'];
-                  $a_id=$row['auction_id'];
-                  $message= "<?php if(role == farmer){?>Next ranked notifiyed.<?php} else {?> Please check Auction $a_id. <?php} ?>";
-                  $sqlquary5="INSERT INTO notification VALUES(NULL, '$message', '$date', '$row[f_username]', '$user')";
-                  $conn->exec($sqlquary5);
+                  if($row['bidQuantity']>0){
+                    $date = date('Y-m-d H:i:s');
+                    $user=$row['b_username'];
+                    $a_id=$row['auction_id'];
+                    $message= "Please check Auction $a_id";
+                    $sqlquary5="INSERT INTO notification VALUES(NULL, '$message', '$date', '$row[f_username]', '$user', null)";
+                    $conn->exec($sqlquary5);
+
+                  }
                 }
                   ?>
                   <script>location.assign("my_bid.php");</script>
                   <?php
               }
             }
-            
-            catch(PDOException $ex){
-                ?>
-                    <script>location.assign("error.php");</script>
-                <?php
+            catch(PDOExeption $e){
+              ?>
+              <script>location.assign("error.php");</script>
+              <?php
             }
         }
         else{

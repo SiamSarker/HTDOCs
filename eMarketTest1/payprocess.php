@@ -76,7 +76,9 @@ if(
                             //update home
                             $deletecart="DELETE FROM Buyer_Product WHERE Buyerb_username = '".$username."' AND Productp_id = $pid;";
                             echo $deletecart;
-                            $notifycart="INSERT INTO notification VALUES (NULL, 'Payment successfull for $amount kg of $name for total $total taka. <br>Check your payment history for more details. ', NOW(), '$f_username', '$username')";
+                            $msg = "Payment successfull for $amount kg of $name for total $total taka. <br>Check your payment history for more details.";
+                            $msg1 = "Payment successfull for $amount kg of $name for total $total taka.";
+                            $notifycart="INSERT INTO notification VALUES (NULL, '$msg', NOW(), '$f_username', '$username', '$msg1')";
                             echo $notifycart;
                                    
                             $conn->exec($paymentquery);

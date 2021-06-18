@@ -67,8 +67,11 @@ if(
                                     WHERE payment_id = $payid;";
                             echo $paymentquery;
 
+                            $msg1 = "Delevary of product $name is $status. <br>Check your payment history for more details.";
+                            $msg2 = "Delevary of product $name is $status";
+
                             //update home
-                            $notifycart="INSERT INTO notification VALUES (NULL, 'Delevary status for product $name is $status. <br>Check your payment history for more details. ', NOW(), '$username', '$b_username')";
+                            $notifycart="INSERT INTO notification VALUES (NULL, '$msg1', NOW(), '$username', '$b_username', '$msg2')";
                             echo $notifycart;
                                    
                             $conn->exec($paymentquery);
@@ -89,7 +92,7 @@ if(
                 catch(PDOException $ex){
                     ?>
                         <script>alert("Database Error!");</script>
-                        <!-- <script>location.assign("cart.php");</script> -->
+                        <script>location.assign("cart.php");</script>
                     <?php
                 }
                 
