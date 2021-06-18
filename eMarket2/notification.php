@@ -1,29 +1,25 @@
 <?php
+
 session_start();
+
 if(
     isset($_SESSION['username'])
     && isset($_SESSION['role'])
     && !empty($_SESSION['username'])
     && !empty($_SESSION['role'])
-)
-{
-
-    if(isset($_GET['pin'])
-        && !empty($_GET['pin'])
-    )
-    {
-
+){
+    ///already logged in user
     $role = $_SESSION['role'];
     $username = $_SESSION['username'];
     ?>
+        <!DOCTYPE html>
 
-    <!DOCTYPE html>
-
-    <html lang="en">
-        <head>
-        <title>Cart</title>
-
-        <style>
+        <html lang="en">
+            <head>
+                <meta charset="utf-8">
+                <title>Home</title>
+                
+                <style>
 
                 body {
                         background-color: lightblue;
@@ -42,7 +38,7 @@ if(
                         #button{
 
                             padding: 10px;
-                            width: 130px;
+                            width: 120px;
                             color: white;
                             background-color: FireBrick;
                             border: none;
@@ -72,39 +68,54 @@ if(
                     #ptable tr:hover{
                         background-color: bisque;
                     }
-
-                
                 </style>
+                
+            </head>
 
-        </head>
-
-        <body>
-
-
-        
+            <body>
+            
                 <input id="button" type="button" value="Home Page" onclick="home()"> 
                 <input id="button" type="button" value="My Profile" onclick="profile()">
                 <input id="button" type="button" value="My Notifications" onclick="notification()">
                 <input id="button" type="button" value="Payment History" onclick="payhistory()">
-        
-        <br><br>
-        <div style="font-size: 20px;margin: 10px;">Welcome <?php echo $username?> </div>
-        <br><br>
+            
+                
+                
+                <br>
+                <br>
 
+                
+                <div style="font-size: 20px;margin: 10px;">Welcome 
+                <?php 
+                    echo $username; 
+                ?></div>
+            
 
-
-        <div style="font-size: 20px;margin: 10px;">All Product List</div>
-
-        <?php $total = 0; ?>
-                    
+                <br>
+                <br>
+                                
+                <div>
+                <div style="font-size: 20px;margin: 10px;">All My Notifications</div>
+                   
                     <table id="ptable">
                         <thead>
                             <tr>
-                                <th>Product ID</th>
-                                <th>Product name</th>
-                                <th>Total Amount</th>
-                                <th>Total Cost</th>
-                                <th>Remove Item</th>
+                                <th>Datetime</th>
+                                <th>Notification</th>
+                                <?php
+                                if ($role != 'farmer')
+                                {
+                                    ?><th>Farmer Name</th>
+                                    <?php
+                                }
+                                else
+                                {
+                                    ?>
+                                    <th>Buyer Name</th>
+                                    <?php        
+                                }
+                                ?>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -117,16 +128,18 @@ if(
                                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                                 ///mysql query string
-                                $cartquery="SELECT * FROM Buyer_Product WHERE Buyerb_username = '$username'";
+                                $mysqlquery="SELECT * FROM notification WHERE ".$role.$role[0]."_username = '$username' ORDER BY notify_datetime DESC";
                                 
-                                $returnobj=$conn->query($cartquery);
+
+                                
+                                $returnobj=$conn->query($mysqlquery);
                                 $returntable=$returnobj->fetchAll();
 
                                 
                                 if($returnobj->rowCount()==0){
                                     ?>
                                         <tr>
-                                            <td colspan="5">No values found</td>
+                                            <td colspan="3">No values found</td>
                                         <tr>
                                     <?php
                                 }
@@ -135,97 +148,68 @@ if(
                                         ?>
 
                                         <tr>
-                                            <td><?php echo $row[1] ?></td>
-                                            <td><?php echo $row[2] ?></td>
-                                            <td><?php echo $row[3]. " kg" ?></td>
-                                            <td><?php echo $row[4]." taka" ?></td>
+                                            <td> Hello <?php echo $row[2] ?></td>
+
+
                                             <td>
-                                                <br>
-                                                
-                                                <input id="button" type="button" value="Not Removeable" onclick="">
-                                                <br><br>
+                                            <?php
+                                                if ($role=='farmer')
+                                                {
+                                                    ?><?php echo $row[5] ?>
+                                                    <?php
+                                                }
+                                                else
+                                                {
+                                                    ?>
+                                                    <?php echo $row[1] ?>
+                                                    <?php        
+                                                } 
+                                                ?>
+                                            </td>   
+                                            <td>       
+                                                <?php
+                                                if ($role != 'farmer')
+                                                {
+                                                    ?><?php echo $row[3] ?>
+                                                    <?php
+                                                }
+                                                else
+                                                {
+                                                    ?>
+                                                    <?php echo $row[4] ?>
+                                                    <?php        
+                                                }
+                                                ?>
                                             </td>
+
                                         </tr>
                                         <?php
-
-                                        $total += $row[4];
                                     }
                                 }
                             }
                             catch(PDOException $ex){
                                 ?>
                                     <tr>
-                                        <td colspan="5">No values found</td>
+                                        <td colspan="3">No values found</td>
                                     <tr>
                                 <?php
                             }
                             
+    
                             ?>
                             
                         </tbody>
                     </table>
-
-                    <?php
-
+                </div>
                 
-                    $buyeracc = $_GET["buyeracc"];
-                    
-                    $total = $_GET["total"];
-                    
-
-                    ?>
-
-
-
-
-                    <div id="box" style="font-size: 20px;margin: 10px;">
                 <br>
+                <input id="button" type="button" value="Click to Logout" onclick="logoutfn();">
                 
-                
+                <script>
+                    function logoutfn(){
+                        location.assign('logout.php');   ///default GET method
+                    }
 
-                <form action="payprocess.php" method="POST">
-
-                <br>
-
-                <label for="myname">Buyer Account No</label>:
-                <input class="text" type="text" id="myname" name="buyeracc" value="<?php echo $buyeracc; ?> " readonly>
-
-                <br>
-
-
-
-                <label for="mypass">Total Amount</label>:
-                <input class="text" type="text" id="mypass" name="total" value="<?php echo $total; ?>" readonly>
-                <br>
-
-                <label for="oldpass">Transaction number</label>:
-                
-                <input class="text" type="text" id="myname" name="transaction" >
-                
-            
-                <br><br>
-
-                <input id="button" type="submit" value="Confirm Payment">
-                
-                </form>
-
-
-
-
-
-        <br>
-       
-       
-
-    
-
-        <input id="button" type="button" value="Click to Logout" onclick="logoutfn();">
-
-        
-
-        <br>
-
-        <script>
                     function home(){
                         location.assign('home.php');   ///default GET method
                     }
@@ -233,46 +217,40 @@ if(
                     function profile(){
                         location.assign('profile.php');   ///default GET method
                     }
-                    function logoutfn(){
-                        location.assign('logout.php');   ///default GET method
+                    
+                    function uploadfn(){
+                        location.assign('upload.php');
                     }
-
-                    function update(){
-                        location.assign('updateprofile.php');   ///default GET method
+                    
+                    function deletefn(pid){
+                        ///for multiple values: file.php?varname=value&var1=value1
+                        location.assign('delete.php?prodid='+pid);
                     }
 
                     function notification(){
                         location.assign('notification.php');
                     }
 
-                    function removeitem(pid){
-                        location.assign('removeitem.php?prodid='+pid);
-                    }
-
                     function payhistory(){
                         location.assign('payhistory.php');
                     }
 
-        </script>
 
-        
-        
-        </body>
-    </html>
-    <?php
-    }
-    else
-    {
-        ?>
-            <script>location.assign("cart.php");</script>
-    <?php
-    }
-}
-else
-{
-    ?>
-            <script>location.assign("login.php");</script>
+                </script>
+                
+                
+            </body>
+        </html>
+
     <?php
 }
+else{
+     ?>
+        <script>alert("give farmer name!");</script>
+        <script>location.assign("home.php");</script>
+    <?php
+}
+
 
 ?>
+

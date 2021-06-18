@@ -155,7 +155,7 @@ if(
                             catch(PDOException $ex){
                                 ?>
                                     <tr>
-                                        <td colspan="5">No values found</td>
+                                        <td colspan="6">No values found</td>
                                     <tr>
                                 <?php
                             }

@@ -7,12 +7,6 @@ if(
     && !empty($_SESSION['role'])
 )
 {
-
-    if(isset($_GET['pin'])
-        && !empty($_GET['pin'])
-    )
-    {
-
     $role = $_SESSION['role'];
     $username = $_SESSION['username'];
     ?>
@@ -141,8 +135,18 @@ if(
                                             <td><?php echo $row[4]." taka" ?></td>
                                             <td>
                                                 <br>
+                                                <?php
+                                                if ($row[5] == 1)
+                                                {?>
+                                                    <input id="button" type="button" value="Not Removable" onclick="">
+                                                <?php
+                                                } 
+                                                else{?>
+                                                    <input id="button" type="button" value="Remove item" onclick="removeitem(<?php echo $row[1]?>, <?php echo $row[3]?>);">
+                                                <?php
+                                                }
+                                                ?>
                                                 
-                                                <input id="button" type="button" value="Not Removeable" onclick="">
                                                 <br><br>
                                             </td>
                                         </tr>
@@ -155,7 +159,7 @@ if(
                             catch(PDOException $ex){
                                 ?>
                                     <tr>
-                                        <td colspan="5">No values found</td>
+                                        <td colspan="6">No values found</td>
                                     <tr>
                                 <?php
                             }
@@ -165,25 +169,50 @@ if(
                         </tbody>
                     </table>
 
-                    <?php
-
-                
-                    $buyeracc = $_GET["buyeracc"];
-                    
-                    $total = $_GET["total"];
-                    
-
-                    ?>
-
-
-
 
                     <div id="box" style="font-size: 20px;margin: 10px;">
                 <br>
                 
-                
+                <?php 
 
-                <form action="payprocess.php" method="POST">
+                try{
+                    // PHP Data Object
+                    $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
+                    ///setting 1 environment variable
+                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    
+                    ///executing mysql query
+                    $buyeracc = "SELECT buyer_acc_no FROM Buyer WHERE b_username = '".$username."'";
+
+
+                    // $signupquery="SELECT b.buyer_acc_no, f.farmer_acc_no, f.f_username
+                    //         FROM 
+                    //         Buyer as b
+                    //         JOIN Buyer_Product as bp
+                    //         ON bp.Buyerb_username = b.b_username
+                    //         JOIN Product as p
+                    //         ON p.p_id = bp.Productp_id
+                    //         JOIN farmer as f
+                    //         ON f.f_username = p.farmerf_username
+                        
+                    //     WHERE b.b_username = '".$username."' && bp.Productp_id = 2";     // && bp.Productp_id = 2 selling to only one farmer
+                    
+                
+                    $returnobj = $conn->query($buyeracc);
+                    $returntable = $returnobj->fetchAll();
+
+                    if($returnobj->rowCount() == 1)
+                    {
+                        foreach($returntable as $row){
+                            
+                        $buyeracc = $row[0];
+                        
+                        }
+                    }
+
+                ?>
+
+                <form action="paycart.php" method="GET">
 
                 <br>
 
@@ -192,26 +221,36 @@ if(
 
                 <br>
 
-
-
                 <label for="mypass">Total Amount</label>:
                 <input class="text" type="text" id="mypass" name="total" value="<?php echo $total; ?>" readonly>
                 <br>
 
-                <label for="oldpass">Transaction number</label>:
-                
-                <input class="text" type="text" id="myname" name="transaction" >
-                
+                <label for="oldpass">Pin number</label>:
+                    <input name="pin" class="text" type="password" id="myname">
+
+                    <input name="f_username" type="hidden" value="<?php echo $f_username?>">
+
             
                 <br><br>
 
-                <input id="button" type="submit" value="Confirm Payment">
+                <input id="button" type="submit" value="Pay Now">
                 
                 </form>
 
 
 
 
+<?php
+
+
+                }
+                catch(PDOException $ex){
+                    ?>
+                        <script>location.assign("cart.php");</script>
+                    <?php
+                }
+                
+                ?>
 
         <br>
        
@@ -245,8 +284,8 @@ if(
                         location.assign('notification.php');
                     }
 
-                    function removeitem(pid){
-                        location.assign('removeitem.php?prodid='+pid);
+                    function removeitem(pid, quantity){
+                        location.assign('removeitem.php?prodid='+pid+'&Quantity='+quantity);
                     }
 
                     function payhistory(){
@@ -259,14 +298,8 @@ if(
         
         </body>
     </html>
+
     <?php
-    }
-    else
-    {
-        ?>
-            <script>location.assign("cart.php");</script>
-    <?php
-    }
 }
 else
 {
