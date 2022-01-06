@@ -11,7 +11,7 @@
       ?>
       <!DOCTYPE html>
       <html>
-          <head>
+          <head> 
             <title>Bid Room</title>
             <style>
 
