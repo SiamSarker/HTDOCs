@@ -162,7 +162,7 @@ if(
                                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                                 ///mysql query string
-                                $mysqlquery="SELECT * FROM notification WHERE ".$role.$role[0]."_username = '$username' ORDER BY notify_datetime DESC";
+                                $mysqlquery="SELECT * FROM notification WHERE ".$role[0]."_username = '$username' ORDER BY notify_datetime DESC";
 
 
 
@@ -182,7 +182,7 @@ if(
                                         ?>
 
                                         <tr>
-                                            <td> Hello <?php echo $row[2] ?></td>
+                                            <td><?php echo $row[2] ?></td>
 
 
                                             <td>

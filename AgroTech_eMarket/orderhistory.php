@@ -155,7 +155,7 @@ if(
                                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                                 ///mysql query string
-                                $mysqlquery="SELECT * FROM orders WHERE ".$role.$role[0]."_username = '$username' ORDER BY oders_time DESC";
+                                $mysqlquery="SELECT * FROM orders WHERE ".$role[0]."_username = '$username' ORDER BY orders_time DESC";
 
                                 $returnobj=$conn->query($mysqlquery);
                                 $returntable=$returnobj->fetchAll();
