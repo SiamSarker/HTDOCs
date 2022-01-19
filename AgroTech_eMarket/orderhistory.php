@@ -123,9 +123,6 @@ if(
                 <br>
                 <br>
 
-
-
-
                 <br>
                 <br>
 
@@ -140,6 +137,7 @@ if(
                                 <th>Image</th>
                                 <th>Cost</th>
                                 <th>Transaction Number</th>
+                                <th>Payment Method</th>
                                 <th>Delivery Status</th>
                             </tr>
                         </thead>
@@ -199,6 +197,7 @@ if(
                                             <td><img src="<?php echo $image ?>" width="150" height="150"></td>
                                             <td><?php echo $row[2]?></td>
                                             <td><?php echo $row[1]?></td>
+                                            <td><?php echo $row[8]?></td>
 
                                             <?php
                                             if ($role != 'farmer')
