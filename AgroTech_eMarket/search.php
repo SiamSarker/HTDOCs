@@ -208,7 +208,7 @@ if(
 
                 <?php
                 }
-                else
+                else if ($choose == 'product')
                 {
                 ?>
 
@@ -236,7 +236,7 @@ if(
                             <?php
                             try{
                                 ///PDO = PHP Data Object
-                                $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket2;","root","");
+                                $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket;","root","");
                                 ///setting 1 environment variable
                                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

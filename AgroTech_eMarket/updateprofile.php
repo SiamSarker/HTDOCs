@@ -167,7 +167,7 @@ if(
                 <br>
 
                 <label for="district">District</label>:
-                <select class="text" id="input" name="district" onchange="selectCity()">
+                <select class="text" id="district" name="district" onchange="selectCity()">
                   <option selected="selected" value="<?php echo $row['District'];?>"><?php echo $row['District'];?></option>
                   <option value="Dhaka">Dhaka</option>
                   <option value="Chittagong">Chittagong</option>
