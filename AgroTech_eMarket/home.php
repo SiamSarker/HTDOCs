@@ -3,11 +3,7 @@
 session_start();
 
 // this is test 
-<<<<<<< HEAD
-// unknown test
-=======
 // this is again test 
->>>>>>> 7152011cbf6ca3879887f0297a149f9764763b5f
 
 if(
     isset($_SESSION['username'])
