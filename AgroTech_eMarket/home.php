@@ -2,8 +2,6 @@
 
 session_start();
 
-// this is test 
-// this is again test 
 
 if(
     isset($_SESSION['username'])
