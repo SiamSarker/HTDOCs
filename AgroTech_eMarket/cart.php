@@ -248,11 +248,11 @@ if(
 
                 <br>
 
-                <label for="paymentType">Payment Methode</label>:
+                <label for="paymentType">Payment Method</label>:
                 <select class="text" id="paymentType" name="paymentType">
-                    <option selected="selected" value="">Select Payment Methode</option>
+                    <option selected="selected" value="">Select Payment Method</option>
                     <option value="bKash">bKash</option>
-                    <option value="Cash">Cash</option>
+                    <option value="Cash">Cash On Delivery</option>
                 </select>
 
                 <br>

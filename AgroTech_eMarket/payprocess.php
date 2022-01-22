@@ -76,8 +76,8 @@ if(
                             //update home
                             $deletecart="DELETE FROM cart WHERE b_username = '".$username."' AND p_id = $pid;";
 
-                            $msg = "Payment successfull for $amount kg of $name for total $total taka. <br>Check your payment history for more details.";
-                            $msg1 = "Payment successfull for $amount kg of $name for total $total taka.";
+                            $msg = "Payment successful for $amount kg of $name for total $total taka. <br>Check your payment history for more details.";
+                            $msg1 = "Payment successful for $amount kg of $name for total $total taka.";
                             $notifycart="INSERT INTO notification VALUES (NULL, '$msg', NOW(), '$f_username', '$username', '$msg1')";
 
 
