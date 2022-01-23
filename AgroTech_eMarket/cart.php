@@ -250,8 +250,8 @@ if(
 
                 <label for="paymentType">Payment Method</label>:
                 <select class="text" id="paymentType" name="paymentType">
-                    <option selected="selected" value="">Select Payment Method</option>
-                    <option value="bKash">bKash</option>
+                    <!-- <option selected="selected" value="">Select Payment Method</option> -->
+                    <option selected="bKash" value="bKash">bKash</option>
                     <option value="Cash">Cash On Delivery</option>
                 </select>
 
@@ -259,7 +259,7 @@ if(
 
                 <label for="total">Total Amount</label>:
                 <input class="text" type="text" id="total" name="total" value="<?php echo $total; ?>" readonly>
-                <br>
+                <br><br>
 
 
 

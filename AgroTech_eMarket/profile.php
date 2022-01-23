@@ -182,8 +182,8 @@ if(
                         location.assign('notification.php');
                     }
 
-                    function payhistory(){
-                        location.assign('payhistory.php');
+                    function orderhistory(){
+                        location.assign('orderhistory.php');
                     }
 
         </script>

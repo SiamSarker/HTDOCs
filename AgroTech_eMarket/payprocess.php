@@ -28,7 +28,7 @@ if(
             {
 
                 $transaction = $_POST['trxid'];
-                $total=$_POST['total'];
+                $farmer = $_POST['farmer'];
 
 
                     ///store the data to database
@@ -39,12 +39,11 @@ if(
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-                    $cartquery="SELECT * FROM cart
-                        WHERE b_username = '$username'
-                        GROUP BY b_username, p_id";
+                    $cartquery="SELECT * FROM cart as c join product as p ON p.p_id = c.p_id
+                        WHERE p.f_username = '$farmer'";
 
-                        $returnobj=$conn->query($cartquery);
-                        $returntable=$returnobj->fetchAll();
+                        $returnobj = $conn->query($cartquery);
+                        $returntable = $returnobj->fetchAll();
 
                         if($returnobj->rowCount() >= 1)
                         {
@@ -55,22 +54,11 @@ if(
                             $amount = $row[3];
                             $total = $row[4];
                             $pid = $row[1];
-                            $f_username = null;
+                            $f_username = $farmer;
 
-                            $cartquery1="SELECT f_username FROM product
-                            WHERE p_id = $pid";
+                            
 
-                            $returnobj1=$conn->query($cartquery1);
-                            $returntable1=$returnobj1->fetchAll();
-
-                            if($returnobj1->rowCount() == 1)
-                            {
-                                foreach($returntable1 as $row1){
-                                    $f_username = $row1[0];
-                                }
-                            }
-
-                            $paymentquery="INSERT INTO orders VALUES (NULL, '".$transaction."', '$amount kg.<br>$total taka.' , 'On the Way', '".$username."', '".$f_username."', NOW(), $pid)";
+                            $paymentquery = "INSERT INTO orders VALUES (NULL, '".$transaction."', '$amount kg.<br>$total taka.' , 'Processing', '".$username."', '".$f_username."', NOW(), $pid, 'bKash')";
 
 
                             //update home
@@ -83,7 +71,9 @@ if(
 
                             $conn->exec($paymentquery);
                             $conn->exec($deletecart);
-                            // $conn->exec($notifycart);
+                            $conn->exec($notifycart);
+                         
+                        
 
 
                         }
@@ -92,7 +82,7 @@ if(
 
                     ?>
                     <script>alert("Payment successful");</script>
-                    <script>location.assign("orderhistory.php");</script>
+                    <script>location.assign("paycart.php");</script>
                     <?php
 
 

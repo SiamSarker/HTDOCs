@@ -204,6 +204,7 @@ if(
                                             {
                                                 ?>
                                                 <td><?php echo $row[3] ?></td>
+                                                <input id="button" type="button" value="Received Delivery" onclick="received(<?php echo $row[0]?>)">
                                                 <?php
                                             }
                                             else
@@ -212,7 +213,8 @@ if(
                                                 <td><?php echo $row[3] ?>
                                                 <br>
                                                 <br>
-                                                <input id="button" type="button" value="Update Status" onclick="updatedelivery(<?php echo $row[0]?>)">
+                                                <input id="button" type="button" value="Accept Order" onclick="acceptdelivery(<?php echo $row[0]?>)">
+                                                <input id="button" type="button" value="Reject Order" onclick="rejectdelivery(<?php echo $row[0]?>)">
 
                                                 </td>
                                                 <?php

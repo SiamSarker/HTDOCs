@@ -170,7 +170,7 @@ if(
                                             <td>
                                                 <br>
 
-                                                <input id="button" type="button" value="Not Removeable" onclick="">
+                                                <input id="button" type="button" value="Not Removable" onclick="">
                                                 <br><br>
                                             </td>
                                         </tr>
@@ -194,46 +194,220 @@ if(
                     </table>
 
                     <?php
-
-
+                    if(!empty($_GET['total'])
+                    && !empty($_GET['paymentType']))
+                    {
                     $total = $_GET["total"];
+                    $paymentType = $_GET["paymentType"];
+                    if($paymentType == "Cash"){?>
+                        <div id="box" style="font-size: 20px;margin: 10px;"> This is for Cash on Delivery</div>
+                        <?php
+                       try{
+                        // PHP Data Object
+                        $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket;","root","");
+                        ///setting 1 environment variable
+                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    
+                        $cartquery="SELECT * FROM cart
+                            WHERE b_username = '$username'
+                            GROUP BY b_username, p_id";
+    
+                            $returnobj=$conn->query($cartquery);
+                            $returntable=$returnobj->fetchAll();
+    
+                            if($returnobj->rowCount() >= 1)
+                            {
+    
+                            foreach($returntable as $row){
+    
+                                $name = $row[2];
+                                $amount = $row[3];
+                                $total = $row[4];
+                                $pid = $row[1];
+                                $f_username = null;
+    
+                                $cartquery1="SELECT f_username FROM product
+                                WHERE p_id = $pid";
+    
+                                $returnobj1=$conn->query($cartquery1);
+                                $returntable1=$returnobj1->fetchAll();
+    
+                                if($returnobj1->rowCount() == 1)
+                                {
+                                    foreach($returntable1 as $row1){
+                                        $f_username = $row1[0];
+                                    }
+                                }
+    
+                                $paymentquery="INSERT INTO orders VALUES (NULL, NULL, '$amount kg.<br>$total taka.' , 'Processing', '".$username."', '".$f_username."', NOW(), $pid, 'Cash On Delivery')";
+
+    
+                                //update home
+                                $deletecart="DELETE FROM cart WHERE b_username = '".$username."' AND p_id = $pid;";
+                                
+    
+                                $msg = "Order successful for $amount kg of $name for total $total taka. <br>Check your order history for more details.";
+                                $msg1 = "Order successful for $amount kg of $name for total $total taka.";
+                                $notifycart="INSERT INTO notification VALUES (NULL, '$msg', NOW(), '$f_username', '$username', '$msg1')";
+                                echo "HI";
+    
+    
+                                $conn->exec($paymentquery);
+                                $conn->exec($deletecart);
+                                $conn->exec($notifycart);
+    
+    
+                            }
+                        }
+    
+    
+                        ?>
+                        <script>alert("Order successful");</script>
+                        <script>location.assign("orderhistory.php");</script>
+                        <?php
+    
+    
+                    }
+                    catch(PDOException $ex){
+                        ?>
+                            <script>alert("Database Error!");</script>
+                            <script>location.assign("cart.php");</script>
+                        <?php
+                    }
+                ?>
+                        
+                        <input id="button" type="button" value="Back to Cart" onclick="back()">
+                        <?php 
+                    }
+                    else if($paymentType == "bKash"){
+
+                        try{
+                            // PHP Data Object
+                            $conn=new PDO("mysql:host=localhost:3306;dbname=eMarket;","root","");
+                            ///setting 1 environment variable
+                            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        
+                            
+
+                            $cartquery="SELECT c.b_username, p.f_username, SUM(c.totalPrice) FROM cart as c JOIN product as p ON p.p_id = c.p_id
+                            WHERE c.b_username = '$username'
+                            GROUP BY c.b_username, p.f_username";
 
 
+        
+                                $returnobj=$conn->query($cartquery);
+                                $returntable=$returnobj->fetchAll();
+        
+                                if($returnobj->rowCount() >= 1)
+                                {
+                                   ?> <div id="box" style="font-size: 20px;margin: 50px;"> 
+                                   <br> Make the payment through bKash for the corresponding Farmers.
+                                   <?php
+        
+                                foreach($returntable as $row){
+        
+                                    $bkashamount = $row[2];
+                                    $f_username = $row[1];
+
+                                    
+        
+                                    $cartquery1="SELECT bKash_no FROM farmer
+                                    WHERE f_username = '$f_username'";
+        
+                                    $returnobj1=$conn->query($cartquery1);
+                                    $returntable1=$returnobj1->fetchAll();
+        
+                                    if($returnobj1->rowCount() == 1)
+                                    {
+                                        foreach($returntable1 as $row1){
+                                            $bKash_no = $row1[0];
+                                        }
+                                    }
+                                    ?>
+
+                                  
+                                    
+                                    <form action="payprocess.php" method="POST">
+    
+                                    <br>
+
+
+                                    <label for="Pay Amount">Total Amount</label>:
+                                    <input class="text" type="text" id="total" name="total" value="<?php echo $bkashamount; ?>" readonly>
+                                    <br>
+                                    <label for="Pay Amount">bKash Number</label>:
+                                    <input class="text" type="text" id="total" name="total" value="+880<?php echo $bKash_no; ?>" readonly>
+                                    <br>
+                                    <label for="Pay Amount">Farmer Name</label>:
+                                    <input class="text" type="text" id="total" name="farmer" value="<?php echo $f_username; ?>" readonly>
+                                    <br>
+
+                                    <label for="trxid">Transaction ID</label>:
+
+                                    <input class="text" type="text" id="trxid" name="trxid" >
+
+
+                                    <br><br>
+
+                                    <input id="button" type="submit" value="Confirm Payment">
+
+                                    </form>
+
+
+                                   
+                                    
+
+                                    <?php
+    
+        
+        
+                                }
+                            }
+        
+        
+        
+        
+                        }
+                        catch(PDOException $ex){
+                            ?>
+                                <script>alert("Database Error!");</script>
+                                <script>location.assign("cart.php");</script>
+                            <?php
+                        }
+
+
+
+
+
+
+
+                        ?>
+
+                       
+                    <br>
+    
+
+
+                    <input id="button" type="button" value="Back to Cart" onclick="back()">
+    
+                  
+    
+    
+                    <?php
+                    }
+
+                }
+                else{?>
+                    <script>
+                    location.assign("cart.php");
+                    </script>
+                    <?php
+                }
                     ?>
 
-
-
-
-                    <div id="box" style="font-size: 20px;margin: 10px;">
-                <br>
-
-
-
-                <form action="payprocess.php" method="POST">
-
-                <br>
-
-
-                <label for="total">Total Amount</label>:
-                <input class="text" type="text" id="total" name="total" value="<?php echo $total; ?>" readonly>
-                <br>
-
-
-                <label for="trxid">Transaction ID</label>:
-
-                <input class="text" type="text" id="trxid" name="trxid" >
-
-
-                <br><br>
-
-                <input id="button" type="submit" value="Confirm Payment">
-                <input id="button" type="button" value="Back to Cart" onclick="back()">
-
-                </form>
-
-
-
-
+                   
 
         <br>
 
