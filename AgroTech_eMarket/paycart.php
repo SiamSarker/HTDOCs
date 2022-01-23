@@ -247,10 +247,10 @@ if(
                                 $deletecart="DELETE FROM cart WHERE b_username = '".$username."' AND p_id = $pid;";
                                 
     
-                                $msg = "Order successful for $amount kg of $name for total $total taka. <br>Check your order history for more details.";
-                                $msg1 = "Order successful for $amount kg of $name for total $total taka.";
+                                $msg = "Order requested for $amount kg of $name for total $total taka on Cash On delivery. <br>Check your order history for more details.";
+                                $msg1 = "Order requested for $amount kg of $name for total $total taka on Cash On delivery.";
                                 $notifycart="INSERT INTO notification VALUES (NULL, '$msg', NOW(), '$f_username', '$username', '$msg1')";
-                                echo "HI";
+                                
     
     
                                 $conn->exec($paymentquery);
@@ -376,12 +376,6 @@ if(
                                 <script>location.assign("cart.php");</script>
                             <?php
                         }
-
-
-
-
-
-
 
                         ?>
 

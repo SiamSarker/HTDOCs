@@ -72,11 +72,11 @@ if(
                                     WHERE orders_id = $ordersid;";
                                 echo $ordersquery;
 
-                                $msg1 = "Delivery of product $name is $status. <br>Check your orders history for more details.";
+                                $msg1 = "The product $name is been $status. <br>Check your orders history for more details.";
                                 $msg2 = "Delivery of product $name is $status";
 
                                 //update home
-                                $notifycart="INSERT INTO notification VALUES (NULL, '$msg1', NOW(), '$f_username', '$username', '$msg2')";
+                                $notifycart="INSERT INTO notification VALUES (NULL, '$msg1', NOW(), '$f_username', '$b_username', '$msg2')";
                                 echo $notifycart;
                                     
                                 $conn->exec($ordersquery);
@@ -84,13 +84,32 @@ if(
 
                                 $conn->exec($notifycart);
                             }
-                            else {
+                            else if ($status == "accept") {
 
-                                $ordersquery="UPDATE orders SET delivery_status = '".$status."', orders_time = NOW()
+                                $ordersquery="UPDATE orders SET delivery_status = 'On the Way', orders_time = NOW()
                                         WHERE orders_id = $ordersid;";
-                                echo $ordersquery;
+                                
 
-                                $msg1 = "Delivery of product $name is $status. <br>Check your orders history for more details.";
+                                $msg1 = "The product $name is $status. <br>Check your orders history for more details.";
+                                $msg2 = "Delivery of product $name is $status";
+
+                                //update home
+                                $notifycart="INSERT INTO notification VALUES (NULL, '$msg1', NOW(), '$username', '$b_username', '$msg2')";
+                                echo $notifycart;
+                                    
+                                $conn->exec($ordersquery);
+                            
+
+                                $conn->exec($notifycart);
+                            }
+
+                            else
+                            {
+                                $ordersquery="UPDATE orders SET delivery_status = 'On the Way', orders_time = NOW()
+                                WHERE orders_id = $ordersid;";
+                        
+
+                                $msg1 = "The product $name is $status. <br>Check your orders history for more details.";
                                 $msg2 = "Delivery of product $name is $status";
 
                                 //update home
@@ -103,7 +122,6 @@ if(
                                 $conn->exec($notifycart);
                             }
                            
-
                         
                         }
                     }

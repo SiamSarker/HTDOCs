@@ -206,7 +206,9 @@ if(
                                                 <td><?php echo $row[3] ?>
                                                 <br>
                                                 <br>
-                                                <input id="button" type="button" value="Received Delivery" onclick="updatedelivery(<?php echo $row[0]?>, 'received')">
+                                                <input id="button" type="button" value="Received Product" onclick="updatedelivery(<?php echo $row[0]?>, 'received')">
+                                                <br><br>
+                                                <input id="button" type="button" value="Refund" onclick="ref(<?php echo $row[0]?>)">
                                                 </td>
                                                 <?php
                                             }
@@ -285,6 +287,10 @@ if(
 
                     function updatedelivery(ordersid, status){
                         location.assign('updatedelivery.php?ordersid='+ordersid+'&status='+status);
+                    }
+
+                    function ref(orderid){
+                          location.assign('return.php?orderid='+orderid);
                     }
 
 
