@@ -203,8 +203,11 @@ if(
                                             if ($role != 'farmer')
                                             {
                                                 ?>
-                                                <td><?php echo $row[3] ?></td>
-                                                <input id="button" type="button" value="Received Delivery" onclick="received(<?php echo $row[0]?>)">
+                                                <td><?php echo $row[3] ?>
+                                                <br>
+                                                <br>
+                                                <input id="button" type="button" value="Received Delivery" onclick="updatedelivery(<?php echo $row[0]?>, 'received')">
+                                                </td>
                                                 <?php
                                             }
                                             else
@@ -213,8 +216,10 @@ if(
                                                 <td><?php echo $row[3] ?>
                                                 <br>
                                                 <br>
-                                                <input id="button" type="button" value="Accept Order" onclick="acceptdelivery(<?php echo $row[0]?>)">
-                                                <input id="button" type="button" value="Reject Order" onclick="rejectdelivery(<?php echo $row[0]?>)">
+                                                <input id="button" type="button" value="Accept Order" onclick="updatedelivery(<?php echo $row[0]?>, 'accept')">
+                                                <br>
+                                                <br>
+                                                <input id="button" type="button" value="Reject Order" onclick="updatedelivery(<?php echo $row[0]?>, 'reject')">
 
                                                 </td>
                                                 <?php
@@ -278,11 +283,8 @@ if(
                         location.assign('payhistory.php');
                     }
 
-                    function updatedelivery(payid){
-
-                        var status = window.prompt("Delivery status: ");
-
-                        location.assign('updatedelivery.php?payid='+payid+'&status='+status);
+                    function updatedelivery(ordersid, status){
+                        location.assign('updatedelivery.php?ordersid='+ordersid+'&status='+status);
                     }
 
 
