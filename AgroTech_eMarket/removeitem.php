@@ -51,7 +51,7 @@ if(
         }
         catch(PDOException $ex){
             ?>
-            echo "hi pdo";
+          
                 <script>location.assign("cart.php");</script>
             <?php
         }

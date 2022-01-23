@@ -6,6 +6,8 @@ step 3: if data store is successful then forward to login.php
         else forward to register.php
 */
 
+
+
 session_start();
 
 if(
